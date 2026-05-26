@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Cpath d='M3 4h15l4 4v18H3V4z' stroke='%23582E73' stroke-width='1.8' stroke-linejoin='round'/%3E%3Cpath d='M18 4v4h4' stroke='%23582E73' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='6' y1='12' x2='17' y2='12' stroke='%23582E73' stroke-width='1.6' stroke-linecap='round'/%3E%3Cline x1='6' y1='16' x2='14' y2='16' stroke='%23582E73' stroke-width='1.6' stroke-linecap='round'/%3E%3Ccircle cx='23' cy='23' r='9' fill='%23D5007F'/%3E%3Cpath d='M19.5 23L22 25.5L27 19.5' stroke='white' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INE · DEAJ — Sistema de Seguimiento de Tareas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'ine-purple':       '#582E73',
+              'ine-purple-dark':  '#3D1F52',
+              'ine-purple-xdark': '#2A1239',
+              'ine-purple-light': '#7040A0',
+              'ine-magenta':      '#E4007B',
+              'ine-magenta-dark': '#C4006A',
+              'ine-bg':           '#F8F5FB',
+              'ine-bg-hover':     '#F3EDF9',
+              'ine-border':       '#E2D9EE',
+              'ine-border-light': '#EDE8F4',
+              'ine-text':         '#1A1219',
+              'ine-muted':        '#6B5F78',
+              'ine-dim':          '#A090B0',
+              'dir-blue':   '#3B82F6',
+              'dir-green':  '#10B981',
+              'dir-amber':  '#F59E0B',
+              'dir-purple': '#8B5CF6',
+              'dir-red':    '#EF4444',
+              'dir-teal':   '#14B8A6',
+            },
+            fontFamily: {
+              sans: ['Roboto', 'system-ui', 'sans-serif'],
+            },
+            boxShadow: {
+              'ine-card': '0 2px 8px rgba(88,46,115,.07)',
+              'ine-modal': '0 20px 60px rgba(88,46,115,.20)',
+              'ine-btn': '0 3px 10px rgba(88,46,115,.28)',
+              'ine-btn-mg': '0 3px 10px rgba(228,0,123,.28)',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      * { box-sizing: border-box; }
+      body { font-family: 'Roboto', system-ui, sans-serif; font-size: 14px; line-height: 1.5; }
+      input, select, textarea, button { font-family: 'Roboto', system-ui, sans-serif; }
+
+      /* Scrollbars */
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: #EDE8F4; }
+      ::-webkit-scrollbar-thumb { background: #C4A8DC; border-radius: 3px; }
+      ::-webkit-scrollbar-thumb:hover { background: #9B7BB8; }
+
+      /* Horizontal scrollbar for data tables — más gruesa */
+      .table-hscroll::-webkit-scrollbar { height: 10px; }
+      .table-hscroll::-webkit-scrollbar-track { background: #EDE8F4; border-radius: 5px; }
+      .table-hscroll::-webkit-scrollbar-thumb { background: #9B7BB8; border-radius: 5px; }
+      .table-hscroll::-webkit-scrollbar-thumb:hover { background: #582E73; }
+
+      /* Animations */
+      @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+      .fade-in { animation: fadeIn 0.18s ease-out; }
+      .progress-bar-fill { transition: width 0.5s ease-in-out; }
+
+      /* INE Diamond */
+      .ine-diamond {
+        display: inline-block;
+        transform: rotate(45deg);
+        background: #E4007B;
+        border-radius: 2px;
+        flex-shrink: 0;
+      }
+
+      /* ── Botón Primario PIDI (btn.primario) ─────────────────────
+         Fondo: #D5007F  |  Padding: 12px 24px  |  Texto: blanco
+         Estados: hover → #B5006B  |  pressed → #8F0054
+         Focus: anillo magenta  |  Inactivo: opacity 0.45
+      ───────────────────────────────────────────────────────── */
+      .btn-ine, .btn-mg {
+        background: #D5007F;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        box-shadow: 0 2px 6px rgba(213,0,127,.30);
+        transition: background .18s, box-shadow .18s, transform .18s;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .btn-ine:hover, .btn-mg:hover {
+        background: #B5006B;
+        box-shadow: 0 4px 14px rgba(213,0,127,.40);
+        transform: translateY(-1px);
+      }
+      .btn-ine:active, .btn-mg:active {
+        background: #8F0054;
+        transform: translateY(0);
+        box-shadow: 0 1px 3px rgba(213,0,127,.20);
+      }
+      .btn-ine:focus-visible, .btn-mg:focus-visible {
+        outline: 3px solid rgba(213,0,127,.45);
+        outline-offset: 2px;
+      }
+      .btn-ine:disabled, .btn-mg:disabled {
+        opacity: 0.45;
+        transform: none;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      /* ── Botón Secundario PIDI (btn.secundario) ──────────────── */
+      .btn-outline {
+        background: white;
+        color: #D5007F;
+        border: 1.5px solid #D5007F;
+        padding: 11px 23px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .18s;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .btn-outline:hover { background: rgba(213,0,127,.06); box-shadow: 0 2px 8px rgba(213,0,127,.18); }
+      .btn-outline:active { background: rgba(213,0,127,.12); }
+      .btn-outline:focus-visible { outline: 3px solid rgba(213,0,127,.35); outline-offset: 2px; }
+      .btn-outline:disabled { opacity: 0.45; cursor: not-allowed; }
+
+      /* Card */
+      .ine-card {
+        background: white;
+        border: 1.5px solid #E2D9EE;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(88,46,115,.07);
+      }
+
+      /* Input */
+      .ine-input {
+        background: white;
+        border: 1.5px solid #E2D9EE;
+        border-radius: 6px;
+        font-size: 14px;
+        padding: 10px 14px;
+        width: 100%;
+        font-family: inherit;
+        color: #1A1219;
+        transition: border-color .15s, box-shadow .15s;
+        outline: none;
+      }
+      .ine-input:focus { border-color: #582E73; box-shadow: 0 0 0 3px rgba(88,46,115,.13); }
+      .ine-input::placeholder { color: #A090B0; }
+
+      .ine-label {
+        font-size: 12px;
+        font-weight: 700;
+        color: #575453;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      /* Field messages — 4px below the input */
+      .ine-field-error {
+        font-size: 12px;
+        color: #B91C1C;
+        margin-top: 4px;
+        display: block;
+      }
+      .ine-field-help {
+        font-size: 12px;
+        color: #6B5F78;
+        margin-top: 4px;
+        display: block;
+      }
+
+      /* Required asterisk */
+      .ine-required {
+        color: #B91C1C;
+        margin-left: 2px;
+      }
+    </style>
+  </head>
+  <body class="bg-ine-bg text-ine-text">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
