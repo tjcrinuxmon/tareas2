@@ -47,7 +47,7 @@ export default function App() {
             priority: '',
           })
           setRefreshKey(k => k + 1)
-          window.history.replaceState({}, '', '/')
+          window.history.replaceState({}, '', '/tareas2/')
         }
         setSsoLoading(false)
       })

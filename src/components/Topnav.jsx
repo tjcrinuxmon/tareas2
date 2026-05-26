@@ -59,7 +59,7 @@ export default function Topnav({
         <BrandLogo size={30} />
         <div className="hidden sm:block leading-none">
           <p className="text-sm font-black text-ine-purple">INE · DEAJ</p>
-          <p className="text-xs text-ine-muted">Seguimiento de Tareas</p>
+          <p className="text-xs text-ine-muted">Módulo de Tareas</p>
         </div>
       </div>
 
