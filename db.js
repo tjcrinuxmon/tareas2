@@ -1,5 +1,6 @@
 import Database from 'better-sqlite3'
 import bcrypt from 'bcryptjs'
+import crypto from 'crypto'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
 
@@ -221,27 +222,29 @@ if (adminCount === 0) {
   db.prepare('UPDATE tasks SET assigned_to = NULL').run()
   db.prepare('DELETE FROM users').run()
 
+  const adminPwd = process.env.ADMIN_SEED_PASSWORD || crypto.randomBytes(12).toString('base64url')
+  const ssoPlaceholder = () => crypto.randomBytes(16).toString('hex')
   const USERS = [
-    { email: 'admin@ine.mx',                  password: 'Admin1234!',     name: 'Administrador del Sistema',              role: 'admin',        direccion: null },
-    { email: 'anahi.silva@ine.mx',             password: 'Ejecutiva1234!', name: 'Anahi Silva Tosca',                      role: 'ejecutiva',    direccion: null },
-    { email: 'instruccion.recusal@ine.mx',     password: 'Director1234!',  name: 'Director Instrucción Recursal',          role: 'director',     direccion: 'instruccion_recusal' },
-    { email: 'contratos.convenios@ine.mx',     password: 'Director1234!',  name: 'Director Contratos y Convenios',         role: 'director',     direccion: 'contratos_convenios' },
-    { email: 'asuntos.hasl@ine.mx',            password: 'Director1234!',  name: 'Director Asuntos HASL',                  role: 'director',     direccion: 'asuntos_hasl' },
-    { email: 'normatividad.consulta@ine.mx',   password: 'Director1234!',  name: 'Director Normatividad y Consulta',       role: 'director',     direccion: 'normatividad_consulta' },
-    { email: 'asuntos.laborales@ine.mx',       password: 'Director1234!',  name: 'Director Asuntos Laborales',             role: 'director',     direccion: 'asuntos_laborales' },
-    { email: 'servicios.legales@ine.mx',       password: 'Director1234!',  name: 'Director Servicios Legales',             role: 'director',     direccion: 'servicios_legales' },
-    { email: 'subdir.instruccion@ine.mx',      password: 'Subdir1234!',    name: 'Subdirector Instrucción Recursal',       role: 'subdirector',  direccion: 'instruccion_recusal' },
-    { email: 'subdir.contratos@ine.mx',        password: 'Subdir1234!',    name: 'Subdirector Contratos y Convenios',      role: 'subdirector',  direccion: 'contratos_convenios' },
-    { email: 'subdir.hasl@ine.mx',             password: 'Subdir1234!',    name: 'Subdirector Asuntos HASL',               role: 'subdirector',  direccion: 'asuntos_hasl' },
-    { email: 'subdir.normatividad@ine.mx',     password: 'Subdir1234!',    name: 'Subdirector Normatividad y Consulta',    role: 'subdirector',  direccion: 'normatividad_consulta' },
-    { email: 'subdir.laborales@ine.mx',        password: 'Subdir1234!',    name: 'Subdirector Asuntos Laborales',          role: 'subdirector',  direccion: 'asuntos_laborales' },
-    { email: 'subdir.servicios@ine.mx',        password: 'Subdir1234!',    name: 'Subdirector Servicios Legales',          role: 'subdirector',  direccion: 'servicios_legales' },
+    { email: 'admin@ine.mx',                  password: adminPwd,              name: 'Administrador del Sistema',           role: 'admin',        direccion: null },
+    { email: 'anahi.silva@ine.mx',             password: ssoPlaceholder(),      name: 'Anahi Silva Tosca',                   role: 'ejecutiva',    direccion: null },
+    { email: 'instruccion.recusal@ine.mx',     password: ssoPlaceholder(),      name: 'Director Instrucción Recursal',       role: 'director',     direccion: 'instruccion_recusal' },
+    { email: 'contratos.convenios@ine.mx',     password: ssoPlaceholder(),      name: 'Director Contratos y Convenios',      role: 'director',     direccion: 'contratos_convenios' },
+    { email: 'asuntos.hasl@ine.mx',            password: ssoPlaceholder(),      name: 'Director Asuntos HASL',               role: 'director',     direccion: 'asuntos_hasl' },
+    { email: 'normatividad.consulta@ine.mx',   password: ssoPlaceholder(),      name: 'Director Normatividad y Consulta',    role: 'director',     direccion: 'normatividad_consulta' },
+    { email: 'asuntos.laborales@ine.mx',       password: ssoPlaceholder(),      name: 'Director Asuntos Laborales',          role: 'director',     direccion: 'asuntos_laborales' },
+    { email: 'servicios.legales@ine.mx',       password: ssoPlaceholder(),      name: 'Director Servicios Legales',          role: 'director',     direccion: 'servicios_legales' },
+    { email: 'subdir.instruccion@ine.mx',      password: ssoPlaceholder(),      name: 'Subdirector Instrucción Recursal',    role: 'subdirector',  direccion: 'instruccion_recusal' },
+    { email: 'subdir.contratos@ine.mx',        password: ssoPlaceholder(),      name: 'Subdirector Contratos y Convenios',   role: 'subdirector',  direccion: 'contratos_convenios' },
+    { email: 'subdir.hasl@ine.mx',             password: ssoPlaceholder(),      name: 'Subdirector Asuntos HASL',            role: 'subdirector',  direccion: 'asuntos_hasl' },
+    { email: 'subdir.normatividad@ine.mx',     password: ssoPlaceholder(),      name: 'Subdirector Normatividad y Consulta', role: 'subdirector',  direccion: 'normatividad_consulta' },
+    { email: 'subdir.laborales@ine.mx',        password: ssoPlaceholder(),      name: 'Subdirector Asuntos Laborales',       role: 'subdirector',  direccion: 'asuntos_laborales' },
+    { email: 'subdir.servicios@ine.mx',        password: ssoPlaceholder(),      name: 'Subdirector Servicios Legales',       role: 'subdirector',  direccion: 'servicios_legales' },
   ]
   const insert = db.prepare('INSERT INTO users (username, email, password_hash, name, role, direccion) VALUES (?, ?, ?, ?, ?, ?)')
   for (const u of USERS) {
     insert.run(u.email, u.email, bcrypt.hashSync(u.password, 10), u.name, u.role, u.direccion)
   }
-  console.log('✅ Usuarios creados (admin: Admin1234!, directores: Director1234!, subdirectores: Subdir1234!)')
+  console.log(`✅ Usuarios seed creados. Admin: admin@ine.mx / ${adminPwd}  ← guarda esta contraseña`)
 }
 
 // Add secretaria user if not exists

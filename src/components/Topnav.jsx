@@ -66,6 +66,14 @@ export default function Topnav({
       {/* Nav items */}
       <nav ref={navRef} className="flex items-center gap-0.5 flex-1 px-2">
 
+        {/* Dashboard */}
+        <NavBtn
+          active={currentView === 'dashboard'}
+          onClick={() => nav('dashboard')}
+          icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 3h8v8H3V3zm0 10h8v8H3v-8zm10-10h8v8h-8V3zm0 10h8v8h-8v-8z"/></svg>}
+          label="Panel"
+        />
+
         {/* Tareas */}
         {!restricted ? (
           <NavBtn

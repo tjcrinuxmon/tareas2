@@ -1,6 +1,8 @@
 import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
+import helmet from 'helmet'
+import rateLimit from 'express-rate-limit'
 import multer from 'multer'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
@@ -23,7 +25,8 @@ function localDateStr(d) {
 
 const app = express()
 const PORT = 3005
-const JWT_SECRET = 'ine_tareas_jwt_secret_2024'
+const JWT_SECRET = process.env.JWT_SECRET
+if (!JWT_SECRET) { console.error('FATAL: JWT_SECRET no definido'); process.exit(1) }
 const JWT_EXPIRES = '8h'
 
 const uploadsDir = join(__dirname, 'uploads')
@@ -67,7 +70,12 @@ function sendAssignmentEmail(toEmail, toName, assigner, taskTitle) {
     .catch((err) => console.error('[email] Error al enviar:', err.message))
 }
 
-app.use(cors())
+app.use(helmet({ contentSecurityPolicy: false }))
+app.use(cors({
+  origin: process.env.ALLOWED_ORIGIN || 'http://localhost:3000',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+}))
 app.use(express.json())
 app.use('/uploads', express.static(uploadsDir))
 
@@ -88,9 +96,18 @@ function requireAdmin(req, res, next) {
   next()
 }
 
+const ssoLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Demasiados intentos. Espera 15 minutos.' },
+})
+
 // SSO endpoint — portal is the single source of truth; always sync user data
-const PORTAL_SSO_SECRET = process.env.PORTAL_SSO_SECRET || 'ine_portal_sso_tareas_2026'
-app.post('/api/auth/sso', (req, res) => {
+const PORTAL_SSO_SECRET = process.env.PORTAL_SSO_SECRET
+if (!PORTAL_SSO_SECRET) { console.error('FATAL: PORTAL_SSO_SECRET no definido'); process.exit(1) }
+app.post('/api/auth/sso', ssoLimiter, (req, res) => {
   const { sso_token } = req.body
   if (!sso_token) return res.status(400).json({ error: 'Token SSO requerido' })
   try {
@@ -213,9 +230,43 @@ app.delete('/api/admin/users/:id', requireAdmin, (req, res) => {
 
 // ─── TASKS ────────────────────────────────────────────────────────────────────
 
+app.get('/api/tasks/stats', (req, res) => {
+  try {
+    const roleFilter = req.user.role === 'subdirector'
+      ? 'AND EXISTS (SELECT 1 FROM task_assignees WHERE task_id = t.id AND user_id = ?)'
+      : req.user.role === 'director'
+        ? 'AND (t.direccion = ? OR EXISTS (SELECT 1 FROM task_assignees ta JOIN users u ON ta.user_id = u.id WHERE ta.task_id = t.id AND u.direccion = ?))'
+        : ''
+    const roleParams = req.user.role === 'subdirector'
+      ? [req.user.id]
+      : req.user.role === 'director'
+        ? [req.user.direccion, req.user.direccion]
+        : []
+
+    const count = (extra, extraParams = []) =>
+      db.prepare(`SELECT COUNT(*) as n FROM tasks t WHERE 1=1 ${roleFilter} ${extra}`)
+        .get(...roleParams, ...extraParams).n
+
+    const active = "AND t.status != 'completada'"
+    res.json({
+      // Por tiempo (solo tareas activas)
+      vencida:    count(`${active} AND t.week_date < DATE('now','localtime')`),
+      por_vencer: count(`${active} AND t.week_date >= DATE('now','localtime') AND t.week_date <= DATE('now','localtime','+2 days')`),
+      a_tiempo:   count(`${active} AND t.week_date > DATE('now','localtime','+2 days')`),
+      // Por estado
+      pendiente:  count("AND t.status = 'pendiente'"),
+      en_progreso:count("AND t.status = 'en_progreso'"),
+      completada: count("AND t.status = 'completada'"),
+    })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: 'Error al obtener estadísticas' })
+  }
+})
+
 app.get('/api/tasks', (req, res) => {
   try {
-    const { direccion, status, date_from, date_to, priority } = req.query
+    const { direccion, status, date_from, date_to, priority, page = 1, limit = 20, hideCompleted } = req.query
     let query = `
       SELECT t.*,
         u.name as assigned_to_name,
@@ -279,9 +330,24 @@ app.get('/api/tasks', (req, res) => {
     }
     if (date_from) { query += ' AND t.week_date >= ?';  params.push(date_from) }
     if (date_to)   { query += ' AND t.week_date <= ?';  params.push(date_to) }
-    if (priority) { query += ' AND t.priority = ?';  params.push(priority) }
+    if (priority)  { query += ' AND t.priority = ?';   params.push(priority) }
+    // Hide completadas by default unless explicitly requested
+    if (!status && hideCompleted !== 'false') {
+      query += " AND t.status != 'completada'"
+    }
     query += " ORDER BY CASE t.priority WHEN 'alta' THEN 1 WHEN 'media' THEN 2 WHEN 'baja' THEN 3 END, t.created_at DESC"
-    res.json(db.prepare(query).all(...params))
+
+    const pageNum  = Math.max(1, parseInt(page) || 1)
+    const limitNum = Math.min(1000, Math.max(1, parseInt(limit) || 20))
+    const offset   = (pageNum - 1) * limitNum
+
+    const countQuery = query.replace(/SELECT t\.\*[\s\S]*?FROM tasks t/, 'SELECT COUNT(*) as total FROM tasks t')
+    const { total } = db.prepare(countQuery).get(...params)
+
+    query += ' LIMIT ? OFFSET ?'
+    const tasks = db.prepare(query).all(...params, limitNum, offset)
+
+    res.json({ tasks, total, page: pageNum, pages: Math.ceil(total / limitNum) })
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: 'Error al obtener las tareas' })

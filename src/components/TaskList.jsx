@@ -3,12 +3,67 @@ import { getTasks, markDailyReport, getMyDailyReports } from '../api.js'
 import { DIRECCIONES, STATUS_CONFIG, PRIORITY_CONFIG, formatDate, localToday } from '../constants.js'
 import TaskCard from './TaskCard.jsx'
 
+const PAGE_SIZE = 20
+
+function AreaSection({ sectionKey, color, label, tasks, areaPages, setAreaPages, onTaskClick }) {
+  const pg      = areaPages[sectionKey] || 1
+  const pages   = Math.ceil(tasks.length / PAGE_SIZE)
+  const visible = tasks.slice((pg - 1) * PAGE_SIZE, pg * PAGE_SIZE)
+  const setPage = (p) => setAreaPages(prev => ({ ...prev, [sectionKey]: p }))
+
+  return (
+    <div>
+      <div className="flex items-center gap-2.5 mb-3">
+        <span className="w-2.5 h-2.5 rounded-full" style={{ background: color }} />
+        <h3 className="text-sm font-bold text-ine-text">{label}</h3>
+        <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
+              style={{ background: color + '18', color }}>
+          {tasks.length}
+        </span>
+        {pages > 1 && (
+          <span className="text-xs text-ine-muted">
+            · Pág. {pg}/{pages}
+          </span>
+        )}
+        <div className="flex-1 h-px bg-ine-border" />
+        {pages > 1 && (
+          <div className="flex items-center gap-1 flex-shrink-0">
+            <button
+              onClick={() => setPage(Math.max(1, pg - 1))}
+              disabled={pg === 1}
+              className="w-6 h-6 flex items-center justify-center rounded border text-xs font-bold transition-colors disabled:opacity-30"
+              style={{ borderColor: color + '40', color }}
+            >‹</button>
+            <button
+              onClick={() => setPage(Math.min(pages, pg + 1))}
+              disabled={pg === pages}
+              className="w-6 h-6 flex items-center justify-center rounded border text-xs font-bold transition-colors disabled:opacity-30"
+              style={{ borderColor: color + '40', color }}
+            >›</button>
+          </div>
+        )}
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        {visible.map((task) => (
+          <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task.id)} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTask, user }) {
   const restricted = user?.role === 'director' || user?.role === 'subdirector'
   const [tasks, setTasks] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [filtersOpen, setFiltersOpen] = useState(false)
+  // Flat view (single direction filter): server-side pagination
+  const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const [total, setTotal] = useState(0)
+  // Grouped view (all areas): per-area pagination
+  const [areaPages, setAreaPages] = useState({})
   const [todayReportSol,  setTodayReportSol]  = useState(null)
   const [todayReportConc, setTodayReportConc] = useState(null)
   const [savingReportSol,  setSavingReportSol]  = useState(false)
@@ -48,24 +103,36 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
     } finally { setSavingReportConc(false) }
   }
 
+  useEffect(() => { setPage(1); setAreaPages({}) }, [filters])
+
+  const isGroupedView = !filters.direccion
+
   const fetchTasks = useCallback(async () => {
     setLoading(true)
     setError(null)
+    const grouped = !filters.direccion
     try {
-      const data = await getTasks({
-        direccion:  filters.direccion  || undefined,
-        status:     filters.status     || undefined,
-        date_from:  filters.date_from  || undefined,
-        date_to:    filters.date_to    || undefined,
-        priority:   filters.priority   || undefined,
+      const raw = await getTasks({
+        direccion:     filters.direccion  || undefined,
+        status:        filters.status     || undefined,
+        date_from:     filters.date_from  || undefined,
+        date_to:       filters.date_to    || undefined,
+        priority:      filters.priority   || undefined,
+        // Grouped view: fetch all at once; flat view: server-side 20/page
+        ...(grouped ? { limit: 1000, page: 1 } : { limit: 20, page }),
+        hideCompleted: 'true',
       })
-      setTasks(data)
+      // Handle both array (legacy) and paginated object formats
+      const taskArray = Array.isArray(raw) ? raw : (raw?.tasks ?? [])
+      setTasks(taskArray)
+      setTotal(Array.isArray(raw) ? taskArray.length : (raw?.total ?? taskArray.length))
+      setTotalPages(Array.isArray(raw) ? 1 : (raw?.pages ?? 1))
     } catch {
       setError('Error al cargar las tareas. Verifica que el servidor esté activo.')
     } finally {
       setLoading(false)
     }
-  }, [filters])
+  }, [filters, page])
 
   useEffect(() => { fetchTasks() }, [fetchTasks])
 
@@ -128,7 +195,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
                     ? `Hasta ${formatDate(filters.date_to)}`
                     : 'Todas las fechas'}
               <span className="mx-1 text-ine-border">•</span>
-              {tasks.length} tarea{tasks.length !== 1 ? 's' : ''}
+              {isGroupedView ? tasks.length : total} tarea{(isGroupedView ? tasks.length : total) !== 1 ? 's' : ''}
             </p>
           </div>
           <button onClick={onNewTask} className="btn-ine">
@@ -302,62 +369,42 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
         <div className="space-y-7">
           {/* Multi-area section — admin/ejecutiva only */}
           {multiAreaTasks.length > 0 && (
-            <div>
-              <div className="flex items-center gap-2.5 mb-3">
-                <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#7C3AED' }} />
-                <h3 className="text-sm font-bold text-ine-text">Asignación Multi-área</h3>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
-                      style={{ background: 'rgba(124,58,237,.12)', color: '#7C3AED' }}>
-                  {multiAreaTasks.length}
-                </span>
-                <div className="flex-1 h-px bg-ine-border" />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                {multiAreaTasks.map((task) => (
-                  <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task.id)} />
-                ))}
-              </div>
-            </div>
+            <AreaSection
+              sectionKey="__multi__"
+              color="#7C3AED"
+              label="Asignación Multi-área"
+              tasks={multiAreaTasks}
+              areaPages={areaPages}
+              setAreaPages={setAreaPages}
+              onTaskClick={onTaskClick}
+            />
           )}
 
           {/* Regular area sections */}
           {grouped.map(({ dir, tasks: dirTasks }) => (
-            <div key={dir.key}>
-              <div className="flex items-center gap-2.5 mb-3">
-                <span className="w-2.5 h-2.5 rounded-full" style={{ background: dir.color }} />
-                <h3 className="text-sm font-bold text-ine-text">{dir.label}</h3>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
-                      style={{ background: dir.color + '18', color: dir.color }}>
-                  {dirTasks.length}
-                </span>
-                <div className="flex-1 h-px bg-ine-border" />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                {dirTasks.map((task) => (
-                  <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task.id)} />
-                ))}
-              </div>
-            </div>
+            <AreaSection
+              key={dir.key}
+              sectionKey={dir.key}
+              color={dir.color}
+              label={dir.label}
+              tasks={dirTasks}
+              areaPages={areaPages}
+              setAreaPages={setAreaPages}
+              onTaskClick={onTaskClick}
+            />
           ))}
 
           {/* Cross-area section — restricted users (director/subdirector) */}
           {crossAreaTasks.length > 0 && (
-            <div>
-              <div className="flex items-center gap-2.5 mb-3">
-                <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#0891B2' }} />
-                <h3 className="text-sm font-bold text-ine-text">Turnos recibidos de otras áreas</h3>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
-                      style={{ background: 'rgba(8,145,178,.12)', color: '#0891B2' }}>
-                  {crossAreaTasks.length}
-                </span>
-                <div className="flex-1 h-px bg-ine-border" />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                {crossAreaTasks.map((task) => (
-                  <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task.id)} />
-                ))}
-              </div>
-            </div>
+            <AreaSection
+              sectionKey="__cross__"
+              color="#0891B2"
+              label="Turnos recibidos de otras áreas"
+              tasks={crossAreaTasks}
+              areaPages={areaPages}
+              setAreaPages={setAreaPages}
+              onTaskClick={onTaskClick}
+            />
           )}
         </div>
       ) : (
@@ -374,6 +421,53 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
               <TaskCard key={task.id} task={task} onClick={() => onTaskClick(task.id)} />
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Pagination — only in flat (single-direction) view */}
+      {!loading && !error && !isGroupedView && totalPages > 1 && (
+        <div className="mt-6 flex items-center justify-center gap-2">
+          <button
+            onClick={() => setPage(p => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className="px-3 py-1.5 text-sm font-semibold rounded-lg border transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            style={{ borderColor: '#E2D9EE', color: '#582E73', background: '#fff' }}
+          >
+            ← Anterior
+          </button>
+          <div className="flex items-center gap-1">
+            {Array.from({ length: totalPages }, (_, i) => i + 1)
+              .filter(p => p === 1 || p === totalPages || Math.abs(p - page) <= 1)
+              .reduce((acc, p, idx, arr) => {
+                if (idx > 0 && p - arr[idx - 1] > 1) acc.push('…')
+                acc.push(p)
+                return acc
+              }, [])
+              .map((p, i) =>
+                p === '…'
+                  ? <span key={`ellipsis-${i}`} className="px-1 text-ine-dim text-sm">…</span>
+                  : <button
+                      key={p}
+                      onClick={() => setPage(p)}
+                      className="w-8 h-8 text-sm font-semibold rounded-lg transition-colors"
+                      style={p === page
+                        ? { background: '#582E73', color: '#fff' }
+                        : { background: '#fff', color: '#582E73', border: '1.5px solid #E2D9EE' }
+                      }
+                    >
+                      {p}
+                    </button>
+              )
+            }
+          </div>
+          <button
+            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            className="px-3 py-1.5 text-sm font-semibold rounded-lg border transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            style={{ borderColor: '#E2D9EE', color: '#582E73', background: '#fff' }}
+          >
+            Siguiente →
+          </button>
         </div>
       )}
     </div>

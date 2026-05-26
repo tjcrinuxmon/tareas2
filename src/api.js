@@ -32,6 +32,9 @@ export const login = (email, password) =>
 export const getTasks = (params = {}) =>
   api.get('/tasks', { params }).then((r) => r.data)
 
+export const getTasksStats = () =>
+  api.get('/tasks/stats').then((r) => r.data)
+
 export const createTask = (data) =>
   api.post('/tasks', data).then((r) => r.data)
 

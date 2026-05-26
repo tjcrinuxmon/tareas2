@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import BrandLogo from './components/BrandLogo.jsx'
 import Topnav from './components/Topnav.jsx'
 import TaskList from './components/TaskList.jsx'
+import Dashboard from './components/Dashboard.jsx'
 import TaskDetail from './components/TaskDetail.jsx'
 import TaskForm from './components/TaskForm.jsx'
 import ReportView from './components/ReportView.jsx'
@@ -36,7 +37,7 @@ export default function App() {
           setAuth(t, u)
           setToken(t)
           setUser(u)
-          setView('tasks')
+          setView('dashboard')
           setSelectedTaskId(null)
           setEditingTask(null)
           setFilters({
@@ -54,7 +55,7 @@ export default function App() {
       .catch(() => setSsoLoading(false))
   }, [])
 
-  const [view, setView] = useState('tasks')
+  const [view, setView] = useState('dashboard')
   const [selectedTaskId, setSelectedTaskId] = useState(null)
   const [editingTask, setEditingTask] = useState(null)
   const [filters, setFilters] = useState(() => {
@@ -86,7 +87,7 @@ export default function App() {
     setAuth(tok, usr)
     setToken(tok)
     setUser(usr)
-    setView('tasks')
+    setView('dashboard')
     setSelectedTaskId(null)
     setEditingTask(null)
     setFilters({
@@ -103,7 +104,7 @@ export default function App() {
     clearAuth()
     setToken(null)
     setUser(null)
-    setView('tasks')
+    setView('dashboard')
   }
 
   const handleBack = () => {
@@ -137,6 +138,9 @@ export default function App() {
       />
 
       <main className="flex-1 overflow-auto min-h-0 p-3 sm:p-6">
+        {view === 'dashboard' && (
+          <Dashboard user={user} onNavigate={navigate} onFilterChange={handleFilterChange} />
+        )}
         {view === 'tasks' && (
           <TaskList
             key={refreshKey}
