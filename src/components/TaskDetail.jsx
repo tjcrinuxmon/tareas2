@@ -1149,6 +1149,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
             <div className="space-y-3 text-sm">
               {[
                 ['ID', `#${task.id}`, true],
+                ['Creada por', task.created_by_name || '—', false],
                 ['Creada', formatDateTime(task.created_at), false],
                 ['Actualizada', formatDateTime(task.updated_at), false],
                 task.closed_at ? ['Cerrada', formatDate(task.closed_at), false] : null,

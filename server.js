@@ -271,6 +271,7 @@ app.get('/api/tasks', (req, res) => {
       SELECT t.*,
         u.name as assigned_to_name,
         u.username as assigned_to_username,
+        (SELECT name FROM users WHERE id = t.created_by_id) as created_by_name,
         (SELECT GROUP_CONCAT(u2.name, ', ') FROM task_assignees ta2 JOIN users u2 ON ta2.user_id = u2.id WHERE ta2.task_id = t.id) as assigned_user_names,
         (SELECT GROUP_CONCAT(d, '|') FROM (SELECT DISTINCT u3.direccion as d FROM task_assignees ta3 JOIN users u3 ON ta3.user_id = u3.id WHERE ta3.task_id = t.id)) as assigned_area_keys,
         (SELECT COUNT(DISTINCT u3.direccion) FROM task_assignees ta3 JOIN users u3 ON ta3.user_id = u3.id WHERE ta3.task_id = t.id) as assignee_area_count,
@@ -397,6 +398,7 @@ app.get('/api/tasks/:id', (req, res) => {
   try {
     const task = db.prepare(`
       SELECT t.*, u.name as assigned_to_name, u.username as assigned_to_username,
+        (SELECT name FROM users WHERE id = t.created_by_id) as created_by_name,
         (SELECT GROUP_CONCAT(u2.name, ', ') FROM task_assignees ta2 JOIN users u2 ON ta2.user_id = u2.id WHERE ta2.task_id = t.id) as assigned_user_names
       FROM tasks t LEFT JOIN users u ON t.assigned_to = u.id
       WHERE t.id = ?
