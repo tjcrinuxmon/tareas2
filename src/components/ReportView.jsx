@@ -204,7 +204,7 @@ export default function ReportView({ user }) {
 
   const weekEnd = (weekFilter) => {
     const d = new Date(weekFilter + 'T12:00:00')
-    d.setDate(d.getDate() + 4)
+    d.setDate(d.getDate() + 6)
     return localToday(d)
   }
 

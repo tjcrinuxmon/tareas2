@@ -223,7 +223,7 @@ export function formatWeek(dateStr) {
   if (!dateStr) return ''
   const d = new Date(dateStr + 'T00:00:00')
   const end = new Date(d)
-  end.setDate(end.getDate() + 4)
+  end.setDate(end.getDate() + 6)
   const opts = { month: 'short', day: 'numeric' }
   return `Semana del ${d.toLocaleDateString('es-MX', opts)} al ${end.toLocaleDateString('es-MX', opts)}`
 }
