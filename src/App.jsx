@@ -179,7 +179,7 @@ export default function App() {
           />
         )}
         {view === 'report' && <ReportView key={refreshKey} user={user} />}
-        {view === 'calendar' && <CalendarReport />}
+        {view === 'calendar' && <CalendarReport onTaskClick={(id) => navigate('task-detail', { taskId: id })} />}
         {view === 'enlace' && (user?.role === 'admin' || user?.role === 'ejecutiva' || user?.direccion === 'enlace_interinstitucional') && <EnlaceReports user={user} />}
         {view === 'users' && user?.role === 'admin' && <UserManagement />}
         {view === 'convenios' && (user?.role === 'admin' || user?.role === 'ejecutiva' || user?.role === 'secretaria' || user?.direccion === 'contratos_convenios') && <ConveniosView user={user} />}

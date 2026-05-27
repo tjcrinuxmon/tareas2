@@ -28,7 +28,7 @@ const DOT = {
   green:  '#22C55E',
 }
 
-export default function CalendarReport() {
+export default function CalendarReport({ onTaskClick }) {
   const [tasks,   setTasks]   = useState([])
   const [loading, setLoading] = useState(true)
   const [error,   setError]   = useState(null)
@@ -203,8 +203,9 @@ export default function CalendarReport() {
                           <div
                             key={task.id}
                             className="text-xs px-1.5 py-0.5 rounded leading-tight truncate line-through"
-                            style={{ background: '#F3F4F6', color: '#9CA3AF', borderLeft: '2px solid #D1D5DB' }}
+                            style={{ background: '#F3F4F6', color: '#9CA3AF', borderLeft: '2px solid #D1D5DB', cursor: onTaskClick ? 'pointer' : 'default' }}
                             title={`${task.title} (completada)`}
+                            onClick={() => onTaskClick?.(task.id)}
                           >
                             {task.title}
                           </div>
@@ -220,8 +221,10 @@ export default function CalendarReport() {
                             background: s.bg,
                             borderLeft: `2px solid ${s.border}`,
                             color: s.text,
+                            cursor: 'pointer',
                           }}
                           title={task.title}
+                          onClick={() => onTaskClick?.(task.id)}
                         >
                           {task.title}
                         </div>
