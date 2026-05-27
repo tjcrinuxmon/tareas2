@@ -371,8 +371,8 @@ app.post('/api/tasks', (req, res) => {
     const firstAssignee = assignees[0] || null
 
     const result = db.prepare(
-      'INSERT INTO tasks (title, description, direccion, week_date, priority, assigned_to, created_by_id) VALUES (?, ?, ?, ?, ?, ?, ?)'
-    ).run(title, description || '', direccion, week_date, p, firstAssignee?.id || null, req.user.id)
+      'INSERT INTO tasks (title, description, direccion, status, week_date, priority, assigned_to, created_by_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+    ).run(title, description || '', direccion, 'pendiente', week_date, p, firstAssignee?.id || null, req.user.id)
 
     const taskId = result.lastInsertRowid
     const insertAssignee = db.prepare('INSERT OR IGNORE INTO task_assignees (task_id, user_id) VALUES (?, ?)')

@@ -424,6 +424,22 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
               onTaskClick={onTaskClick}
             />
           )}
+
+          {/* Fallback: tasks returned but nothing rendered in any section */}
+          {grouped.length === 0 && multiAreaTasks.length === 0 && unclassifiedTasks.length === 0 && crossAreaTasks.length === 0 && (
+            <div className="ine-card p-16 text-center">
+              <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: '#F8F5FB' }}>
+                <svg className="w-7 h-7 text-ine-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+              </div>
+              <h3 className="font-bold text-ine-text mb-1">No hay tareas registradas</h3>
+              <p className="text-sm text-ine-muted">
+                {hasActiveFilters ? 'No se encontraron tareas con los filtros seleccionados.' : 'Empieza creando la primera tarea.'}
+              </p>
+            </div>
+          )}
         </div>
       ) : (
         <div>
