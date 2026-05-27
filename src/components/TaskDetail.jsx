@@ -291,9 +291,9 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
   const isClosed = task?.status === 'completada' || !!task?.closed_at
   const canDelete = (isPrivileged || isCreator) && !isClosed
   const isAssignee = task?.assignees?.some(a => a.id === user?.id) || task?.assigned_to === user?.id
-  const canComment = isPrivileged ||
+  const canComment = !isClosed && (isPrivileged ||
     (user?.role === 'director' && (task?.direccion === user?.direccion || isAssignee)) ||
-    (user?.role === 'subdirector' && isAssignee)
+    (user?.role === 'subdirector' && isAssignee))
 
   // Multi-assignee task not created by current user → each assignee informs individually
   const canFullClose = isPrivileged || isCreator
