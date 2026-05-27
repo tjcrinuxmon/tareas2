@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { getTask, addProgress, addComment, uploadFile, deleteFile, deleteTask, getTaskAssignments, closeTask, approveTask } from '../api.js'
 import { getDireccion, STATUS_CONFIG, PRIORITY_CONFIG, formatDate, formatDateTime, formatFileSize, localToday } from '../constants.js'
 
@@ -105,6 +105,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
   const [loadingPDF, setLoadingPDF] = useState(false)
 
   const [showCloseForm, setShowCloseForm] = useState(false)
+  const closeFormRef = useRef(null)
   const [closureNotes, setClosureNotes] = useState('')
   const [closureDate, setClosureDate] = useState(localToday())
   const [closureFile, setClosureFile] = useState(null)
@@ -143,13 +144,26 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
     setApproveError(null)
   }, [taskId])
 
+  useEffect(() => {
+    if (showCloseForm && closeFormRef.current) {
+      setTimeout(() => closeFormRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100)
+    }
+  }, [showCloseForm])
+
   const handleAddProgress = async (e) => {
     e.preventDefault()
     if (!progressContent.trim()) { setProgressError('El contenido del avance es requerido.'); return }
     setSavingProgress(true); setProgressError(null)
     try {
-      await addProgress(taskId, { content: progressContent.trim(), percentage: progressPct })
-      setProgressContent(''); await fetchTask(); onRefresh()
+      const pct = progressPct
+      await addProgress(taskId, { content: progressContent.trim(), percentage: pct })
+      setProgressContent('')
+      await fetchTask()
+      onRefresh()
+      if (pct === 100) {
+        setShowCloseForm(true)
+        setCloseError(null)
+      }
     } catch { setProgressError('Error al registrar el avance.') }
     finally { setSavingProgress(false) }
   }
@@ -529,7 +543,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
 
       {/* Close form */}
       {showCloseForm && (
-        <div className="ine-card overflow-hidden mb-5" style={{ border: '1.5px solid rgba(5,150,105,.3)', borderTop: '3px solid #059669' }}>
+        <div ref={closeFormRef} className="ine-card overflow-hidden mb-5" style={{ border: '1.5px solid rgba(5,150,105,.3)', borderTop: '3px solid #059669' }}>
           <div className="px-5 py-4 flex items-center gap-2" style={{ borderBottom: '1px solid rgba(5,150,105,.15)', background: 'rgba(5,150,105,.04)' }}>
             <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
                  style={{ background: 'rgba(5,150,105,.12)', color: '#059669' }}>
