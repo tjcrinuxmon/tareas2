@@ -71,8 +71,10 @@ function sendAssignmentEmail(toEmail, toName, assigner, taskTitle) {
 }
 
 app.use(helmet({ contentSecurityPolicy: false }))
+const allowedOrigins = (process.env.ALLOWED_ORIGIN || 'http://localhost:3000,http://localhost:5175,http://10.184.150.162:5175')
+  .split(',').map(o => o.trim())
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGIN || 'http://localhost:3000',
+  origin: (origin, cb) => cb(null, !origin || allowedOrigins.includes(origin)),
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
 }))
@@ -609,8 +611,8 @@ app.post('/api/tasks/:id/close', upload.single('file'), (req, res) => {
         .run(req.params.id, userArea, req.user.id, req.user.name, closure_notes.trim(), closedDate, filename, originalName)
 
       const { pct: partialPct, allDone: allDirectClosersDone } = calcAreaProgress(req.params.id)
-      db.prepare('INSERT INTO progress_updates (task_id, content, percentage) VALUES (?, ?, ?)')
-        .run(req.params.id, `[Informe de cierre] ${closure_notes.trim()}`, partialPct)
+      db.prepare('INSERT INTO progress_updates (task_id, content, percentage, author_name) VALUES (?, ?, ?, ?)')
+        .run(req.params.id, `[Informe de cierre] ${closure_notes.trim()}`, partialPct, req.user.name)
 
       // Auto-close when all direct closers done AND all needed visto buenos given (not for ejecutiva tasks)
       if (!createdByEjecutiva && allDirectClosersDone) {
@@ -634,8 +636,8 @@ app.post('/api/tasks/:id/close', upload.single('file'), (req, res) => {
     // Full closure: creator, ejecutiva, or admin
     db.prepare(`UPDATE tasks SET status='completada', closed_at=?, closure_notes=?, closure_filename=?, closure_original_name=?, updated_at=CURRENT_TIMESTAMP WHERE id=?`)
       .run(closedDate, closure_notes.trim(), filename, originalName, req.params.id)
-    db.prepare('INSERT INTO progress_updates (task_id, content, percentage) VALUES (?, ?, ?)')
-      .run(req.params.id, `[Cierre] ${closure_notes.trim()}`, 100)
+    db.prepare('INSERT INTO progress_updates (task_id, content, percentage, author_name) VALUES (?, ?, ?, ?)')
+      .run(req.params.id, `[Cierre] ${closure_notes.trim()}`, 100, req.user.name)
     res.json(db.prepare(`SELECT t.*, u.name as assigned_to_name FROM tasks t LEFT JOIN users u ON t.assigned_to = u.id WHERE t.id = ?`).get(req.params.id))
   } catch (err) {
     console.error(err)
@@ -685,8 +687,8 @@ app.post('/api/tasks/:id/approve', (req, res) => {
     `).get(req.params.id).cnt || 1
     const approvedCount = db.prepare('SELECT COUNT(*) as cnt FROM task_director_approvals WHERE task_id = ?').get(req.params.id).cnt
 
-    db.prepare('INSERT INTO progress_updates (task_id, content, percentage) VALUES (?, ?, ?)')
-      .run(req.params.id, `[Visto bueno] ${req.user.name}: ${notes?.trim() || 'Sin notas'}`, currentPct)
+    db.prepare('INSERT INTO progress_updates (task_id, content, percentage, author_name) VALUES (?, ?, ?, ?)')
+      .run(req.params.id, `[Visto bueno] ${req.user.name}: ${notes?.trim() || 'Sin notas'}`, currentPct, req.user.name)
 
     // Auto-close when all approvals done AND all direct closers have closed (not for ejecutiva tasks)
     const createdByEjecutiva = task.created_by_role === 'ejecutiva' || task.created_by_role === 'admin'
@@ -714,7 +716,7 @@ app.post('/api/tasks/:id/progress', (req, res) => {
     if (!task) return res.status(404).json({ error: 'Tarea no encontrada' })
     if (task.closed_at) return res.status(400).json({ error: 'No se puede modificar el avance de una tarea cerrada' })
     const pct = Math.min(100, Math.max(0, parseInt(percentage) || 0))
-    const result = db.prepare('INSERT INTO progress_updates (task_id, content, percentage) VALUES (?, ?, ?)').run(req.params.id, content, pct)
+    const result = db.prepare('INSERT INTO progress_updates (task_id, content, percentage, author_name) VALUES (?, ?, ?, ?)').run(req.params.id, content, pct, req.user.name)
     let newStatus = task.status
     if (pct === 100) newStatus = 'completada'
     else if (pct > 0 && task.status === 'pendiente') newStatus = 'en_progreso'

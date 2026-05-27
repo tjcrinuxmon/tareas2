@@ -71,6 +71,7 @@ try { db.exec("ALTER TABLE tasks ADD COLUMN closure_original_name TEXT") } catch
 try { db.exec("ALTER TABLE tasks ADD COLUMN created_by_id INTEGER REFERENCES users(id) ON DELETE SET NULL") } catch (_) {}
 try { db.exec("ALTER TABLE users ADD COLUMN puesto TEXT") } catch (_) {}
 try { db.exec("UPDATE tasks SET status = 'pendiente' WHERE status IS NULL") } catch (_) {}
+try { db.exec("ALTER TABLE progress_updates ADD COLUMN author_name TEXT") } catch (_) {}
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS task_assignees (

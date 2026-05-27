@@ -991,7 +991,10 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                         </div>
                         <div className="flex-1 pb-4">
                           <p className="text-sm text-ine-text mb-1 leading-relaxed">{up.content}</p>
-                          <p className="text-xs text-ine-dim">{formatDateTime(up.created_at)}</p>
+                          <p className="text-xs text-ine-dim">
+                            {formatDateTime(up.created_at)}
+                            {up.author_name && <span className="ml-2 font-medium" style={{ color: '#6B5F78' }}>· {up.author_name}</span>}
+                          </p>
                         </div>
                       </div>
                     ))}
