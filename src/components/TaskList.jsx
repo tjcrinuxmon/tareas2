@@ -108,15 +108,16 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
     setError(null)
     const grouped = !filters.direccion
     try {
+      const showAll = filters.status === 'todos'
       const raw = await getTasks({
         direccion:     filters.direccion  || undefined,
-        status:        filters.status     || undefined,
+        status:        (!filters.status || showAll) ? undefined : filters.status,
         date_from:     filters.date_from  || undefined,
         date_to:       filters.date_to    || undefined,
         priority:      filters.priority   || undefined,
         // Grouped view: fetch all at once; flat view: server-side 20/page
         ...(grouped ? { limit: 1000, page: 1 } : { limit: 20, page }),
-        hideCompleted: 'true',
+        hideCompleted: showAll ? 'false' : 'true',
       })
       // Handle both array (legacy) and paginated object formats
       const taskArray = Array.isArray(raw) ? raw : (raw?.tasks ?? [])
@@ -305,6 +306,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
               <select value={filters.status || ''} onChange={handleStatusChange}
                 className="ine-input" style={{ width: 'auto', padding: '6px 10px', fontSize: '13px' }}>
                 <option value="">Elige estado</option>
+                <option value="todos">Todos</option>
                 {Object.entries(STATUS_CONFIG).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
               </select>
             </div>
