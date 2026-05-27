@@ -199,10 +199,14 @@ export default function ReportView({ user }) {
     win.document.write('<p style="font-family:Arial;padding:40px;color:#582E73;">Generando reporte…</p>')
     setGeneratingPDF(true)
     try {
-      const params = filterMode === 'week' && weekFilter
-        ? { date_from: weekFilter, date_to: weekFilter }
-        : {}
-      const tasks = await getTasks(params)
+      const params = {
+        ...(filterMode === 'week' && weekFilter ? { date_from: weekFilter, date_to: weekFilter } : {}),
+        hideCompleted: 'false',
+        limit: 10000,
+        page: 1,
+      }
+      const raw = await getTasks(params)
+      const tasks = Array.isArray(raw) ? raw : (raw?.tasks ?? [])
       buildCreatedPDF(tasks, periodLabel, win)
     } catch { win.close(); alert('Error al generar el PDF.') }
     finally { setGeneratingPDF(false) }
@@ -214,10 +218,15 @@ export default function ReportView({ user }) {
     win.document.write('<p style="font-family:Arial;padding:40px;color:#582E73;">Generando reporte…</p>')
     setGeneratingPDF(true)
     try {
-      const params = filterMode === 'week' && weekFilter
-        ? { date_from: weekFilter, date_to: weekFilter }
-        : {}
-      const tasks = await getTasks(params)
+      const params = {
+        ...(filterMode === 'week' && weekFilter ? { date_from: weekFilter, date_to: weekFilter } : {}),
+        status: 'completada',
+        hideCompleted: 'false',
+        limit: 10000,
+        page: 1,
+      }
+      const raw = await getTasks(params)
+      const tasks = Array.isArray(raw) ? raw : (raw?.tasks ?? [])
       buildClosedPDF(tasks, periodLabel, win)
     } catch { win.close(); alert('Error al generar el PDF.') }
     finally { setGeneratingPDF(false) }

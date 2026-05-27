@@ -341,7 +341,7 @@ app.get('/api/tasks', (req, res) => {
     query += " ORDER BY CASE t.priority WHEN 'alta' THEN 1 WHEN 'media' THEN 2 WHEN 'baja' THEN 3 END, t.created_at DESC"
 
     const pageNum  = Math.max(1, parseInt(page) || 1)
-    const limitNum = Math.min(1000, Math.max(1, parseInt(limit) || 20))
+    const limitNum = Math.min(5000, Math.max(1, parseInt(limit) || 20))
     const offset   = (pageNum - 1) * limitNum
 
     const countQuery = query.replace(/SELECT t\.\*[\s\S]*?FROM tasks t/, 'SELECT COUNT(*) as total FROM tasks t')
