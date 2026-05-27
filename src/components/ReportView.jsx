@@ -10,7 +10,7 @@ function fmtShort(dateStr) {
   return d.toLocaleDateString('es-MX', { day: '2-digit', month: '2-digit', year: 'numeric' })
 }
 
-function buildCreatedPDF(tasks, period) {
+function buildCreatedPDF(tasks, period, win) {
   const vencidas = tasks.filter(t => !t.closed_at && t.status !== 'completada' && t.week_date < today)
   const enTiempo = tasks.length - vencidas.length
 
@@ -72,14 +72,13 @@ function buildCreatedPDF(tasks, period) {
 </body>
 </html>`
 
-  const win = window.open('', '_blank', 'width=1050,height=750')
   win.document.write(html)
   win.document.close()
   win.focus()
   setTimeout(() => win.print(), 400)
 }
 
-function buildClosedPDF(tasks, period) {
+function buildClosedPDF(tasks, period, win) {
   const closed = tasks.filter(t => t.closed_at)
   const onTime = closed.filter(t => t.closed_at <= t.week_date)
   const late   = closed.filter(t => t.closed_at >  t.week_date)
@@ -144,7 +143,6 @@ function buildClosedPDF(tasks, period) {
 </body>
 </html>`
 
-  const win = window.open('', '_blank', 'width=1050,height=750')
   win.document.write(html)
   win.document.close()
   win.focus()
@@ -196,26 +194,32 @@ export default function ReportView({ user }) {
   const periodLabel = filterMode === 'week' && weekFilter ? formatWeek(weekFilter) : 'Todo el período'
 
   const handlePDFCreadas = async () => {
+    const win = window.open('', '_blank', 'width=1050,height=750')
+    if (!win) { alert('El navegador bloqueó la ventana. Permite ventanas emergentes para este sitio.'); return }
+    win.document.write('<p style="font-family:Arial;padding:40px;color:#582E73;">Generando reporte…</p>')
     setGeneratingPDF(true)
     try {
       const params = filterMode === 'week' && weekFilter
         ? { date_from: weekFilter, date_to: weekFilter }
         : {}
       const tasks = await getTasks(params)
-      buildCreatedPDF(tasks, periodLabel)
-    } catch { alert('Error al generar el PDF.') }
+      buildCreatedPDF(tasks, periodLabel, win)
+    } catch { win.close(); alert('Error al generar el PDF.') }
     finally { setGeneratingPDF(false) }
   }
 
   const handlePDFCerradas = async () => {
+    const win = window.open('', '_blank', 'width=1050,height=750')
+    if (!win) { alert('El navegador bloqueó la ventana. Permite ventanas emergentes para este sitio.'); return }
+    win.document.write('<p style="font-family:Arial;padding:40px;color:#582E73;">Generando reporte…</p>')
     setGeneratingPDF(true)
     try {
       const params = filterMode === 'week' && weekFilter
         ? { date_from: weekFilter, date_to: weekFilter }
         : {}
       const tasks = await getTasks(params)
-      buildClosedPDF(tasks, periodLabel)
-    } catch { alert('Error al generar el PDF.') }
+      buildClosedPDF(tasks, periodLabel, win)
+    } catch { win.close(); alert('Error al generar el PDF.') }
     finally { setGeneratingPDF(false) }
   }
 
