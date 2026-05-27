@@ -11,17 +11,24 @@ function fmtShort(dateStr) {
 }
 
 function buildCreatedPDF(tasks, period, win) {
-  const vencidas = tasks.filter(t => !t.closed_at && t.status !== 'completada' && t.week_date < today)
-  const enTiempo = tasks.length - vencidas.length
+  const completadas = tasks.filter(t => t.closed_at || t.status === 'completada')
+  const vencidas    = tasks.filter(t => !t.closed_at && t.status !== 'completada' && t.week_date < today)
+  const enTiempo    = tasks.filter(t => !t.closed_at && t.status !== 'completada' && t.week_date >= today)
 
   const rows = tasks.map(t => {
-    const dir = DIRECCIONES.find(d => d.key === t.direccion)
-    const isV = !t.closed_at && t.status !== 'completada' && t.week_date < today
-    return `<tr style="background:${isV ? '#FEF2F2' : ''}">
+    const dir  = DIRECCIONES.find(d => d.key === t.direccion)
+    const isDone = t.closed_at || t.status === 'completada'
+    const isV    = !isDone && t.week_date < today
+    const rowBg  = isDone ? '#F0FDF4' : isV ? '#FEF2F2' : ''
+    const statusLabel = isDone ? '<span style="color:#047857;font-weight:700">✓ Completada</span>'
+                      : isV    ? '<span style="color:#DC2626;font-weight:700">Vencida</span>'
+                      :          '<span style="color:#1D4ED8">En tiempo</span>'
+    return `<tr style="background:${rowBg}">
       <td style="padding:7px 10px;border-bottom:1px solid #EDE8F4;font-size:12px;color:${dir?.color || '#333'};font-weight:600">${dir?.label || t.direccion}</td>
       <td style="padding:7px 10px;border-bottom:1px solid #EDE8F4;font-size:12px">${t.description || t.title}</td>
       <td style="padding:7px 10px;border-bottom:1px solid #EDE8F4;font-size:12px;white-space:nowrap">${fmtShort(t.created_at)}</td>
       <td style="padding:7px 10px;border-bottom:1px solid #EDE8F4;font-size:12px;white-space:nowrap;color:${isV ? '#DC2626' : ''};font-weight:${isV ? '700' : '400'}">${fmtShort(t.week_date)}</td>
+      <td style="padding:7px 10px;border-bottom:1px solid #EDE8F4;font-size:12px;white-space:nowrap">${statusLabel}</td>
     </tr>`
   }).join('')
 
@@ -60,12 +67,14 @@ function buildCreatedPDF(tasks, period, win) {
       <th>Descripción</th>
       <th>Fecha de creación</th>
       <th>Fecha de vencimiento</th>
+      <th>Estado</th>
     </tr></thead>
-    <tbody>${rows || '<tr><td colspan="4" style="padding:14px;text-align:center;color:#6B5F78">Sin actividades en el período seleccionado</td></tr>'}</tbody>
+    <tbody>${rows || '<tr><td colspan="5" style="padding:14px;text-align:center;color:#6B5F78">Sin actividades en el período seleccionado</td></tr>'}</tbody>
   </table>
   <div class="summary">
     <div class="chip" style="background:#F3EDF9;color:#582E73">Total: ${tasks.length}</div>
-    <div class="chip" style="background:rgba(5,150,105,.09);color:#047857">En tiempo: ${enTiempo}</div>
+    ${completadas.length > 0 ? `<div class="chip" style="background:rgba(5,150,105,.09);color:#047857">Completadas: ${completadas.length}</div>` : ''}
+    ${enTiempo.length > 0 ? `<div class="chip" style="background:rgba(29,78,216,.09);color:#1D4ED8">En tiempo: ${enTiempo.length}</div>` : ''}
     ${vencidas.length > 0 ? `<div class="chip" style="background:rgba(220,38,38,.09);color:#DC2626">Vencidas: ${vencidas.length}</div>` : ''}
   </div>
   <div class="footer">Sistema de Seguimiento de Tareas · INE · DEAJ · ${new Date().getFullYear()}</div>
