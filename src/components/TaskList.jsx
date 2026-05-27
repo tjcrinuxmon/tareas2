@@ -64,28 +64,24 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
   const [total, setTotal] = useState(0)
   // Grouped view (all areas): per-area pagination
   const [areaPages, setAreaPages] = useState({})
-  const [todayReportSol,  setTodayReportSol]  = useState(null)
-  const [todayReportConc, setTodayReportConc] = useState(null)
-  const [savingReportSol,  setSavingReportSol]  = useState(false)
-  const [savingReportConc, setSavingReportConc] = useState(false)
+  const [todayReportSol,       setTodayReportSol]       = useState(null)
+  const [todayReportConc,      setTodayReportConc]      = useState(null)
+  const [savingReportSol,      setSavingReportSol]      = useState(false)
+  const [savingReportConc,     setSavingReportConc]     = useState(false)
+  const [hasAltaToday,         setHasAltaToday]         = useState(false)
+  const [hasCompletedAltaToday,setHasCompletedAltaToday]= useState(false)
 
   const today = localToday()
 
   useEffect(() => {
     if (user?.role !== 'subdirector' && user?.role !== 'director') return
-    getMyDailyReports().then(rows => {
-      setTodayReportSol(rows.find(r => r.report_date === today && r.report_type === 'solicitudes') || null)
-      setTodayReportConc(rows.find(r => r.report_date === today && r.report_type === 'conclusiones') || null)
+    getMyDailyReports().then(({ reports, hasAltaToday: ha, hasCompletedAltaToday: hca }) => {
+      setTodayReportSol(reports.find(r => r.report_date === today && r.report_type === 'solicitudes') || null)
+      setTodayReportConc(reports.find(r => r.report_date === today && r.report_type === 'conclusiones') || null)
+      setHasAltaToday(ha)
+      setHasCompletedAltaToday(hca)
     }).catch(() => {})
   }, [user, today])
-
-  const hasAltaToday = tasks.some(
-    t => t.priority === 'alta' && t.week_date === today
-  )
-
-  const hasCompletedAltaToday = tasks.some(
-    t => t.priority === 'alta' && t.closed_at === today
-  )
 
   const handleMarkNoSolicitudes = async () => {
     setSavingReportSol(true)

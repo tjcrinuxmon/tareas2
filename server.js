@@ -968,8 +968,41 @@ app.post('/api/daily-reports', (req, res) => {
 })
 
 app.get('/api/daily-reports/me', (req, res) => {
-  const rows = db.prepare('SELECT * FROM daily_reports WHERE user_id = ? ORDER BY report_date DESC LIMIT 14').all(req.user.id)
-  res.json(rows)
+  const reports = db.prepare('SELECT * FROM daily_reports WHERE user_id = ? ORDER BY report_date DESC LIMIT 14').all(req.user.id)
+  const today = localToday()
+
+  let hasAltaToday = false
+  let hasCompletedAltaToday = false
+
+  if (req.user.role === 'subdirector') {
+    hasAltaToday = db.prepare(`
+      SELECT COUNT(*) as n FROM tasks t
+      JOIN task_assignees ta ON ta.task_id = t.id
+      WHERE ta.user_id = ? AND t.priority = 'alta' AND t.week_date = ?
+    `).get(req.user.id, today).n > 0
+    hasCompletedAltaToday = db.prepare(`
+      SELECT COUNT(*) as n FROM tasks t
+      JOIN task_assignees ta ON ta.task_id = t.id
+      WHERE ta.user_id = ? AND t.priority = 'alta' AND DATE(t.closed_at) = ?
+    `).get(req.user.id, today).n > 0
+  } else if (req.user.role === 'director') {
+    hasAltaToday = db.prepare(`
+      SELECT COUNT(*) as n FROM tasks t
+      WHERE (t.direccion = ? OR EXISTS (
+        SELECT 1 FROM task_assignees ta JOIN users u ON ta.user_id = u.id
+        WHERE ta.task_id = t.id AND u.direccion = ?
+      )) AND t.priority = 'alta' AND t.week_date = ?
+    `).get(req.user.direccion, req.user.direccion, today).n > 0
+    hasCompletedAltaToday = db.prepare(`
+      SELECT COUNT(*) as n FROM tasks t
+      WHERE (t.direccion = ? OR EXISTS (
+        SELECT 1 FROM task_assignees ta JOIN users u ON ta.user_id = u.id
+        WHERE ta.task_id = t.id AND u.direccion = ?
+      )) AND t.priority = 'alta' AND DATE(t.closed_at) = ?
+    `).get(req.user.direccion, req.user.direccion, today).n > 0
+  }
+
+  res.json({ reports, hasAltaToday, hasCompletedAltaToday })
 })
 
 // ─── CONVENIOS ────────────────────────────────────────────────────────────────
