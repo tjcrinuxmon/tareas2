@@ -202,6 +202,12 @@ export default function ReportView({ user }) {
 
   const periodLabel = filterMode === 'week' && weekFilter ? formatWeek(weekFilter) : 'Todo el período'
 
+  const weekEnd = (weekFilter) => {
+    const d = new Date(weekFilter + 'T12:00:00')
+    d.setDate(d.getDate() + 4)
+    return localToday(d)
+  }
+
   const handlePDFCreadas = async () => {
     const win = window.open('', '_blank', 'width=1050,height=750')
     if (!win) { alert('El navegador bloqueó la ventana. Permite ventanas emergentes para este sitio.'); return }
@@ -209,7 +215,7 @@ export default function ReportView({ user }) {
     setGeneratingPDF(true)
     try {
       const params = {
-        ...(filterMode === 'week' && weekFilter ? { date_from: weekFilter, date_to: weekFilter } : {}),
+        ...(filterMode === 'week' && weekFilter ? { date_from: weekFilter, date_to: weekEnd(weekFilter) } : {}),
         hideCompleted: 'false',
         limit: 10000,
         page: 1,
@@ -228,7 +234,7 @@ export default function ReportView({ user }) {
     setGeneratingPDF(true)
     try {
       const params = {
-        ...(filterMode === 'week' && weekFilter ? { date_from: weekFilter, date_to: weekFilter } : {}),
+        ...(filterMode === 'week' && weekFilter ? { date_from: weekFilter, date_to: weekEnd(weekFilter) } : {}),
         status: 'completada',
         hideCompleted: 'false',
         limit: 10000,

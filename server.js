@@ -817,7 +817,7 @@ app.get('/api/report', (req, res) => {
     const { week } = req.query
     const conditions = []
     const params = []
-    if (week) { conditions.push('week_date = ?'); params.push(week) }
+    if (week) { conditions.push("week_date >= ? AND week_date <= DATE(?, '+4 days')"); params.push(week, week) }
     if (req.user.role === 'subdirector' || req.user.role === 'director') { conditions.push('direccion = ?'); params.push(req.user.direccion) }
     const where = conditions.length ? 'WHERE ' + conditions.join(' AND ') : ''
     const stats = db.prepare(`
