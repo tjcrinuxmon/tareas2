@@ -178,7 +178,7 @@ export default function App() {
             user={user}
           />
         )}
-        {view === 'report' && <ReportView user={user} />}
+        {view === 'report' && <ReportView key={refreshKey} user={user} />}
         {view === 'calendar' && <CalendarReport />}
         {view === 'enlace' && (user?.role === 'admin' || user?.role === 'ejecutiva' || user?.direccion === 'enlace_interinstitucional') && <EnlaceReports user={user} />}
         {view === 'users' && user?.role === 'admin' && <UserManagement />}

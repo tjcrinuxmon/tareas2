@@ -490,6 +490,9 @@ app.delete('/api/tasks/:id', (req, res) => {
   try {
     const task = db.prepare('SELECT * FROM tasks WHERE id = ?').get(req.params.id)
     if (!task) return res.status(404).json({ error: 'Tarea no encontrada' })
+    if (task.status === 'completada' || task.closed_at) {
+      return res.status(403).json({ error: 'No se puede eliminar una tarea cerrada o completada' })
+    }
     const { role, id: userId } = req.user
     const isOwner = task.created_by_id === userId
     if (role !== 'admin' && role !== 'ejecutiva' && !isOwner) {

@@ -40,8 +40,8 @@ export default function CalendarReport() {
   useEffect(() => {
     setLoading(true)
     setError(null)
-    getTasks()
-      .then(setTasks)
+    getTasks({ limit: 1000, hideCompleted: 'false' })
+      .then(raw => setTasks(Array.isArray(raw) ? raw : (raw?.tasks ?? [])))
       .catch(() => setError('Error al cargar las tareas.'))
       .finally(() => setLoading(false))
   }, [])

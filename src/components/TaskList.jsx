@@ -157,6 +157,11 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
     ? tasks.filter(t => t.direccion !== user?.direccion || (t.assignee_area_count || 0) > 1)
     : []
 
+  const knownKeys = new Set(DIRECCIONES.map(d => d.key))
+  const unclassifiedTasks = !restricted && !filters.direccion
+    ? tasks.filter(t => !knownKeys.has(t.direccion) && (t.assignee_area_count || 0) <= 1)
+    : []
+
   const grouped = !filters.direccion
     ? DIRECCIONES.map((dir) => ({
         dir,
@@ -393,6 +398,19 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
               onTaskClick={onTaskClick}
             />
           ))}
+
+          {/* Unclassified — tasks with a direction not in DIRECCIONES */}
+          {unclassifiedTasks.length > 0 && (
+            <AreaSection
+              sectionKey="__unclassified__"
+              color="#6B7280"
+              label="Sin área asignada"
+              tasks={unclassifiedTasks}
+              areaPages={areaPages}
+              setAreaPages={setAreaPages}
+              onTaskClick={onTaskClick}
+            />
+          )}
 
           {/* Cross-area section — restricted users (director/subdirector) */}
           {crossAreaTasks.length > 0 && (

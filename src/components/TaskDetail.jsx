@@ -274,7 +274,8 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
   const isEjecutiva = user?.role === 'ejecutiva'
   const isCreator = task?.created_by_id === user?.id
   const isPrivileged = user?.role === 'ejecutiva' || user?.role === 'admin'
-  const canDelete = isPrivileged || isCreator
+  const isClosed = task?.status === 'completada' || !!task?.closed_at
+  const canDelete = (isPrivileged || isCreator) && !isClosed
   const isAssignee = task?.assignees?.some(a => a.id === user?.id) || task?.assigned_to === user?.id
   const canComment = isPrivileged ||
     (user?.role === 'director' && (task?.direccion === user?.direccion || isAssignee)) ||
