@@ -462,7 +462,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                   </svg>
                   Compartir
                 </button>
-                {!task.closed_at && (
+                {!task.closed_at && (isCreator || isPrivileged) && (
                   <button
                     onClick={() => onEdit(task)}
                     className="btn-outline"
