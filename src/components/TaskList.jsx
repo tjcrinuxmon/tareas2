@@ -308,7 +308,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
               <label className="ine-label mb-0">Estado:</label>
               <select value={filters.status || ''} onChange={handleStatusChange}
                 className="ine-input" style={{ width: 'auto', padding: '6px 10px', fontSize: '13px' }}>
-                <option value="">Todos</option>
+                <option value="">Elige estado</option>
                 {Object.entries(STATUS_CONFIG).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
               </select>
             </div>
