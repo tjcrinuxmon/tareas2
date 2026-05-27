@@ -1083,6 +1083,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
               {fileError && <ErrorBox msg={fileError} />}
 
               {/* PIDI Drag & Drop zone */}
+              {!isClosed && (
               <div
                 onDrop={handleDrop}
                 onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
@@ -1114,6 +1115,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                 </label>
                 <p className="text-xs text-ine-dim mt-3">Máximo 20MB · PDF, DOCX, XLSX, JPG, PNG</p>
               </div>
+              )}
 
               {/* PIDI Estatus de Carga */}
               {!task.attachments?.length
