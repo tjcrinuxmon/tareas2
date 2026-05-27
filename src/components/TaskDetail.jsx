@@ -90,6 +90,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
   const [progressPct, setProgressPct] = useState(0)
   const [savingProgress, setSavingProgress] = useState(false)
   const [progressError, setProgressError] = useState(null)
+  const [pendingProgressContent, setPendingProgressContent] = useState(null)
 
   const [commentContent, setCommentContent] = useState('')
   const [savingComment, setSavingComment] = useState(false)
@@ -153,17 +154,22 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
   const handleAddProgress = async (e) => {
     e.preventDefault()
     if (!progressContent.trim()) { setProgressError('El contenido del avance es requerido.'); return }
+
+    if (progressPct === 100) {
+      // Don't save yet — hold content and open close form; saved atomically on submit
+      setPendingProgressContent(progressContent.trim())
+      setShowCloseForm(true)
+      setCloseError(null)
+      return
+    }
+
     setSavingProgress(true); setProgressError(null)
     try {
-      const pct = progressPct
-      await addProgress(taskId, { content: progressContent.trim(), percentage: pct })
+      await addProgress(taskId, { content: progressContent.trim(), percentage: progressPct })
       setProgressContent('')
+      setProgressPct(0)
       await fetchTask()
       onRefresh()
-      if (pct === 100) {
-        setShowCloseForm(true)
-        setCloseError(null)
-      }
     } catch { setProgressError('Error al registrar el avance.') }
     finally { setSavingProgress(false) }
   }
@@ -218,6 +224,12 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
     if (!closureNotes.trim()) { setCloseError('La síntesis de cierre es requerida.'); return }
     setSavingClose(true); setCloseError(null)
     try {
+      if (pendingProgressContent) {
+        await addProgress(taskId, { content: pendingProgressContent, percentage: 100 })
+        setPendingProgressContent(null)
+        setProgressContent('')
+        setProgressPct(0)
+      }
       const fd = new FormData()
       fd.append('closure_notes', closureNotes.trim())
       fd.append('closed_at', closureDate)
@@ -477,7 +489,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                 )}
                 {canClose && (
                   <button
-                    onClick={() => { setShowCloseForm(!showCloseForm); setCloseError(null) }}
+                    onClick={() => { setShowCloseForm(!showCloseForm); setCloseError(null); if (showCloseForm) setPendingProgressContent(null) }}
                     className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg transition-colors"
                     style={{ background: showCloseForm ? 'rgba(220,38,38,.07)' : 'rgba(5,150,105,.09)', border: showCloseForm ? '1px solid rgba(220,38,38,.25)' : '1px solid rgba(5,150,105,.3)', color: showCloseForm ? '#B91C1C' : '#059669' }}
                   >
@@ -1086,7 +1098,8 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
               {fileError && <ErrorBox msg={fileError} />}
 
               {/* PIDI Drag & Drop zone */}
-              {!isClosed && (
+              {!isClosed && (task.progress_updates?.length > 0
+                ? (
               <div
                 onDrop={handleDrop}
                 onDragOver={(e) => { e.preventDefault(); setIsDragging(true) }}
@@ -1118,6 +1131,11 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                 </label>
                 <p className="text-xs text-ine-dim mt-3">Máximo 20MB · PDF, DOCX, XLSX, JPG, PNG</p>
               </div>
+                ) : (
+                  <p className="text-xs text-center py-4 mb-2" style={{ color: '#9CA3AF' }}>
+                    Registra un avance primero para poder adjuntar archivos.
+                  </p>
+                )
               )}
 
               {/* PIDI Estatus de Carga */}
@@ -1141,6 +1159,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                               </svg>
                             </a>
+                            {(isCreator || isPrivileged) && (
                             <button onClick={() => handleDeleteFile(att.id)}
                                     className="p-1.5 rounded-lg transition-colors" title="Eliminar"
                                     style={{ color: '#DC2626' }}
@@ -1150,6 +1169,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                               </svg>
                             </button>
+                            )}
                           </div>
                         </div>
                         <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: '#EDE8F4' }}>

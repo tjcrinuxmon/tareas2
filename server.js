@@ -363,6 +363,10 @@ app.post('/api/tasks', (req, res) => {
     if (!title || !direccion || !week_date) {
       return res.status(400).json({ error: 'Título, dirección y semana son requeridos' })
     }
+    const todayStr = new Date().toLocaleDateString('sv', { timeZone: 'America/Mexico_City' })
+    if (week_date < todayStr) {
+      return res.status(400).json({ error: 'La fecha de vencimiento no puede ser anterior a hoy.' })
+    }
     const p = ['alta','media','baja'].includes(priority) ? priority : 'media'
     const assigneeIds = Array.isArray(assigned_to)
       ? assigned_to.map(Number).filter(Boolean)

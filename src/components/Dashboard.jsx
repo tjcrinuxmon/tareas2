@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getTasksStats, getTasks } from '../api.js'
-import { DIRECCIONES, formatDate } from '../constants.js'
+import { DIRECCIONES, formatDate, localToday } from '../constants.js'
 
 function DimLabel({ children }) {
   return (
@@ -41,8 +41,21 @@ export default function Dashboard({ user, onNavigate, onFilterChange }) {
       .finally(() => setLoadingUrgentes(false))
   }, [])
 
+  const addDays = (base, n) => {
+    const d = new Date(base + 'T12:00:00')
+    d.setDate(d.getDate() + n)
+    return localToday(d)
+  }
+
   const goToTasks = (statusFilter) => {
-    onFilterChange({ status: statusFilter || '', direccion: '', date_from: '', date_to: '', priority: '' })
+    const today = localToday()
+    if (statusFilter === 'por_vencer') {
+      onFilterChange({ status: '', direccion: '', date_from: today, date_to: addDays(today, 2), priority: '' })
+    } else if (statusFilter === 'a_tiempo') {
+      onFilterChange({ status: '', direccion: '', date_from: addDays(today, 3), date_to: '', priority: '' })
+    } else {
+      onFilterChange({ status: statusFilter || '', direccion: '', date_from: '', date_to: '', priority: '' })
+    }
   }
 
   const skeleton = (n) =>

@@ -111,6 +111,7 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!form.title.trim()) { setError('El título es requerido.'); return }
+    if (form.week_date < localToday()) { setError('La fecha de vencimiento no puede ser anterior a hoy.'); return }
     if (isClosing && !closureNotes.trim()) { setError('La síntesis de cierre es requerida.'); return }
     setSaving(true)
     setError(null)
@@ -347,7 +348,7 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
             <div>
               <label className="ine-label">Fecha de vencimiento <span className="ine-required">*</span></label>
               <input type="date" name="week_date" value={form.week_date} onChange={handleChange}
-                required className="ine-input" />
+                required min={localToday()} className="ine-input" />
             </div>
 
             {isEdit && (
