@@ -9,7 +9,9 @@ import bcrypt from 'bcryptjs'
 import nodemailer from 'nodemailer'
 import { fileURLToPath } from 'url'
 import { dirname, join, extname } from 'path'
-import { existsSync, mkdirSync, unlinkSync } from 'fs'
+import { existsSync, mkdirSync, unlinkSync, readFileSync } from 'fs'
+import { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, ImageRun, AlignmentType, BorderStyle, WidthType, VerticalAlign } from 'docx'
+import sharp from 'sharp'
 import db from './db.js'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -1135,6 +1137,215 @@ app.delete('/api/dal/:section/:id', (req, res) => {
   if (!DAL_SECTIONS.has(req.params.section)) return res.status(400).json({ error: 'Sección inválida' })
   db.prepare('DELETE FROM dal_records WHERE id = ? AND section = ?').run(req.params.id, req.params.section)
   res.json({ ok: true })
+})
+
+/* ── OFICIOS ─────────────────────────────────────────────────────────────── */
+
+function formatOficioDate(dateStr) {
+  if (!dateStr) return ''
+  const [y, m, d] = dateStr.split('-').map(Number)
+  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']
+  return `${d} de ${meses[m - 1]} de ${y}`
+}
+
+async function buildLogoBuffer() {
+  try {
+    const pngPath = join(__dirname, 'assets', 'ine-logo.png')
+    const svgPath = join(__dirname, 'assets', 'ine-logo.svg')
+    if (existsSync(pngPath)) return readFileSync(pngPath)
+    if (existsSync(svgPath)) {
+      return await sharp(readFileSync(svgPath)).resize(100, 100, { fit: 'inside' }).png().toBuffer()
+    }
+  } catch (_) {}
+  return null
+}
+
+const NONEBRDR = { style: BorderStyle.NONE, size: 0, color: 'auto' }
+
+async function generateOficioDocx(oficio) {
+  const logoBuffer = await buildLogoBuffer()
+  const PURPLE = '582E73'
+  const GRAY = '9CA3AF'
+  const BLACK = '111827'
+
+  const noBorders = { top: NONEBRDR, bottom: NONEBRDR, left: NONEBRDR, right: NONEBRDR }
+  const noTableBorders = { ...noBorders, insideHorizontal: NONEBRDR, insideVertical: NONEBRDR }
+
+  const logoCell = new TableCell({
+    width: { size: 20, type: WidthType.PERCENTAGE },
+    verticalAlign: VerticalAlign.CENTER,
+    borders: noBorders,
+    children: [
+      new Paragraph({
+        children: logoBuffer
+          ? [new ImageRun({ data: logoBuffer, transformation: { width: 72, height: 72 } })]
+          : [new TextRun({ text: 'INE', bold: true, size: 32, color: PURPLE, font: 'Arial' })],
+      }),
+    ],
+  })
+
+  const infoCell = new TableCell({
+    width: { size: 80, type: WidthType.PERCENTAGE },
+    verticalAlign: VerticalAlign.CENTER,
+    borders: noBorders,
+    children: [
+      new Paragraph({
+        alignment: AlignmentType.RIGHT,
+        children: [new TextRun({ text: 'DIRECCIÓN EJECUTIVA DE ASUNTOS JURÍDICOS', bold: true, size: 19, color: PURPLE, font: 'Arial' })],
+      }),
+      new Paragraph({
+        alignment: AlignmentType.RIGHT,
+        spacing: { after: 0 },
+        children: [new TextRun({ text: oficio.numero_completo, bold: true, size: 19, color: BLACK, font: 'Arial' })],
+      }),
+    ],
+  })
+
+  const headerTable = new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    borders: noTableBorders,
+    rows: [new TableRow({ children: [logoCell, infoCell] })],
+  })
+
+  const separator = new Paragraph({
+    border: { bottom: { color: PURPLE, space: 1, style: BorderStyle.SINGLE, size: 20 } },
+    spacing: { before: 100, after: 300 },
+    children: [],
+  })
+
+  const datePara = new Paragraph({
+    alignment: AlignmentType.RIGHT,
+    spacing: { after: 100 },
+    children: [new TextRun({ text: `Ciudad de México, a ${formatOficioDate(oficio.fecha)}.`, italics: true, size: 22, font: 'Arial' })],
+  })
+
+  const asuntoPara = new Paragraph({
+    alignment: AlignmentType.RIGHT,
+    spacing: { after: 400 },
+    children: [new TextRun({ text: `Asunto: ${oficio.asunto}.`, size: 22, font: 'Arial' })],
+  })
+
+  const recipientParas = [
+    new Paragraph({ spacing: { after: 20 }, children: [new TextRun({ text: oficio.destinatario_nombre, bold: true, size: 22, font: 'Arial' })] }),
+    new Paragraph({ spacing: { after: 20 }, children: [new TextRun({ text: oficio.destinatario_cargo, size: 22, font: 'Arial' })] }),
+  ]
+  if (oficio.destinatario_area?.trim()) {
+    recipientParas.push(new Paragraph({ spacing: { after: 20 }, children: [new TextRun({ text: oficio.destinatario_area, size: 22, font: 'Arial' })] }))
+  }
+  recipientParas.push(new Paragraph({ spacing: { after: 300 }, children: [] }))
+
+  const bodyLines = oficio.cuerpo.split('\n')
+  const bodyParas = bodyLines.map(line =>
+    new Paragraph({
+      alignment: AlignmentType.JUSTIFIED,
+      spacing: { after: 180, line: 360 },
+      children: [new TextRun({ text: line.trim() || ' ', size: 22, font: 'Arial' })],
+    })
+  )
+
+  const sigSpace = new Paragraph({ spacing: { before: 800, after: 0 }, children: [] })
+
+  const sigName = new Paragraph({
+    alignment: AlignmentType.CENTER,
+    spacing: { after: 60 },
+    children: [new TextRun({ text: oficio.firmante_nombre.toUpperCase(), bold: true, size: 22, color: BLACK, font: 'Arial' })],
+  })
+
+  const sigCargo = new Paragraph({
+    alignment: AlignmentType.CENTER,
+    spacing: { after: 100 },
+    children: [new TextRun({ text: oficio.firmante_cargo || 'Directora Ejecutiva de Asuntos Jurídicos', size: 22, font: 'Arial' })],
+  })
+
+  const sigNote = new Paragraph({
+    alignment: AlignmentType.CENTER,
+    spacing: { after: 500 },
+    children: [new TextRun({ text: 'Firmado electrónicamente con base en el Acuerdo INE/CG199/2021', italics: true, size: 17, color: GRAY, font: 'Arial' })],
+  })
+
+  const ccpParas = [
+    new Paragraph({ spacing: { before: 100, after: 60 }, children: [new TextRun({ text: 'C.c.p.', bold: true, size: 20, font: 'Arial' })] }),
+    new Paragraph({ spacing: { after: 40 }, children: [new TextRun({ text: '- Consejera Presidenta.', size: 20, font: 'Arial' })] }),
+    new Paragraph({ spacing: { after: 40 }, children: [new TextRun({ text: '- Secretaria Ejecutiva.', size: 20, font: 'Arial' })] }),
+  ]
+
+  if (oficio.ccp_extra?.trim()) {
+    for (const line of oficio.ccp_extra.split('\n').filter(l => l.trim())) {
+      ccpParas.push(new Paragraph({ spacing: { after: 40 }, children: [new TextRun({ text: `- ${line.trim()}`, size: 20, font: 'Arial' })] }))
+    }
+  }
+
+  const doc = new Document({
+    sections: [{
+      properties: {
+        page: {
+          size: { width: 12240, height: 15840 },
+          margin: { top: 1080, bottom: 1080, left: 1800, right: 1800 },
+        },
+      },
+      children: [
+        headerTable,
+        separator,
+        datePara,
+        asuntoPara,
+        ...recipientParas,
+        ...bodyParas,
+        sigSpace,
+        sigName,
+        sigCargo,
+        sigNote,
+        ...ccpParas,
+      ],
+    }],
+  })
+
+  return Packer.toBuffer(doc)
+}
+
+app.get('/api/oficios', (req, res) => {
+  const rows = db.prepare('SELECT * FROM oficios ORDER BY year DESC, numero DESC').all()
+  res.json(rows)
+})
+
+app.post('/api/oficios', async (req, res) => {
+  try {
+    const { fecha, asunto, destinatario_nombre, destinatario_cargo, destinatario_area, cuerpo, ccp_extra } = req.body
+    if (!fecha?.trim() || !asunto?.trim() || !destinatario_nombre?.trim() || !destinatario_cargo?.trim() || !cuerpo?.trim()) {
+      return res.status(400).json({ error: 'Faltan campos obligatorios.' })
+    }
+    const year = new Date().getFullYear()
+    const { maxNum } = db.prepare('SELECT COALESCE(MAX(numero), 0) as maxNum FROM oficios WHERE year = ?').get(year)
+    const numero = maxNum + 1
+    const numero_completo = `INE/DEAJ/${numero}/${year}`
+
+    const firmante_nombre = req.user.name
+    const firmante_cargo  = req.user.puesto || 'Directora Ejecutiva de Asuntos Jurídicos'
+
+    const result = db.prepare(`
+      INSERT INTO oficios (numero, year, numero_completo, fecha, asunto, destinatario_nombre, destinatario_cargo, destinatario_area, cuerpo, ccp_extra, firmante_nombre, firmante_cargo, created_by_id)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(numero, year, numero_completo, fecha.trim(), asunto.trim(), destinatario_nombre.trim(), destinatario_cargo.trim(), destinatario_area?.trim() || null, cuerpo.trim(), ccp_extra?.trim() || null, firmante_nombre, firmante_cargo, req.user.id)
+
+    res.status(201).json(db.prepare('SELECT * FROM oficios WHERE id = ?').get(result.lastInsertRowid))
+  } catch (e) {
+    console.error('[oficios] create error:', e.message)
+    res.status(500).json({ error: 'Error al crear el oficio.' })
+  }
+})
+
+app.get('/api/oficios/:id/download', async (req, res) => {
+  try {
+    const oficio = db.prepare('SELECT * FROM oficios WHERE id = ?').get(req.params.id)
+    if (!oficio) return res.status(404).json({ error: 'Oficio no encontrado.' })
+    const buffer = await generateOficioDocx(oficio)
+    const filename = `${oficio.numero_completo.replace(/\//g, '-')}.docx`
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`)
+    res.send(buffer)
+  } catch (e) {
+    console.error('[oficios] download error:', e.message)
+    res.status(500).json({ error: 'Error al generar el documento.' })
+  }
 })
 
 app.use('/tareas2', express.static(join(__dirname, 'dist')))

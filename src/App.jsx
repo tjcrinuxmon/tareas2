@@ -13,6 +13,7 @@ import UserManagement from './components/UserManagement.jsx'
 import ConveniosView from './components/ConveniosView.jsx'
 import ConveniosReport from './components/ConveniosReport.jsx'
 import DALView from './components/DALView.jsx'
+import OficiosView from './components/OficiosView.jsx'
 import { getToken, getUser, setAuth, clearAuth } from './auth.js'
 
 export default function App() {
@@ -186,6 +187,7 @@ export default function App() {
         {view === 'convenios-report' && user?.role === 'admin' && <ConveniosReport />}
         {view === 'dal' && (user?.role === 'admin' || user?.role === 'ejecutiva' || user?.direccion === 'asuntos_laborales') && <DALView user={user} />}
         {view === 'dal-dashboard' && (user?.role === 'admin' || user?.role === 'ejecutiva') && <DALView user={user} dashboardOnly />}
+        {view === 'oficios' && <OficiosView user={user} />}
       </main>
 
       <footer

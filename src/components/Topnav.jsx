@@ -39,15 +39,16 @@ export default function Topnav({
   const canSeeDal       = user?.role === 'admin' || user?.role === 'ejecutiva' || user?.direccion === 'asuntos_laborales'
   const canSeeDalDash   = user?.role === 'admin' || user?.role === 'ejecutiva'
   const isAdmin         = user?.role === 'admin'
+  const canSeeOficios   = true
 
   const activeDir    = DIRECCIONES.find(d => d.key === filters.direccion)
   const isAllActive  = filters.direccion === '' && currentView === 'tasks'
   const isMyActive   = filters.direccion === (user?.direccion || '') && currentView === 'tasks'
   const reportActive = ['enlace', 'report', 'convenios-report'].includes(currentView)
-  const actActive    = ['convenios', 'dal', 'dal-dashboard'].includes(currentView)
+  const actActive    = ['convenios', 'dal', 'dal-dashboard', 'oficios'].includes(currentView)
   const adminActive  = currentView === 'users'
 
-  const hasActividades = canSeeConvenios || canSeeDal || canSeeDalDash
+  const hasActividades = canSeeConvenios || canSeeDal || canSeeDalDash || canSeeOficios
 
   return (
     <header
@@ -213,6 +214,14 @@ export default function Topnav({
                     onClick={() => nav('dal-dashboard')}
                     icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M11 3H3v8h8V3zm10 0h-8v5h8V3zm0 9h-8v9h8v-9zm-10 4H3v5h8v-5z"/></svg>}
                     label="Dashboard Laborales"
+                  />
+                )}
+                {canSeeOficios && (
+                  <DropItem
+                    active={currentView === 'oficios'}
+                    onClick={() => nav('oficios')}
+                    icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>}
+                    label="Oficios"
                   />
                 )}
               </DropMenu>

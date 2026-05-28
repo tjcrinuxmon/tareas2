@@ -125,6 +125,12 @@ export const deleteDalRecord = (section, id)       => api.delete(`/dal/${section
 export const seedDalSection  = (section, records, force) =>
   api.post(`/dal/${section}/batch${force ? '?force=1' : ''}`, records).then(r => r.data)
 
+// ─── OFICIOS ──────────────────────────────────────────────────────────────────
+
+export const getOficios    = ()     => api.get('/oficios').then(r => r.data)
+export const createOficio  = (data) => api.post('/oficios', data).then(r => r.data)
+export const downloadOficio = (id)  => api.get(`/oficios/${id}/download`, { responseType: 'blob' }).then(r => r.data)
+
 // ─── NOTIFICATIONS ────────────────────────────────────────────────────────────
 
 export const getNotifications = () =>

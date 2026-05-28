@@ -325,4 +325,24 @@ db.exec(`
 `)
 try { db.exec('CREATE INDEX IF NOT EXISTS idx_dal_section ON dal_records(section)') } catch (_) {}
 
+db.exec(`
+  CREATE TABLE IF NOT EXISTS oficios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    numero INTEGER NOT NULL,
+    year INTEGER NOT NULL,
+    numero_completo TEXT NOT NULL,
+    fecha TEXT NOT NULL,
+    asunto TEXT NOT NULL,
+    destinatario_nombre TEXT NOT NULL,
+    destinatario_cargo TEXT NOT NULL,
+    destinatario_area TEXT,
+    cuerpo TEXT NOT NULL,
+    ccp_extra TEXT,
+    firmante_nombre TEXT NOT NULL,
+    firmante_cargo TEXT,
+    created_by_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`)
+
 export default db
