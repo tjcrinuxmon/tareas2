@@ -82,7 +82,7 @@ function fmtShort(dateStr) {
   return d.toLocaleDateString('es-MX', { day: '2-digit', month: '2-digit', year: 'numeric' })
 }
 
-const pdfStyles = `*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;color:#1A1219;padding:32px;font-size:13px}.header{border-bottom:3px solid #582E73;padding-bottom:12px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:flex-end}.brand{font-size:17px;font-weight:900;color:#582E73}.brand small{display:block;font-size:10px;font-weight:400;color:#6B5F78;margin-top:2px}.print-date{font-size:11px;color:#6B5F78}h1{font-size:16px;font-weight:900;color:#1A1219;margin-bottom:4px}.sub{font-size:11px;color:#6B5F78;margin-bottom:16px}table{width:100%;border-collapse:collapse;margin-bottom:20px}th{background:#2A1239;color:rgba(255,255,255,.85);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;text-align:left}.summary{display:flex;gap:20px;flex-wrap:wrap;margin-top:8px}.chip{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700}.footer{margin-top:28px;padding-top:10px;border-top:1px solid #EDE8F4;font-size:10px;color:#A090B0;text-align:center}@media print{body{padding:16px}}`
+const pdfStyles = `*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;color:#1A1219;padding:32px;font-size:13px}.header{border-bottom:3px solid #674092;padding-bottom:12px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:flex-end}.brand{font-size:17px;font-weight:900;color:#674092}.brand small{display:block;font-size:10px;font-weight:400;color:#6B5F78;margin-top:2px}.print-date{font-size:11px;color:#6B5F78}h1{font-size:16px;font-weight:900;color:#1A1219;margin-bottom:4px}.sub{font-size:11px;color:#6B5F78;margin-bottom:16px}table{width:100%;border-collapse:collapse;margin-bottom:20px}th{background:#2A1239;color:rgba(255,255,255,.85);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;text-align:left}.summary{display:flex;gap:20px;flex-wrap:wrap;margin-top:8px}.chip{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700}.footer{margin-top:28px;padding-top:10px;border-top:1px solid #EDE8F4;font-size:10px;color:#A090B0;text-align:center}@media print{body{padding:16px}}`
 
 const sortByDir = (a, b) =>
   DIRECCIONES.findIndex(d => d.key === a.direccion) - DIRECCIONES.findIndex(d => d.key === b.direccion)
@@ -112,7 +112,7 @@ function buildSolicitadosPDF(tasks, weekLabel) {
   <table><thead><tr><th>Área</th><th>Descripción</th><th>Fecha de creación</th><th>Fecha de vencimiento</th></tr></thead>
   <tbody>${rows||'<tr><td colspan="4" style="padding:14px;text-align:center;color:#6B5F78">Sin actividades en el período seleccionado</td></tr>'}</tbody></table>
   <div class="summary">
-    <div class="chip" style="background:#F3EDF9;color:#582E73">Total: ${sorted.length}</div>
+    <div class="chip" style="background:#F3EDF9;color:#674092">Total: ${sorted.length}</div>
     <div class="chip" style="background:rgba(5,150,105,.09);color:#047857">En tiempo: ${enTiempo}</div>
     ${vencidas.length>0?`<div class="chip" style="background:rgba(220,38,38,.09);color:#DC2626">Vencidas: ${vencidas.length}</div>`:''}
   </div>
@@ -148,7 +148,7 @@ function buildConcluidosPDF(tasks, weekLabel) {
   <table><thead><tr><th>Área</th><th>Descripción</th><th>Fecha de creación</th><th>Fecha de vencimiento</th><th>Fecha de cierre</th></tr></thead>
   <tbody>${rows||'<tr><td colspan="5" style="padding:14px;text-align:center;color:#6B5F78">Sin actividades cerradas en el período seleccionado</td></tr>'}</tbody></table>
   <div class="summary">
-    <div class="chip" style="background:#F3EDF9;color:#582E73">Total cerradas: ${sorted.length}</div>
+    <div class="chip" style="background:#F3EDF9;color:#674092">Total cerradas: ${sorted.length}</div>
     <div class="chip" style="background:rgba(5,150,105,.09);color:#047857">En tiempo: ${onTime.length}</div>
     ${late.length>0?`<div class="chip" style="background:rgba(220,38,38,.09);color:#DC2626">Fuera de tiempo: ${late.length}</div>`:''}
   </div>
@@ -246,7 +246,7 @@ export default function EnlaceReports({ user }) {
     <div className="fade-in max-w-full">
       {/* Header */}
       <div className="bg-white rounded-xl mb-5 px-5 py-4 flex items-center justify-between gap-4 flex-wrap"
-        style={{ border:'1.5px solid #E2D9EE', borderLeft:'5px solid #E91E8C', boxShadow:'0 2px 8px rgba(88,46,115,.07)' }}>
+        style={{ border:'1.5px solid #E2D9EE', borderLeft:'5px solid #E91E8C', boxShadow:'0 2px 8px rgba(103,64,146,.07)' }}>
         <div>
           <h2 className="text-lg font-bold text-ine-text">Seguimiento Diario — DEAJ</h2>
           <p className="text-xs text-ine-muted mt-0.5">Asuntos relevantes de alta prioridad · Semana {weekLabel}</p>
@@ -331,7 +331,7 @@ export default function EnlaceReports({ user }) {
           <button key={t.key} onClick={() => setTab(t.key)}
             className="px-5 py-2 text-sm font-semibold rounded-lg transition-colors"
             style={tab === t.key
-              ? { background:'#582E73', color:'white' }
+              ? { background:'#674092', color:'white' }
               : { background:'white', color:'#6B5F78', border:'1.5px solid #E2D9EE' }}>
             {t.label}
           </button>
@@ -340,7 +340,7 @@ export default function EnlaceReports({ user }) {
 
       {loading
         ? <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-4 rounded-full animate-spin" style={{ borderColor:'#E2D9EE', borderTopColor:'#582E73' }} />
+            <div className="w-8 h-8 border-4 rounded-full animate-spin" style={{ borderColor:'#E2D9EE', borderTopColor:'#674092' }} />
           </div>
         : <MatrixTable
             key={tab}

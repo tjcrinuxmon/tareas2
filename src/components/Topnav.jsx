@@ -277,7 +277,7 @@ export default function Topnav({
 
         <div className="flex items-center gap-2 pl-2" style={{ borderLeft: '1px solid #E2D9EE' }}>
           <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
-            style={{ background: '#582E73' }}>
+            style={{ background: '#674092' }}>
             {user?.name?.charAt(0)?.toUpperCase()}
           </div>
           <div className="hidden md:block leading-none">
@@ -301,8 +301,8 @@ function NavBtn({ active, onClick, icon, label, hasArrow = false }) {
     <button
       onClick={onClick}
       className="flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium transition-all whitespace-nowrap flex-shrink-0"
-      style={active ? { background: '#582E73', color: 'white', fontWeight: 600 } : { color: '#6B5F78' }}
-      onMouseEnter={e => { if (!active) { e.currentTarget.style.background = '#F8F5FB'; e.currentTarget.style.color = '#582E73' } }}
+      style={active ? { background: '#674092', color: 'white', fontWeight: 600 } : { color: '#6B5F78' }}
+      onMouseEnter={e => { if (!active) { e.currentTarget.style.background = '#F8F5FB'; e.currentTarget.style.color = '#674092' } }}
       onMouseLeave={e => { if (!active) { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#6B5F78' } }}
     >
       <span style={active ? { color: 'white' } : { color: '#A090B0' }}>{icon}</span>
@@ -324,7 +324,7 @@ function DropMenu({ children, style = {} }) {
   return (
     <div
       className="absolute top-full mt-1 left-0 bg-white rounded-lg py-1 z-50"
-      style={{ border: '1px solid #E2D9EE', boxShadow: '0 8px 24px rgba(88,46,115,.14)', minWidth: 200, ...style }}
+      style={{ border: '1px solid #E2D9EE', boxShadow: '0 8px 24px rgba(103,64,146,.14)', minWidth: 200, ...style }}
     >
       {children}
     </div>
@@ -336,12 +336,12 @@ function DropItem({ active, onClick, icon, dot, label, badge }) {
     <button
       onClick={onClick}
       className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-left transition-colors"
-      style={active ? { color: '#582E73', fontWeight: 700, background: '#F8F5FB' } : { color: '#6B5F78' }}
+      style={active ? { color: '#674092', fontWeight: 700, background: '#F8F5FB' } : { color: '#6B5F78' }}
       onMouseEnter={e => { if (!active) e.currentTarget.style.background = '#F8F5FB' }}
       onMouseLeave={e => { if (!active) e.currentTarget.style.background = '' }}
     >
       {dot  && <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: dot }} />}
-      {icon && <span style={active ? { color: '#582E73' } : { color: '#A090B0' }}>{icon}</span>}
+      {icon && <span style={active ? { color: '#674092' } : { color: '#A090B0' }}>{icon}</span>}
       <span className="flex-1">{label}</span>
       {badge && (
         <span className="text-xs px-1.5 rounded-full font-semibold"

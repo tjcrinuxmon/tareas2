@@ -85,7 +85,7 @@ export default function OficiosView({ user }) {
     return (
       <div className="fade-in max-w-3xl mx-auto">
         <div className="bg-white rounded-xl mb-6 px-5 py-4"
-          style={{ border: '1.5px solid #E2D9EE', borderLeft: '5px solid #582E73', boxShadow: '0 2px 8px rgba(88,46,115,.07)' }}>
+          style={{ border: '1.5px solid #E2D9EE', borderLeft: '5px solid #674092', boxShadow: '0 2px 8px rgba(103,64,146,.07)' }}>
           <h2 className="text-lg font-bold text-ine-text">Nuevo Oficio</h2>
           <p className="text-xs text-ine-muted mt-0.5">Se generará el documento Word listo para descargar</p>
         </div>
@@ -218,7 +218,7 @@ export default function OficiosView({ user }) {
   return (
     <div className="fade-in max-w-5xl mx-auto">
       <div className="bg-white rounded-xl mb-6 px-5 py-4 flex items-center justify-between"
-        style={{ border: '1.5px solid #E2D9EE', borderLeft: '5px solid #582E73', boxShadow: '0 2px 8px rgba(88,46,115,.07)' }}>
+        style={{ border: '1.5px solid #E2D9EE', borderLeft: '5px solid #674092', boxShadow: '0 2px 8px rgba(103,64,146,.07)' }}>
         <div>
           <h2 className="text-lg font-bold text-ine-text">Oficios</h2>
           <p className="text-xs text-ine-muted mt-0.5">Generación y registro de oficios INE · DEAJ</p>
@@ -233,18 +233,18 @@ export default function OficiosView({ user }) {
 
       {loading ? (
         <div className="flex justify-center py-16">
-          <div className="w-8 h-8 border-4 rounded-full animate-spin" style={{ borderColor: '#E2D9EE', borderTopColor: '#582E73' }} />
+          <div className="w-8 h-8 border-4 rounded-full animate-spin" style={{ borderColor: '#E2D9EE', borderTopColor: '#674092' }} />
         </div>
       ) : oficios.length === 0 ? (
         <div className="bg-white rounded-xl py-16 text-center" style={{ border: '1.5px solid #E2D9EE' }}>
-          <svg className="w-12 h-12 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#582E73' }}>
+          <svg className="w-12 h-12 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#674092' }}>
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
           </svg>
           <p className="text-sm font-semibold text-ine-text">No hay oficios registrados</p>
           <p className="text-xs text-ine-muted mt-1">Crea el primer oficio con el botón de arriba</p>
         </div>
       ) : (
-        <div className="bg-white rounded-xl overflow-hidden" style={{ border: '1.5px solid #E2D9EE', boxShadow: '0 2px 8px rgba(88,46,115,.05)' }}>
+        <div className="bg-white rounded-xl overflow-hidden" style={{ border: '1.5px solid #E2D9EE', boxShadow: '0 2px 8px rgba(103,64,146,.05)' }}>
           <table className="w-full text-sm">
             <thead>
               <tr style={{ borderBottom: '1px solid #E2D9EE', background: '#F8F5FB' }}>
@@ -260,7 +260,7 @@ export default function OficiosView({ user }) {
               {oficios.map(o => (
                 <tr key={o.id} className="hover:bg-ine-bg transition-colors">
                   <td className="px-5 py-3">
-                    <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded" style={{ background: '#F3EFF8', color: '#582E73' }}>
+                    <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded" style={{ background: '#F3EFF8', color: '#674092' }}>
                       {o.numero_completo}
                     </span>
                   </td>
@@ -279,10 +279,10 @@ export default function OficiosView({ user }) {
                       onClick={() => handleDownload(o)}
                       disabled={downloading === o.id}
                       className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors"
-                      style={{ background: '#F3EFF8', color: '#582E73', border: '1px solid #E2D9EE', opacity: downloading === o.id ? 0.5 : 1 }}
+                      style={{ background: '#F3EFF8', color: '#674092', border: '1px solid #E2D9EE', opacity: downloading === o.id ? 0.5 : 1 }}
                     >
                       {downloading === o.id ? (
-                        <span className="w-3.5 h-3.5 border-2 rounded-full animate-spin inline-block" style={{ borderColor: '#E2D9EE', borderTopColor: '#582E73' }} />
+                        <span className="w-3.5 h-3.5 border-2 rounded-full animate-spin inline-block" style={{ borderColor: '#E2D9EE', borderTopColor: '#674092' }} />
                       ) : (
                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />

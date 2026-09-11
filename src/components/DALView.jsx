@@ -95,7 +95,7 @@ function FieldInput({ schema, value, onChange }) {
   if (type === 'checkbox') return (
     <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', paddingTop: 22 }}>
       <input type="checkbox" checked={!!value} onChange={e => onChange(e.target.checked)}
-        style={{ width: 16, height: 16, accentColor: '#582E73' }} />
+        style={{ width: 16, height: 16, accentColor: '#674092' }} />
       <span style={{ fontSize: 13 }}>{label}</span>
     </label>
   )
@@ -152,11 +152,11 @@ function Modal({ title, onClose, children }) {
       justifyContent:'center',paddingTop:48,paddingLeft:16,paddingRight:16,
       background:'rgba(42,18,57,.55)' }}>
       <div className="ine-card" style={{ width:'100%',maxWidth:680,maxHeight:'88vh',
-        display:'flex',flexDirection:'column',boxShadow:'0 20px 60px rgba(88,46,115,.28)',
+        display:'flex',flexDirection:'column',boxShadow:'0 20px 60px rgba(103,64,146,.28)',
         animation:'fadeIn .18s ease-out' }}>
         <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',
           padding:'16px 24px',borderBottom:'1px solid #E2D9EE',flexShrink:0 }}>
-          <h2 style={{ fontWeight:700,fontSize:15,color:'#582E73',margin:0 }}>{title}</h2>
+          <h2 style={{ fontWeight:700,fontSize:15,color:'#674092',margin:0 }}>{title}</h2>
           <button onClick={onClose} style={{ background:'none',border:'none',fontSize:22,
             cursor:'pointer',color:'#A090B0',lineHeight:1,padding:'0 6px' }}>×</button>
         </div>
@@ -257,7 +257,7 @@ function DataTable({ schemas, rows, onEdit, onDelete, canEdit, canDelete }) {
                     : c.type === 'checkbox'
                     ? row[c.key] ? <span style={{ color:'#059669',fontWeight:700 }}>✓</span> : <span style={{ color:'#A090B0' }}>—</span>
                     : c.type === 'date' ? fmtDate(row[c.key])
-                    : <span style={c.key === 'expediente' ? { fontWeight:600,color:'#582E73' } : {}}>
+                    : <span style={c.key === 'expediente' ? { fontWeight:600,color:'#674092' } : {}}>
                         {row[c.key] || '—'}
                       </span>}
                 </td>
@@ -358,7 +358,7 @@ function SectionView({ title, section, schemas, records, onUpdate, user }) {
     <div className="fade-in">
       <div style={{ display:'flex',alignItems:'flex-start',justifyContent:'space-between',marginBottom:20 }}>
         <div>
-          <h2 style={{ fontSize:18,fontWeight:700,color:'#582E73',margin:0 }}>{title}</h2>
+          <h2 style={{ fontSize:18,fontWeight:700,color:'#674092',margin:0 }}>{title}</h2>
           <p style={{ color:'#6B5F78',fontSize:13,marginTop:3 }}>
             {records.length} registro{records.length !== 1 ? 's' : ''}
           </p>
@@ -402,14 +402,14 @@ function SectionView({ title, section, schemas, records, onUpdate, user }) {
               <button disabled={safePage === 0} onClick={() => setPage(p => p - 1)}
                 style={{ padding:'4px 12px',borderRadius:5,border:'1px solid #E2D9EE',
                   background: safePage === 0 ? '#F8F5FB' : '#fff',
-                  color: safePage === 0 ? '#C4B8D0' : '#582E73',
+                  color: safePage === 0 ? '#C4B8D0' : '#674092',
                   cursor: safePage === 0 ? 'default' : 'pointer',fontSize:13,fontWeight:600 }}>
                 ‹
               </button>
               {Array.from({ length: totalPages }, (_, i) => (
                 <button key={i} onClick={() => setPage(i)}
                   style={{ padding:'4px 10px',borderRadius:5,border:'1px solid #E2D9EE',
-                    background: i === safePage ? '#582E73' : '#fff',
+                    background: i === safePage ? '#674092' : '#fff',
                     color: i === safePage ? '#fff' : '#6B5F78',
                     cursor:'pointer',fontSize:12,fontWeight:600,
                     display: Math.abs(i - safePage) > 2 && i !== 0 && i !== totalPages - 1 ? 'none' : 'block' }}>
@@ -419,7 +419,7 @@ function SectionView({ title, section, schemas, records, onUpdate, user }) {
               <button disabled={safePage === totalPages - 1} onClick={() => setPage(p => p + 1)}
                 style={{ padding:'4px 12px',borderRadius:5,border:'1px solid #E2D9EE',
                   background: safePage === totalPages - 1 ? '#F8F5FB' : '#fff',
-                  color: safePage === totalPages - 1 ? '#C4B8D0' : '#582E73',
+                  color: safePage === totalPages - 1 ? '#C4B8D0' : '#674092',
                   cursor: safePage === totalPages - 1 ? 'default' : 'pointer',fontSize:13,fontWeight:600 }}>
                 ›
               </button>
@@ -630,7 +630,7 @@ function Dashboard({ store }) {
 
       {/* Header */}
       <div>
-        <h2 style={{ fontSize:18,fontWeight:700,color:'#582E73',margin:0 }}>Dashboard — Asuntos Laborales</h2>
+        <h2 style={{ fontSize:18,fontWeight:700,color:'#674092',margin:0 }}>Dashboard — Asuntos Laborales</h2>
         <p style={{ color:'#6B5F78',fontSize:13,marginTop:4 }}>Dirección de Asuntos Laborales · INE DEAJ</p>
       </div>
 
@@ -653,7 +653,7 @@ function Dashboard({ store }) {
 
       {/* KPI grid */}
       <div style={{ display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12 }}>
-        <KpiCard label="Actores / Expedientes" value={actores.length}      color="#582E73" />
+        <KpiCard label="Actores / Expedientes" value={actores.length}      color="#674092" />
         <KpiCard label="Emplazamientos"         value={emplaz.length}      color="#3B82F6" />
         <KpiCard label="Sentencias"             value={sentencias.length}  color="#10B981" />
         <KpiCard label="Requerimientos"         value={requerims.length}   color="#F59E0B" />
@@ -661,7 +661,7 @@ function Dashboard({ store }) {
           sub={`${cumplims.filter(r=>r.estatus==='FORMALMENTE CONCLUIDO').length} concluidos`} color="#8B5CF6" />
         <KpiCard label="Incidentes"   value={incidentes.length}   color="#EF4444" />
         <KpiCard label="Amparos"      value={amparos.length}      color="#14B8A6" />
-        <KpiCard label="Conciliación" value={conciliacion.length} color="#E4007B" />
+        <KpiCard label="Conciliación" value={conciliacion.length} color="#49276F" />
       </div>
 
       {/* Charts row 1 */}
@@ -669,21 +669,21 @@ function Dashboard({ store }) {
 
         {/* Actores por año */}
         <div className="ine-card" style={{ padding:20 }}>
-          <p style={{ fontWeight:700,color:'#582E73',fontSize:13,marginBottom:16 }}>Actores por Año</p>
+          <p style={{ fontWeight:700,color:'#674092',fontSize:13,marginBottom:16 }}>Actores por Año</p>
           <ResponsiveContainer width="100%" height={190}>
             <BarChart data={actoresPorAno} margin={{ top:4,right:8,left:-20,bottom:0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#EDE8F4" vertical={false} />
               <XAxis dataKey="name" tick={axTick} axisLine={false} tickLine={false} />
               <YAxis tick={{ ...axTick,fill:'#A090B0' }} axisLine={false} tickLine={false} />
               <Tooltip contentStyle={tooltipStyle} cursor={{ fill:'#EDE8F4' }} />
-              <Bar dataKey="Actores" fill="#582E73" radius={[4,4,0,0]} maxBarSize={48} />
+              <Bar dataKey="Actores" fill="#674092" radius={[4,4,0,0]} maxBarSize={48} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         {/* Carga por abogado */}
         <div className="ine-card" style={{ padding:20 }}>
-          <p style={{ fontWeight:700,color:'#582E73',fontSize:13,marginBottom:16 }}>Carga por Abogado</p>
+          <p style={{ fontWeight:700,color:'#674092',fontSize:13,marginBottom:16 }}>Carga por Abogado</p>
           {abogadoData.length === 0
             ? <p style={{ color:'#A090B0',fontSize:13 }}>Sin datos</p>
             : (
@@ -706,7 +706,7 @@ function Dashboard({ store }) {
 
         {/* Cumplimientos donut */}
         <div className="ine-card" style={{ padding:20 }}>
-          <p style={{ fontWeight:700,color:'#582E73',fontSize:13,marginBottom:12 }}>Cumplimientos por Estatus</p>
+          <p style={{ fontWeight:700,color:'#674092',fontSize:13,marginBottom:12 }}>Cumplimientos por Estatus</p>
           {cumplimData.length === 0
             ? <p style={{ color:'#A090B0',fontSize:13 }}>Sin datos</p>
             : (
@@ -731,7 +731,7 @@ function Dashboard({ store }) {
                   <div style={{ borderTop:'1px solid #EDE8F4',paddingTop:8,
                     display:'flex',justifyContent:'space-between' }}>
                     <span style={{ fontSize:12,color:'#6B5F78' }}>Total</span>
-                    <span style={{ fontSize:13,fontWeight:700,color:'#582E73' }}>{cumplims.length}</span>
+                    <span style={{ fontSize:13,fontWeight:700,color:'#674092' }}>{cumplims.length}</span>
                   </div>
                 </div>
               </div>
@@ -742,7 +742,7 @@ function Dashboard({ store }) {
         {/* Próximos vencimientos */}
         <div className="ine-card" style={{ padding:20 }}>
           <div style={{ display:'flex',alignItems:'center',gap:8,marginBottom:12 }}>
-            <p style={{ fontWeight:700,color:'#582E73',fontSize:13,margin:0 }}>Vencimientos — próximos 30 días</p>
+            <p style={{ fontWeight:700,color:'#674092',fontSize:13,margin:0 }}>Vencimientos — próximos 30 días</p>
             {proximos.length > 0 && (
               <span style={{ background:'#FEE2E2',color:'#B91C1C',fontSize:11,fontWeight:700,
                 padding:'2px 7px',borderRadius:20 }}>{proximos.length}</span>
@@ -762,7 +762,7 @@ function Dashboard({ store }) {
                         background:hot?'#EF4444':'#E2D9EE',color:hot?'#fff':'#6B5F78',whiteSpace:'nowrap' }}>
                         {p.tipo}
                       </span>
-                      <span style={{ fontSize:12,fontWeight:600,color:'#582E73',flex:1,
+                      <span style={{ fontSize:12,fontWeight:600,color:'#674092',flex:1,
                         overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap' }}>{p.exp}</span>
                       <span style={{ fontSize:11,fontWeight:700,color:hot?'#B91C1C':'#6B5F78',whiteSpace:'nowrap' }}>
                         {p.d === 0 ? 'Hoy' : `${p.d}d`}
@@ -781,7 +781,7 @@ function Dashboard({ store }) {
 
         {/* Estado de seguimiento */}
         <div className="ine-card" style={{ padding:20 }}>
-          <p style={{ fontWeight:700,color:'#582E73',fontSize:13,marginBottom:16 }}>Estado de Seguimiento</p>
+          <p style={{ fontWeight:700,color:'#674092',fontSize:13,marginBottom:16 }}>Estado de Seguimiento</p>
           <StatBar label="Sentencias — pendientes TEPJF" value={sentPend}
             total={sentencias.length} color="#EF4444" />
           <StatBar label="Sentencias — entregadas" value={sentencias.length - sentPend}
@@ -798,7 +798,7 @@ function Dashboard({ store }) {
 
         {/* No-emplazamientos + otros */}
         <div className="ine-card" style={{ padding:20 }}>
-          <p style={{ fontWeight:700,color:'#582E73',fontSize:13,marginBottom:12 }}>No-Emplazamientos por Estatus</p>
+          <p style={{ fontWeight:700,color:'#674092',fontSize:13,marginBottom:12 }}>No-Emplazamientos por Estatus</p>
           {[
             { k:'EMPLAZADO',               c:'#10B981' },
             { k:'EMPLAZAMIENTO PENDIENTE', c:'#F59E0B' },
@@ -998,7 +998,7 @@ export default function DALView({ user, dashboardOnly = false }) {
     <AbogadosCtx.Provider value={{ abogados, addAbogado }}>
     <div style={{ display:'flex',flexDirection:'column',overflow:'hidden',
       height:'calc(100vh - 120px)',borderRadius:10,border:'1px solid #E2D9EE',
-      boxShadow:'0 2px 8px rgba(88,46,115,.07)' }}>
+      boxShadow:'0 2px 8px rgba(103,64,146,.07)' }}>
 
       {/* Top tab bar */}
       {!dashboardOnly && <nav style={{ background:'#fff',flexShrink:0,display:'flex',alignItems:'center',
@@ -1013,7 +1013,7 @@ export default function DALView({ user, dashboardOnly = false }) {
                 padding:'7px 10px',borderRadius:6,border:'none',cursor:'pointer',
                 flexShrink:0,
                 color: isActive ? '#fff' : '#6B5F78',
-                background: isActive ? '#582E73' : 'transparent',
+                background: isActive ? '#674092' : 'transparent',
                 transition:'all .15s' }}>
               <span style={{ display:'flex',alignItems:'center',width:18,height:18,color:'inherit' }}>
                 {ICONS[n.key]}
@@ -1052,7 +1052,7 @@ export default function DALView({ user, dashboardOnly = false }) {
           <div style={{ display:'flex',alignItems:'center',justifyContent:'center',height:200 }}>
             <div style={{ textAlign:'center' }}>
               <div style={{ width:36,height:36,border:'4px solid #E2D9EE',
-                borderTopColor:'#582E73',borderRadius:'50%',
+                borderTopColor:'#674092',borderRadius:'50%',
                 animation:'spin 0.8s linear infinite',margin:'0 auto 12px' }} />
               <p style={{ fontSize:13,color:'#6B5F78' }}>Cargando datos…</p>
             </div>

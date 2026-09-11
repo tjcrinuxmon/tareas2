@@ -52,9 +52,9 @@ export default function NotificationBell({ onNavigateTask }) {
       <button
         onClick={() => setOpen((o) => !o)}
         className="relative p-2 rounded-lg transition-colors"
-        style={{ color: open ? '#582E73' : '#A090B0' }}
-        onMouseEnter={(e) => { e.currentTarget.style.color = '#582E73'; e.currentTarget.style.background = '#F8F5FB' }}
-        onMouseLeave={(e) => { e.currentTarget.style.color = open ? '#582E73' : '#A090B0'; e.currentTarget.style.background = '' }}
+        style={{ color: open ? '#674092' : '#A090B0' }}
+        onMouseEnter={(e) => { e.currentTarget.style.color = '#674092'; e.currentTarget.style.background = '#F8F5FB' }}
+        onMouseLeave={(e) => { e.currentTarget.style.color = open ? '#674092' : '#A090B0'; e.currentTarget.style.background = '' }}
         title="Notificaciones"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,7 +64,7 @@ export default function NotificationBell({ onNavigateTask }) {
         {unread > 0 && (
           <span
             className="absolute -top-0.5 -right-0.5 flex items-center justify-center rounded-full text-white font-bold"
-            style={{ background: '#E4007B', minWidth: 16, height: 16, fontSize: 10, padding: '0 3px' }}
+            style={{ background: '#49276F', minWidth: 16, height: 16, fontSize: 10, padding: '0 3px' }}
           >
             {unread > 9 ? '9+' : unread}
           </span>
@@ -74,7 +74,7 @@ export default function NotificationBell({ onNavigateTask }) {
       {open && (
         <div
           className="absolute right-0 top-full mt-2 w-80 ine-card z-50 overflow-hidden fade-in"
-          style={{ boxShadow: '0 20px 60px rgba(88,46,115,.20)' }}
+          style={{ boxShadow: '0 20px 60px rgba(103,64,146,.20)' }}
         >
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: '1px solid #EDE8F4' }}>
@@ -83,7 +83,7 @@ export default function NotificationBell({ onNavigateTask }) {
               <button
                 onClick={handleMarkAll}
                 className="text-xs font-medium transition-colors"
-                style={{ color: '#582E73' }}
+                style={{ color: '#674092' }}
               >
                 Marcar todas como leídas
               </button>
@@ -112,14 +112,14 @@ export default function NotificationBell({ onNavigateTask }) {
                     className="w-full flex items-start gap-3 px-4 py-3 text-left transition-colors"
                     style={{
                       borderBottom: '1px solid #EDE8F4',
-                      background: n.read ? 'white' : 'rgba(88,46,115,.04)',
+                      background: n.read ? 'white' : 'rgba(103,64,146,.04)',
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.background = '#F8F5FB'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = n.read ? 'white' : 'rgba(88,46,115,.04)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = n.read ? 'white' : 'rgba(103,64,146,.04)'}
                   >
                     <div
                       className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0"
-                      style={{ background: n.read ? '#E2D9EE' : '#E4007B' }}
+                      style={{ background: n.read ? '#E2D9EE' : '#49276F' }}
                     />
                     <div className="flex-1 min-w-0">
                       <p className="text-xs leading-snug" style={{ color: n.read ? '#6B5F78' : '#1A1219', fontWeight: n.read ? 400 : 600 }}>

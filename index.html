@@ -2,24 +2,21 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Cpath d='M3 4h15l4 4v18H3V4z' stroke='%23582E73' stroke-width='1.8' stroke-linejoin='round'/%3E%3Cpath d='M18 4v4h4' stroke='%23582E73' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='6' y1='12' x2='17' y2='12' stroke='%23582E73' stroke-width='1.6' stroke-linecap='round'/%3E%3Cline x1='6' y1='16' x2='14' y2='16' stroke='%23582E73' stroke-width='1.6' stroke-linecap='round'/%3E%3Ccircle cx='23' cy='23' r='9' fill='%23D5007F'/%3E%3Cpath d='M19.5 23L22 25.5L27 19.5' stroke='white' stroke-width='2.1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+    <link rel="icon" type="image/svg+xml" href="/logo-ine-reducido.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>INE · DEAJ — Módulo de Tareas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              'ine-purple':       '#582E73',
-              'ine-purple-dark':  '#3D1F52',
+              'ine-purple':       '#674092',
+              'ine-purple-dark':  '#49276F',
               'ine-purple-xdark': '#2A1239',
-              'ine-purple-light': '#7040A0',
-              'ine-magenta':      '#E4007B',
-              'ine-magenta-dark': '#C4006A',
+              'ine-purple-light': '#9680B4',
+              'ine-magenta':      '#49276F',
+              'ine-magenta-dark': '#49276F',
               'ine-bg':           '#F8F5FB',
               'ine-bg-hover':     '#F3EDF9',
               'ine-border':       '#E2D9EE',
@@ -35,13 +32,13 @@
               'dir-teal':   '#14B8A6',
             },
             fontFamily: {
-              sans: ['Roboto', 'system-ui', 'sans-serif'],
+              sans: ['Arial', 'Helvetica', 'system-ui', 'sans-serif'],
             },
             boxShadow: {
-              'ine-card': '0 2px 8px rgba(88,46,115,.07)',
-              'ine-modal': '0 20px 60px rgba(88,46,115,.20)',
-              'ine-btn': '0 3px 10px rgba(88,46,115,.28)',
-              'ine-btn-mg': '0 3px 10px rgba(228,0,123,.28)',
+              'ine-card': '0 2px 8px rgba(103,64,146,.07)',
+              'ine-modal': '0 20px 60px rgba(103,64,146,.20)',
+              'ine-btn': '0 3px 10px rgba(103,64,146,.28)',
+              'ine-btn-mg': '0 3px 10px rgba(73,39,111,.28)',
             }
           }
         }
@@ -49,8 +46,8 @@
     </script>
     <style>
       * { box-sizing: border-box; }
-      body { font-family: 'Roboto', system-ui, sans-serif; font-size: 14px; line-height: 1.5; }
-      input, select, textarea, button { font-family: 'Roboto', system-ui, sans-serif; }
+      body { font-family: Arial, Helvetica, system-ui, sans-serif; font-size: 14px; line-height: 1.5; }
+      input, select, textarea, button { font-family: Arial, Helvetica, system-ui, sans-serif; }
 
       /* Scrollbars */
       ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -62,7 +59,7 @@
       .table-hscroll::-webkit-scrollbar { height: 10px; }
       .table-hscroll::-webkit-scrollbar-track { background: #EDE8F4; border-radius: 5px; }
       .table-hscroll::-webkit-scrollbar-thumb { background: #9B7BB8; border-radius: 5px; }
-      .table-hscroll::-webkit-scrollbar-thumb:hover { background: #582E73; }
+      .table-hscroll::-webkit-scrollbar-thumb:hover { background: #674092; }
 
       /* Animations */
       @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
@@ -73,24 +70,24 @@
       .ine-diamond {
         display: inline-block;
         transform: rotate(45deg);
-        background: #E4007B;
+        background: #49276F;
         border-radius: 2px;
         flex-shrink: 0;
       }
 
       /* ── Botón Primario PIDI (btn.primario) ─────────────────────
-         Fondo: #D5007F  |  Padding: 12px 24px  |  Texto: blanco
-         Estados: hover → #B5006B  |  pressed → #8F0054
+         Fondo: #674092  |  Padding: 12px 24px  |  Texto: blanco
+         Estados: hover → #49276F  |  pressed → #2A1239
          Focus: anillo magenta  |  Inactivo: opacity 0.45
       ───────────────────────────────────────────────────────── */
       .btn-ine, .btn-mg {
-        background: #D5007F;
+        background: #674092;
         color: white;
         padding: 12px 24px;
         border-radius: 6px;
         font-size: 13px;
         font-weight: 600;
-        box-shadow: 0 2px 6px rgba(213,0,127,.30);
+        box-shadow: 0 2px 6px rgba(103,64,146,.30);
         transition: background .18s, box-shadow .18s, transform .18s;
         border: none;
         cursor: pointer;
@@ -99,17 +96,17 @@
         gap: 6px;
       }
       .btn-ine:hover, .btn-mg:hover {
-        background: #B5006B;
-        box-shadow: 0 4px 14px rgba(213,0,127,.40);
+        background: #49276F;
+        box-shadow: 0 4px 14px rgba(103,64,146,.40);
         transform: translateY(-1px);
       }
       .btn-ine:active, .btn-mg:active {
-        background: #8F0054;
+        background: #2A1239;
         transform: translateY(0);
-        box-shadow: 0 1px 3px rgba(213,0,127,.20);
+        box-shadow: 0 1px 3px rgba(103,64,146,.20);
       }
       .btn-ine:focus-visible, .btn-mg:focus-visible {
-        outline: 3px solid rgba(213,0,127,.45);
+        outline: 3px solid rgba(103,64,146,.45);
         outline-offset: 2px;
       }
       .btn-ine:disabled, .btn-mg:disabled {
@@ -122,8 +119,8 @@
       /* ── Botón Secundario PIDI (btn.secundario) ──────────────── */
       .btn-outline {
         background: white;
-        color: #D5007F;
-        border: 1.5px solid #D5007F;
+        color: #674092;
+        border: 1.5px solid #674092;
         padding: 11px 23px;
         border-radius: 6px;
         font-size: 13px;
@@ -134,9 +131,9 @@
         align-items: center;
         gap: 6px;
       }
-      .btn-outline:hover { background: rgba(213,0,127,.06); box-shadow: 0 2px 8px rgba(213,0,127,.18); }
-      .btn-outline:active { background: rgba(213,0,127,.12); }
-      .btn-outline:focus-visible { outline: 3px solid rgba(213,0,127,.35); outline-offset: 2px; }
+      .btn-outline:hover { background: rgba(103,64,146,.06); box-shadow: 0 2px 8px rgba(103,64,146,.18); }
+      .btn-outline:active { background: rgba(103,64,146,.12); }
+      .btn-outline:focus-visible { outline: 3px solid rgba(103,64,146,.35); outline-offset: 2px; }
       .btn-outline:disabled { opacity: 0.45; cursor: not-allowed; }
 
       /* Card */
@@ -144,7 +141,7 @@
         background: white;
         border: 1.5px solid #E2D9EE;
         border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(88,46,115,.07);
+        box-shadow: 0 2px 8px rgba(103,64,146,.07);
       }
 
       /* Input */
@@ -160,7 +157,7 @@
         transition: border-color .15s, box-shadow .15s;
         outline: none;
       }
-      .ine-input:focus { border-color: #582E73; box-shadow: 0 0 0 3px rgba(88,46,115,.13); }
+      .ine-input:focus { border-color: #674092; box-shadow: 0 0 0 3px rgba(103,64,146,.13); }
       .ine-input::placeholder { color: #A090B0; }
 
       .ine-label {

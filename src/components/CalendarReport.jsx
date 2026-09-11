@@ -150,7 +150,7 @@ export default function CalendarReport({ onTaskClick }) {
               <div
                 key={d}
                 className="text-center text-xs font-semibold py-2"
-                style={{ background: '#582E73', color: 'white' }}
+                style={{ background: '#674092', color: 'white' }}
               >
                 {d}
               </div>
@@ -183,7 +183,7 @@ export default function CalendarReport({ onTaskClick }) {
                     <span
                       className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold flex-shrink-0"
                       style={isToday
-                        ? { background: '#582E73', color: 'white' }
+                        ? { background: '#674092', color: 'white' }
                         : { color: '#6B5F78' }
                       }
                     >

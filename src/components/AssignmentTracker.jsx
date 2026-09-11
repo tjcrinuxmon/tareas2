@@ -55,7 +55,7 @@ export default function AssignmentTracker() {
     <div className="fade-in max-w-7xl mx-auto">
       {/* Header */}
       <div className="bg-white rounded-xl mb-5 px-5 py-4"
-           style={{ borderLeft: '5px solid #582E73', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #582E73', boxShadow: '0 2px 8px rgba(88,46,115,.07)' }}>
+           style={{ borderLeft: '5px solid #674092', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #674092', boxShadow: '0 2px 8px rgba(103,64,146,.07)' }}>
         <h2 className="text-lg font-bold text-ine-text">Seguimiento de Asignaciones</h2>
         <p className="text-xs text-ine-muted mt-0.5">Tareas asignadas por área y responsable</p>
       </div>
@@ -63,7 +63,7 @@ export default function AssignmentTracker() {
       {/* Summary stats */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-5">
         {[
-          { label: 'Total',       value: total,       color: '#582E73', bg: '#F8F5FB' },
+          { label: 'Total',       value: total,       color: '#674092', bg: '#F8F5FB' },
           { label: 'Pendientes',  value: pendiente,   color: '#D97706', bg: '#FFFBEB' },
           { label: 'En progreso', value: en_progreso, color: '#2563EB', bg: '#EFF6FF' },
           { label: 'Completadas', value: completada,  color: '#16A34A', bg: '#F0FDF4' },
@@ -138,7 +138,7 @@ export default function AssignmentTracker() {
       {loading ? (
         <div className="flex flex-col items-center justify-center py-20">
           <div className="w-10 h-10 border-4 rounded-full animate-spin mb-4"
-               style={{ borderColor: '#E2D9EE', borderTopColor: '#582E73' }} />
+               style={{ borderColor: '#E2D9EE', borderTopColor: '#674092' }} />
           <p className="text-ine-muted text-sm">Cargando asignaciones...</p>
         </div>
       ) : error ? (

@@ -35,7 +35,7 @@ const FUNNEL_STAGES = [
   { label: 'Liberados',      field: null,                           color: '#16A34A' },
 ]
 
-const PURPLE = '#582E73'
+const PURPLE = '#674092'
 
 export default function ConveniosReport() {
   const [convenios, setConvenios] = useState([])
@@ -165,7 +165,7 @@ export default function ConveniosReport() {
                 <BarChart data={stats.byResponsable} margin={{ top: 16, right: 8, left: 0, bottom: 40 }}>
                   <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#6B5F78' }} tickLine={false} axisLine={false} angle={-30} textAnchor="end" interval={0} />
                   <YAxis hide />
-                  <Bar dataKey="value" fill="#E4007B" radius={[4, 4, 0, 0]} maxBarSize={32}>
+                  <Bar dataKey="value" fill="#49276F" radius={[4, 4, 0, 0]} maxBarSize={32}>
                     <LabelList dataKey="value" position="top" style={{ fontSize: 11, fontWeight: 700, fill: '#1A1219' }} />
                   </Bar>
                   <Tooltip cursor={{ fill: '#FFF0F8' }} contentStyle={{ fontSize: 12 }} formatter={v => [v, 'Convenios']} />

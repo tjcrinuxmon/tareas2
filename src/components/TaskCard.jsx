@@ -47,16 +47,16 @@ export default function TaskCard({ task, onClick }) {
       className="bg-white rounded-xl cursor-pointer group transition-all fade-in overflow-hidden"
       style={{
         border: isVencida ? '1.5px solid rgba(220,38,38,.35)' : '1.5px solid #E2D9EE',
-        boxShadow: '0 2px 8px rgba(88,46,115,.07)',
+        boxShadow: '0 2px 8px rgba(103,64,146,.07)',
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = hoverColor
-        e.currentTarget.style.boxShadow = '0 4px 16px rgba(88,46,115,.13)'
+        e.currentTarget.style.boxShadow = '0 4px 16px rgba(103,64,146,.13)'
         e.currentTarget.style.transform = 'translateY(-1px)'
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = isVencida ? 'rgba(220,38,38,.35)' : '#E2D9EE'
-        e.currentTarget.style.boxShadow = '0 2px 8px rgba(88,46,115,.07)'
+        e.currentTarget.style.boxShadow = '0 2px 8px rgba(103,64,146,.07)'
         e.currentTarget.style.transform = ''
       }}
     >

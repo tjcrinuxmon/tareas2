@@ -6,7 +6,7 @@ export default function LoginPage() {
     window.location.replace(base)
   }, [])
   return (
-    <div style={{ display:'flex', alignItems:'center', justifyContent:'center', height:'100vh', fontFamily:'sans-serif', color:'#582E73', fontSize:14 }}>
+    <div style={{ display:'flex', alignItems:'center', justifyContent:'center', height:'100vh', fontFamily:'sans-serif', color:'#674092', fontSize:14 }}>
       Redirigiendo al portal…
     </div>
   )

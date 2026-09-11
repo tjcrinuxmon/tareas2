@@ -400,7 +400,7 @@ export default function ConveniosView({ user }) {
                     {canEdit && (
                       <td style={{ padding: '8px 12px', whiteSpace: 'nowrap' }} onClick={e => e.stopPropagation()}>
                         <div style={{ display: 'flex', gap: 2 }}>
-                          <IconBtn onClick={() => openEdit(c)} title="Editar" hoverBg="#F3F0F8" hoverColor="#582E73">
+                          <IconBtn onClick={() => openEdit(c)} title="Editar" hoverBg="#F3F0F8" hoverColor="#674092">
                             <svg width={14} height={14} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>
@@ -711,7 +711,7 @@ function ConvenioDetail({ convenio: c, onClose, onEdit, onDelete }) {
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
               {c.numero_convenio && (
-                <span style={{ fontFamily: 'monospace', fontSize: 13, fontWeight: 700, color: '#582E73', background: '#F3EDF9', padding: '2px 8px', borderRadius: 4 }}>
+                <span style={{ fontFamily: 'monospace', fontSize: 13, fontWeight: 700, color: '#674092', background: '#F3EDF9', padding: '2px 8px', borderRadius: 4 }}>
                   {c.numero_convenio}
                 </span>
               )}
@@ -910,16 +910,16 @@ function UserCombobox({ value, onChange, users }) {
           {suggestions.map(u => (
             <li key={u.id}
               onMouseDown={() => select(u.name)}
-              style={{ padding: '8px 12px', cursor: 'pointer', fontSize: 13, color: u.name === value ? '#582E73' : '#1A1219', fontWeight: u.name === value ? 700 : 400, display: 'flex', alignItems: 'center', gap: 8 }}
+              style={{ padding: '8px 12px', cursor: 'pointer', fontSize: 13, color: u.name === value ? '#674092' : '#1A1219', fontWeight: u.name === value ? 700 : 400, display: 'flex', alignItems: 'center', gap: 8 }}
               onMouseEnter={e => { e.currentTarget.style.background = '#F8F5FB' }}
               onMouseLeave={e => { e.currentTarget.style.background = 'none' }}
             >
-              <span style={{ width: 26, height: 26, borderRadius: '50%', background: '#582E73', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>
+              <span style={{ width: 26, height: 26, borderRadius: '50%', background: '#674092', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>
                 {u.name.charAt(0).toUpperCase()}
               </span>
               <span style={{ flex: 1 }}>{u.name}</span>
               {u.name === value && (
-                <svg width={14} height={14} fill="none" stroke="#582E73" viewBox="0 0 24 24">
+                <svg width={14} height={14} fill="none" stroke="#674092" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                 </svg>
               )}
@@ -938,12 +938,12 @@ function PagBtn({ onClick, disabled, active, title, children }) {
       style={{
         minWidth: 32, height: 32, padding: '0 8px', borderRadius: 6, border: '1.5px solid',
         fontSize: 13, fontWeight: active ? 700 : 500, cursor: disabled ? 'default' : 'pointer',
-        borderColor: active ? '#582E73' : '#E2D9EE',
-        background: active ? '#582E73' : 'white',
+        borderColor: active ? '#674092' : '#E2D9EE',
+        background: active ? '#674092' : 'white',
         color: active ? 'white' : (disabled ? '#D1D5DB' : '#6B5F78'),
         transition: 'all .12s',
       }}
-      onMouseEnter={e => { if (!disabled && !active) { e.currentTarget.style.borderColor = '#582E73'; e.currentTarget.style.color = '#582E73' } }}
+      onMouseEnter={e => { if (!disabled && !active) { e.currentTarget.style.borderColor = '#674092'; e.currentTarget.style.color = '#674092' } }}
       onMouseLeave={e => { if (!disabled && !active) { e.currentTarget.style.borderColor = '#E2D9EE'; e.currentTarget.style.color = '#6B5F78' } }}
     >
       {children}

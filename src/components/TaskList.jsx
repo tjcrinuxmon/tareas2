@@ -177,7 +177,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
       {/* Page header */}
       <div
         className="bg-white rounded-xl mb-5 px-5 py-4"
-        style={{ borderLeft: '5px solid #582E73', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #582E73', boxShadow: '0 2px 8px rgba(88,46,115,.07)' }}
+        style={{ borderLeft: '5px solid #674092', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #674092', boxShadow: '0 2px 8px rgba(103,64,146,.07)' }}
       >
         <div className="flex items-center justify-between gap-4 flex-wrap">
           <div>
@@ -212,7 +212,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
       {/* Reporte diario — solo directores y subdirectores */}
       {(user?.role === 'subdirector' || user?.role === 'director') && (
         <div className="bg-white rounded-xl mb-4 px-4 py-3 flex items-start justify-between gap-4 flex-wrap"
-          style={{ border: '1.5px solid #E2D9EE', boxShadow: '0 1px 4px rgba(88,46,115,.05)' }}>
+          style={{ border: '1.5px solid #E2D9EE', boxShadow: '0 1px 4px rgba(103,64,146,.05)' }}>
           <p className="text-sm font-semibold text-ine-text self-center">Reporte diario</p>
           <div className="flex gap-3 flex-wrap">
             {/* Botón solicitudes */}
@@ -259,7 +259,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
             </svg>
             Filtros
             {hasActiveFilters && (
-              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: '#582E73' }} />
+              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: '#674092' }} />
             )}
           </div>
           <svg className={`w-4 h-4 text-ine-dim transition-transform ${filtersOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -341,7 +341,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
       {loading ? (
         <div className="flex flex-col items-center justify-center py-20">
           <div className="w-10 h-10 border-4 rounded-full animate-spin mb-4"
-               style={{ borderColor: '#E2D9EE', borderTopColor: '#582E73' }} />
+               style={{ borderColor: '#E2D9EE', borderTopColor: '#674092' }} />
           <p className="text-ine-muted text-sm">Cargando tareas...</p>
         </div>
       ) : error ? (
@@ -463,7 +463,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
             onClick={() => setPage(p => Math.max(1, p - 1))}
             disabled={page === 1}
             className="px-3 py-1.5 text-sm font-semibold rounded-lg border transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            style={{ borderColor: '#E2D9EE', color: '#582E73', background: '#fff' }}
+            style={{ borderColor: '#E2D9EE', color: '#674092', background: '#fff' }}
           >
             ← Anterior
           </button>
@@ -483,8 +483,8 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
                       onClick={() => setPage(p)}
                       className="w-8 h-8 text-sm font-semibold rounded-lg transition-colors"
                       style={p === page
-                        ? { background: '#582E73', color: '#fff' }
-                        : { background: '#fff', color: '#582E73', border: '1.5px solid #E2D9EE' }
+                        ? { background: '#674092', color: '#fff' }
+                        : { background: '#fff', color: '#674092', border: '1.5px solid #E2D9EE' }
                       }
                     >
                       {p}
@@ -496,7 +496,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
             onClick={() => setPage(p => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
             className="px-3 py-1.5 text-sm font-semibold rounded-lg border transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            style={{ borderColor: '#E2D9EE', color: '#582E73', background: '#fff' }}
+            style={{ borderColor: '#E2D9EE', color: '#674092', background: '#fff' }}
           >
             Siguiente →
           </button>

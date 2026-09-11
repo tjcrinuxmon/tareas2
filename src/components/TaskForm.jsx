@@ -175,7 +175,7 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
     <div className="fade-in max-w-2xl mx-auto">
       {/* Page header */}
       <div className="bg-white rounded-xl mb-5 px-5 py-4"
-           style={{ borderLeft: '5px solid #582E73', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #582E73', boxShadow: '0 2px 8px rgba(88,46,115,.07)' }}>
+           style={{ borderLeft: '5px solid #674092', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #674092', boxShadow: '0 2px 8px rgba(103,64,146,.07)' }}>
         <h2 className="text-lg font-bold text-ine-text">{isEdit ? 'Editar Tarea' : 'Nueva Tarea'}</h2>
         <p className="text-xs text-ine-muted mt-0.5">
           {isEdit ? 'Modifica los datos de la tarea seleccionada.' : 'Completa el formulario para registrar una nueva tarea.'}
@@ -483,7 +483,7 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
                 <div className="w-10 h-10 rounded-full flex items-center justify-center mb-3"
                      style={{ background: '#F8F5FB' }}>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                       style={{ color: '#582E73' }}>
+                       style={{ color: '#674092' }}>
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
                       d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                   </svg>

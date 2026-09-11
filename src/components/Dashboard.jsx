@@ -68,7 +68,7 @@ export default function Dashboard({ user, onNavigate, onFilterChange }) {
       {/* Header */}
       <div
         className="bg-white rounded-xl mb-6 px-5 py-4"
-        style={{ borderLeft: '5px solid #582E73', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #582E73', boxShadow: '0 2px 8px rgba(88,46,115,.07)' }}
+        style={{ borderLeft: '5px solid #674092', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #674092', boxShadow: '0 2px 8px rgba(103,64,146,.07)' }}
       >
         <h2 className="text-lg font-bold text-ine-text">Panel General</h2>
         <p className="text-xs text-ine-muted mt-0.5">Resumen de actividades · INE · DEAJ</p>
@@ -151,7 +151,7 @@ export default function Dashboard({ user, onNavigate, onFilterChange }) {
         </button>
         <button
           className="text-sm font-semibold px-4 py-2 rounded-lg border transition-colors"
-          style={{ borderColor: '#E2D9EE', color: '#582E73', background: '#fff' }}
+          style={{ borderColor: '#E2D9EE', color: '#674092', background: '#fff' }}
           onClick={() => onNavigate('new-task')}
         >
           + Nueva Tarea

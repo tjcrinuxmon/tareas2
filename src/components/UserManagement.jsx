@@ -4,8 +4,8 @@ import { DIRECCIONES } from '../constants.js'
 
 const ROLES = [
   { key: 'admin',       label: 'Administrador',         color: '#7C3AED' },
-  { key: 'ejecutiva',   label: 'Directora Ejecutiva',   color: '#E4007B' },
-  { key: 'director',    label: 'Director de Área',      color: '#582E73' },
+  { key: 'ejecutiva',   label: 'Directora Ejecutiva',   color: '#49276F' },
+  { key: 'director',    label: 'Director de Área',      color: '#674092' },
   { key: 'subdirector', label: 'Subdirector de Área',   color: '#2563EB' },
 ]
 
@@ -61,7 +61,7 @@ export default function UserManagement() {
       {/* Header */}
       <div
         className="bg-white rounded-xl mb-5 px-5 py-4 flex items-center justify-between gap-4 flex-wrap"
-        style={{ borderLeft: '5px solid #582E73', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #582E73', boxShadow: '0 2px 8px rgba(88,46,115,.07)' }}
+        style={{ borderLeft: '5px solid #674092', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #674092', boxShadow: '0 2px 8px rgba(103,64,146,.07)' }}
       >
         <div>
           <h2 className="text-lg font-bold text-ine-text">Gestión de Usuarios</h2>
@@ -78,7 +78,7 @@ export default function UserManagement() {
       {loading ? (
         <div className="flex flex-col items-center justify-center py-20">
           <div className="w-10 h-10 border-4 rounded-full animate-spin mb-4"
-               style={{ borderColor: '#E2D9EE', borderTopColor: '#582E73' }} />
+               style={{ borderColor: '#E2D9EE', borderTopColor: '#674092' }} />
           <p className="text-ine-muted text-sm">Cargando usuarios...</p>
         </div>
       ) : error ? (
@@ -195,7 +195,7 @@ export default function UserManagement() {
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4"
              style={{ background: 'rgba(42,18,57,.45)', backdropFilter: 'blur(4px)' }}>
           <div className="bg-white rounded-xl max-w-sm w-full p-6 fade-in"
-               style={{ border: '1.5px solid #E2D9EE', borderTop: '4px solid #DC2626', boxShadow: '0 20px 60px rgba(88,46,115,.20)' }}>
+               style={{ border: '1.5px solid #E2D9EE', borderTop: '4px solid #DC2626', boxShadow: '0 20px 60px rgba(103,64,146,.20)' }}>
             <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
                  style={{ background: 'rgba(220,38,38,.09)' }}>
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -280,7 +280,7 @@ function UserModal({ user, onSaved, onClose }) {
     <div className="fixed inset-0 flex items-center justify-center z-50 p-4"
          style={{ background: 'rgba(42,18,57,.45)', backdropFilter: 'blur(4px)' }}>
       <div className="bg-white rounded-xl w-full max-w-md fade-in overflow-hidden"
-           style={{ border: '1.5px solid #E2D9EE', boxShadow: '0 20px 60px rgba(88,46,115,.20)' }}>
+           style={{ border: '1.5px solid #E2D9EE', boxShadow: '0 20px 60px rgba(103,64,146,.20)' }}>
         {/* Color bar */}
         <div className="h-1" style={{ background: rc.color }} />
 

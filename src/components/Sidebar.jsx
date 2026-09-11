@@ -1,6 +1,5 @@
 import React from 'react'
 import { DIRECCIONES } from '../constants.js'
-import BrandLogo from './BrandLogo.jsx'
 
 const ROLE_LABELS = {
   admin:       'Administrador',
@@ -39,15 +38,15 @@ export default function Sidebar({ open, onClose, filters, onFilterChange, onNavi
   return (
     <aside
       className="fixed inset-y-0 left-0 z-50 w-64 bg-white flex flex-col h-full flex-shrink-0 md:relative md:inset-auto md:z-auto"
-      style={{ borderRight: '1px solid #E2D9EE', boxShadow: '1px 0 4px rgba(88,46,115,.04)' }}
+      style={{ borderRight: '1px solid #E2D9EE', boxShadow: '1px 0 4px rgba(103,64,146,.04)' }}
     >
       {/* Header */}
       <div className="px-5 py-4" style={{ borderBottom: '1px solid #E2D9EE' }}>
         <div className="flex items-center gap-3">
-          <BrandLogo size={36} />
+          <img src="/logo-ine-completo.svg" alt="Instituto Nacional Electoral"
+            style={{ height: 34, width: 'auto', display: 'block', flexShrink: 0 }} />
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-black text-ine-purple leading-none">INE · DEAJ</p>
-            <p className="text-xs text-ine-muted leading-snug mt-0.5 truncate">
+            <p className="text-xs text-ine-muted leading-snug truncate">
               Dirección Ejecutiva de<br/>Asuntos Jurídicos
             </p>
           </div>
@@ -213,8 +212,8 @@ export default function Sidebar({ open, onClose, filters, onFilterChange, onNavi
               key={dir.key}
               onClick={() => { onFilterChange({ direccion: dir.key }); closeIfMobile() }}
               className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-all text-left"
-              style={active ? { background: '#582E73', color: 'white' } : { color: '#6B5F78' }}
-              onMouseEnter={(e) => { if (!active) { e.currentTarget.style.background = '#F8F5FB'; e.currentTarget.style.color = '#582E73' } }}
+              style={active ? { background: '#674092', color: 'white' } : { color: '#6B5F78' }}
+              onMouseEnter={(e) => { if (!active) { e.currentTarget.style.background = '#F8F5FB'; e.currentTarget.style.color = '#674092' } }}
               onMouseLeave={(e) => { if (!active) { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#6B5F78' } }}
             >
               <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: active ? 'white' : dir.color }} />
@@ -235,7 +234,7 @@ export default function Sidebar({ open, onClose, filters, onFilterChange, onNavi
         <div className="flex items-center gap-2.5">
           <div
             className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
-            style={{ background: '#582E73' }}
+            style={{ background: '#674092' }}
           >
             {user?.name?.charAt(0)?.toUpperCase()}
           </div>
@@ -274,8 +273,8 @@ function NavItem({ active, onClick, icon, label }) {
     <button
       onClick={onClick}
       className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all"
-      style={active ? { background: '#582E73', color: 'white', fontWeight: 600 } : { color: '#6B5F78' }}
-      onMouseEnter={(e) => { if (!active) { e.currentTarget.style.background = '#F8F5FB'; e.currentTarget.style.color = '#582E73' } }}
+      style={active ? { background: '#674092', color: 'white', fontWeight: 600 } : { color: '#6B5F78' }}
+      onMouseEnter={(e) => { if (!active) { e.currentTarget.style.background = '#F8F5FB'; e.currentTarget.style.color = '#674092' } }}
       onMouseLeave={(e) => { if (!active) { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#6B5F78' } }}
     >
       <span style={active ? { color: 'white' } : { color: '#A090B0' }}>{icon}</span>

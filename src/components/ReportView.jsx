@@ -40,8 +40,8 @@ function buildCreatedPDF(tasks, period, win) {
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, sans-serif; color: #1A1219; padding: 32px; font-size: 13px; }
-  .header { border-bottom: 3px solid #582E73; padding-bottom: 12px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: flex-end; }
-  .brand { font-size: 17px; font-weight: 900; color: #582E73; }
+  .header { border-bottom: 3px solid #674092; padding-bottom: 12px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .brand { font-size: 17px; font-weight: 900; color: #674092; }
   .brand small { display: block; font-size: 10px; font-weight: 400; color: #6B5F78; margin-top: 2px; }
   .print-date { font-size: 11px; color: #6B5F78; }
   h1 { font-size: 16px; font-weight: 900; color: #1A1219; margin-bottom: 4px; }
@@ -72,7 +72,7 @@ function buildCreatedPDF(tasks, period, win) {
     <tbody>${rows || '<tr><td colspan="5" style="padding:14px;text-align:center;color:#6B5F78">Sin actividades en el período seleccionado</td></tr>'}</tbody>
   </table>
   <div class="summary">
-    <div class="chip" style="background:#F3EDF9;color:#582E73">Total: ${tasks.length}</div>
+    <div class="chip" style="background:#F3EDF9;color:#674092">Total: ${tasks.length}</div>
     ${completadas.length > 0 ? `<div class="chip" style="background:rgba(5,150,105,.09);color:#047857">Completadas: ${completadas.length}</div>` : ''}
     ${enTiempo.length > 0 ? `<div class="chip" style="background:rgba(29,78,216,.09);color:#1D4ED8">En tiempo: ${enTiempo.length}</div>` : ''}
     ${vencidas.length > 0 ? `<div class="chip" style="background:rgba(220,38,38,.09);color:#DC2626">Vencidas: ${vencidas.length}</div>` : ''}
@@ -112,8 +112,8 @@ function buildClosedPDF(tasks, period, win) {
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, sans-serif; color: #1A1219; padding: 32px; font-size: 13px; }
-  .header { border-bottom: 3px solid #582E73; padding-bottom: 12px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: flex-end; }
-  .brand { font-size: 17px; font-weight: 900; color: #582E73; }
+  .header { border-bottom: 3px solid #674092; padding-bottom: 12px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .brand { font-size: 17px; font-weight: 900; color: #674092; }
   .brand small { display: block; font-size: 10px; font-weight: 400; color: #6B5F78; margin-top: 2px; }
   .print-date { font-size: 11px; color: #6B5F78; }
   h1 { font-size: 16px; font-weight: 900; color: #1A1219; margin-bottom: 4px; }
@@ -144,7 +144,7 @@ function buildClosedPDF(tasks, period, win) {
     <tbody>${rows || '<tr><td colspan="5" style="padding:14px;text-align:center;color:#6B5F78">Sin actividades cerradas en el período seleccionado</td></tr>'}</tbody>
   </table>
   <div class="summary">
-    <div class="chip" style="background:#F3EDF9;color:#582E73">Total cerradas: ${closed.length}</div>
+    <div class="chip" style="background:#F3EDF9;color:#674092">Total cerradas: ${closed.length}</div>
     <div class="chip" style="background:rgba(5,150,105,.09);color:#047857">En tiempo: ${onTime.length}</div>
     ${late.length > 0 ? `<div class="chip" style="background:rgba(220,38,38,.09);color:#DC2626">Fuera de tiempo: ${late.length}</div>` : ''}
   </div>
@@ -211,7 +211,7 @@ export default function ReportView({ user }) {
   const handlePDFCreadas = async () => {
     const win = window.open('', '_blank', 'width=1050,height=750')
     if (!win) { alert('El navegador bloqueó la ventana. Permite ventanas emergentes para este sitio.'); return }
-    win.document.write('<p style="font-family:Arial;padding:40px;color:#582E73;">Generando reporte…</p>')
+    win.document.write('<p style="font-family:Arial;padding:40px;color:#674092;">Generando reporte…</p>')
     setGeneratingPDF(true)
     try {
       const params = {
@@ -230,7 +230,7 @@ export default function ReportView({ user }) {
   const handlePDFCerradas = async () => {
     const win = window.open('', '_blank', 'width=1050,height=750')
     if (!win) { alert('El navegador bloqueó la ventana. Permite ventanas emergentes para este sitio.'); return }
-    win.document.write('<p style="font-family:Arial;padding:40px;color:#582E73;">Generando reporte…</p>')
+    win.document.write('<p style="font-family:Arial;padding:40px;color:#674092;">Generando reporte…</p>')
     setGeneratingPDF(true)
     try {
       const params = {
@@ -252,7 +252,7 @@ export default function ReportView({ user }) {
 
       {/* Page header */}
       <div className="bg-white rounded-xl mb-5 px-5 py-4"
-           style={{ borderLeft: '5px solid #582E73', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #582E73', boxShadow: '0 2px 8px rgba(88,46,115,.07)' }}>
+           style={{ borderLeft: '5px solid #674092', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #674092', boxShadow: '0 2px 8px rgba(103,64,146,.07)' }}>
         <h2 className="text-lg font-bold text-ine-text">Reporte de Tareas</h2>
         <p className="text-xs text-ine-muted mt-0.5">Resumen estadístico por Dirección de Área — DEAJ</p>
       </div>
@@ -275,7 +275,7 @@ export default function ReportView({ user }) {
                   }}
                   className="px-3 py-1.5 text-sm font-medium transition-colors"
                   style={filterMode === key
-                    ? { background: '#582E73', color: 'white' }
+                    ? { background: '#674092', color: 'white' }
                     : { background: 'white', color: '#6B5F78' }
                   }
                 >
@@ -314,7 +314,7 @@ export default function ReportView({ user }) {
             onClick={handlePDFCreadas}
             disabled={generatingPDF || loading}
             className="flex items-center gap-1.5 text-sm font-semibold px-3 py-1.5 rounded-lg transition-colors disabled:opacity-50"
-            style={{ background: 'rgba(88,46,115,.07)', border: '1px solid rgba(88,46,115,.22)', color: '#582E73' }}
+            style={{ background: 'rgba(103,64,146,.07)', border: '1px solid rgba(103,64,146,.22)', color: '#674092' }}
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -340,7 +340,7 @@ export default function ReportView({ user }) {
       {loading ? (
         <div className="flex flex-col items-center justify-center py-20">
           <div className="w-10 h-10 border-4 rounded-full animate-spin mb-4"
-               style={{ borderColor: '#E2D9EE', borderTopColor: '#582E73' }} />
+               style={{ borderColor: '#E2D9EE', borderTopColor: '#674092' }} />
           <p className="text-ine-muted text-sm">Cargando reporte...</p>
         </div>
       ) : error ? (
@@ -355,9 +355,9 @@ export default function ReportView({ user }) {
               label="Total"
               value={globalTotal}
               sub="tareas registradas"
-              iconBg="rgba(88,46,115,.09)"
-              iconColor="#582E73"
-              valueColor="#582E73"
+              iconBg="rgba(103,64,146,.09)"
+              iconColor="#674092"
+              valueColor="#674092"
               icon={<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
