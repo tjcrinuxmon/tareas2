@@ -35,7 +35,7 @@ const FUNNEL_STAGES = [
   { label: 'Liberados',      field: null,                           color: '#16A34A' },
 ]
 
-const PURPLE = '#674092'
+const PURPLE = '#454247'
 
 export default function ConveniosReport() {
   const [convenios, setConvenios] = useState([])
@@ -101,8 +101,8 @@ export default function ConveniosReport() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 style={{ fontSize: 20, fontWeight: 800, color: '#1A1219' }}>Reportes · Convenios 2026</h1>
-        <p style={{ fontSize: 13, color: '#6B5F78', marginTop: 2 }}>{stats.total} convenios registrados en total</p>
+        <h1 style={{ fontSize: 20, fontWeight: 800, color: '#000000' }}>Reportes · Convenios 2026</h1>
+        <p style={{ fontSize: 13, color: '#828A91', marginTop: 2 }}>{stats.total} convenios registrados en total</p>
       </div>
 
       {/* ── KPI CARDS ── */}
@@ -133,8 +133,8 @@ export default function ConveniosReport() {
             {stats.byEstatus.map(e => (
               <div key={e.name} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12 }}>
                 <span style={{ width: 10, height: 10, borderRadius: 2, background: e.color, flexShrink: 0 }} />
-                <span style={{ flex: 1, color: '#6B5F78' }}>{e.name}</span>
-                <span style={{ fontWeight: 700, color: '#1A1219' }}>{e.value}</span>
+                <span style={{ flex: 1, color: '#828A91' }}>{e.name}</span>
+                <span style={{ fontWeight: 700, color: '#000000' }}>{e.value}</span>
               </div>
             ))}
           </div>
@@ -146,11 +146,11 @@ export default function ConveniosReport() {
           <ResponsiveContainer width="100%" height={stats.byTipo.length * 32 + 20} minHeight={180}>
             <BarChart data={stats.byTipo} layout="vertical" margin={{ left: 8, right: 36, top: 4, bottom: 4 }}>
               <XAxis type="number" hide />
-              <YAxis type="category" dataKey="name" width={150} tick={{ fontSize: 11, fill: '#6B5F78' }} tickLine={false} axisLine={false} />
+              <YAxis type="category" dataKey="name" width={150} tick={{ fontSize: 11, fill: '#828A91' }} tickLine={false} axisLine={false} />
               <Bar dataKey="value" fill={PURPLE} radius={[0, 4, 4, 0]} maxBarSize={18}>
-                <LabelList dataKey="value" position="right" style={{ fontSize: 11, fontWeight: 700, fill: '#1A1219' }} />
+                <LabelList dataKey="value" position="right" style={{ fontSize: 11, fontWeight: 700, fill: '#000000' }} />
               </Bar>
-              <Tooltip cursor={{ fill: '#F8F5FB' }} contentStyle={{ fontSize: 12 }} formatter={v => [v, 'Convenios']} />
+              <Tooltip cursor={{ fill: '#F7F5F3' }} contentStyle={{ fontSize: 12 }} formatter={v => [v, 'Convenios']} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -163,10 +163,10 @@ export default function ConveniosReport() {
             : (
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={stats.byResponsable} margin={{ top: 16, right: 8, left: 0, bottom: 40 }}>
-                  <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#6B5F78' }} tickLine={false} axisLine={false} angle={-30} textAnchor="end" interval={0} />
+                  <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#828A91' }} tickLine={false} axisLine={false} angle={-30} textAnchor="end" interval={0} />
                   <YAxis hide />
-                  <Bar dataKey="value" fill="#49276F" radius={[4, 4, 0, 0]} maxBarSize={32}>
-                    <LabelList dataKey="value" position="top" style={{ fontSize: 11, fontWeight: 700, fill: '#1A1219' }} />
+                  <Bar dataKey="value" fill="#454247" radius={[4, 4, 0, 0]} maxBarSize={32}>
+                    <LabelList dataKey="value" position="top" style={{ fontSize: 11, fontWeight: 700, fill: '#000000' }} />
                   </Bar>
                   <Tooltip cursor={{ fill: '#FFF0F8' }} contentStyle={{ fontSize: 12 }} formatter={v => [v, 'Convenios']} />
                 </BarChart>
@@ -197,7 +197,7 @@ export default function ConveniosReport() {
                   <div style={{ width: '80%', height: 8, background: '#F3F4F6', borderRadius: 4, overflow: 'hidden' }}>
                     <div style={{ width: `${pct}%`, height: '100%', background: s.color, borderRadius: 4, transition: 'width .6s ease' }} />
                   </div>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: '#6B5F78', textAlign: 'center', lineHeight: 1.2 }}>{s.label}</span>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: '#828A91', textAlign: 'center', lineHeight: 1.2 }}>{s.label}</span>
                   <span style={{ fontSize: 11, color: '#9CA3AF' }}>{pct}%</span>
                 </div>
                 {/* Arrow between stages */}
@@ -215,7 +215,7 @@ export default function ConveniosReport() {
 
         {/* Próximos a vencer */}
         <div className="ine-card" style={{ overflow: 'hidden' }}>
-          <div style={{ padding: '16px 20px', borderBottom: '1px solid #E2D9EE', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ padding: '16px 20px', borderBottom: '1px solid #E3DFDA', display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ fontSize: 16 }}>⏰</span>
             <ChartTitle style={{ marginBottom: 0 }}>Próximos a Vencer</ChartTitle>
           </div>
@@ -224,7 +224,7 @@ export default function ConveniosReport() {
             : (
               <table style={{ width: '100%', fontSize: 12, borderCollapse: 'collapse' }}>
                 <thead>
-                  <tr style={{ background: '#F8F5FB' }}>
+                  <tr style={{ background: '#F7F5F3' }}>
                     <th style={TH}>Tercero</th>
                     <th style={TH}>Núm.</th>
                     <th style={TH}>Vencimiento</th>
@@ -233,7 +233,7 @@ export default function ConveniosReport() {
                 <tbody>
                   {stats.proximos.map((c, i) => (
                     <tr key={c.id} style={{ borderBottom: '1px solid #F0EBF8', background: i % 2 ? '#FAFAFA' : 'white' }}>
-                      <td style={TD}><span style={{ fontWeight: 600, color: '#1A1219' }}>{c.tercero}</span></td>
+                      <td style={TD}><span style={{ fontWeight: 600, color: '#000000' }}>{c.tercero}</span></td>
                       <td style={{ ...TD, fontFamily: 'monospace', fontSize: 11 }}>{c.numero_convenio || '—'}</td>
                       <td style={TD}>
                         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 7px', borderRadius: 999, fontSize: 11, fontWeight: 600, background: c.venc.bg, color: c.venc.color }}>
@@ -251,7 +251,7 @@ export default function ConveniosReport() {
 
         {/* Sin avance */}
         <div className="ine-card" style={{ overflow: 'hidden' }}>
-          <div style={{ padding: '16px 20px', borderBottom: '1px solid #E2D9EE', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ padding: '16px 20px', borderBottom: '1px solid #E3DFDA', display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ fontSize: 16 }}>🕐</span>
             <ChartTitle style={{ marginBottom: 0 }}>En Revisión sin 1ª Revisión</ChartTitle>
           </div>
@@ -260,7 +260,7 @@ export default function ConveniosReport() {
             : (
               <table style={{ width: '100%', fontSize: 12, borderCollapse: 'collapse' }}>
                 <thead>
-                  <tr style={{ background: '#F8F5FB' }}>
+                  <tr style={{ background: '#F7F5F3' }}>
                     <th style={TH}>Tercero</th>
                     <th style={TH}>Estatus</th>
                     <th style={TH}>Responsable</th>
@@ -271,11 +271,11 @@ export default function ConveniosReport() {
                     const est = ESTATUS.find(o => o.value === c.estatus) || ESTATUS[0]
                     return (
                       <tr key={c.id} style={{ borderBottom: '1px solid #F0EBF8', background: i % 2 ? '#FAFAFA' : 'white' }}>
-                        <td style={TD}><span style={{ fontWeight: 600, color: '#1A1219' }}>{c.tercero}</span></td>
+                        <td style={TD}><span style={{ fontWeight: 600, color: '#000000' }}>{c.tercero}</span></td>
                         <td style={TD}>
                           <span style={{ padding: '2px 7px', borderRadius: 999, fontSize: 11, fontWeight: 600, background: est.bg, color: est.color }}>{est.label}</span>
                         </td>
-                        <td style={{ ...TD, color: '#6B5F78' }}>{c.responsable || '—'}</td>
+                        <td style={{ ...TD, color: '#828A91' }}>{c.responsable || '—'}</td>
                       </tr>
                     )
                   })}
@@ -298,15 +298,15 @@ function KpiCard({ label, value, color, icon, sub }) {
         <span style={{ fontSize: 22 }}>{icon}</span>
         <span style={{ fontSize: 28, fontWeight: 800, color, lineHeight: 1 }}>{value}</span>
       </div>
-      <p style={{ fontSize: 12, fontWeight: 700, color: '#6B5F78', marginTop: 8 }}>{label}</p>
+      <p style={{ fontSize: 12, fontWeight: 700, color: '#828A91', marginTop: 8 }}>{label}</p>
       {sub && <p style={{ fontSize: 11, color: '#9CA3AF', marginTop: 1 }}>{sub}</p>}
     </div>
   )
 }
 
 function ChartTitle({ children, style }) {
-  return <p style={{ fontSize: 13, fontWeight: 700, color: '#1A1219', marginBottom: 14, ...style }}>{children}</p>
+  return <p style={{ fontSize: 13, fontWeight: 700, color: '#000000', marginBottom: 14, ...style }}>{children}</p>
 }
 
-const TH = { padding: '8px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#6B5F78' }
+const TH = { padding: '8px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#828A91' }
 const TD = { padding: '9px 14px', verticalAlign: 'middle' }

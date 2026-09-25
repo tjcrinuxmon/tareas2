@@ -175,8 +175,8 @@ export default function ConveniosView({ user }) {
       {/* Header */}
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
-          <h1 style={{ fontSize: 20, fontWeight: 800, color: '#1A1219' }}>Seguimiento de Convenios 2026</h1>
-          <p style={{ fontSize: 13, color: '#6B5F78', marginTop: 2 }}>Dirección de Contratos y Convenios</p>
+          <h1 style={{ fontSize: 20, fontWeight: 800, color: '#000000' }}>Seguimiento de Convenios 2026</h1>
+          <p style={{ fontSize: 13, color: '#828A91', marginTop: 2 }}>Dirección de Contratos y Convenios</p>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
           <button onClick={exportExcel} className="btn-outline" title="Descargar Excel con los registros actuales">
@@ -234,9 +234,9 @@ export default function ConveniosView({ user }) {
         {hasFilters && (
           <button
             onClick={() => { setSearch(''); setFilterTipo(''); setFilterEstatus('') }}
-            style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '8px 12px', borderRadius: 8, border: '1.5px solid #E2D9EE', background: 'white', color: '#6B5F78', fontSize: 13, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap' }}
+            style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '8px 12px', borderRadius: 8, border: '1.5px solid #E3DFDA', background: 'white', color: '#828A91', fontSize: 13, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap' }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = '#DC2626'; e.currentTarget.style.color = '#DC2626' }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = '#E2D9EE'; e.currentTarget.style.color = '#6B5F78' }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = '#E3DFDA'; e.currentTarget.style.color = '#828A91' }}
           >
             <svg width={13} height={13} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -263,8 +263,8 @@ export default function ConveniosView({ user }) {
               return (
                 <div key={c.id} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12 }}>
                   <span style={{ width: 8, height: 8, borderRadius: '50%', background: v.dot, flexShrink: 0 }} />
-                  <span style={{ fontWeight: 600, color: '#1A1219' }}>{c.tercero}</span>
-                  {c.numero_convenio && <span style={{ color: '#6B5F78' }}>({c.numero_convenio})</span>}
+                  <span style={{ fontWeight: 600, color: '#000000' }}>{c.tercero}</span>
+                  {c.numero_convenio && <span style={{ color: '#828A91' }}>({c.numero_convenio})</span>}
                   <span style={{ color: v.color, fontWeight: 600, marginLeft: 'auto', flexShrink: 0 }}>
                     {v.label}
                   </span>
@@ -305,7 +305,7 @@ export default function ConveniosView({ user }) {
         <div className="table-hscroll" style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', minWidth: 2820, fontSize: 12, borderCollapse: 'collapse', tableLayout: 'fixed' }}>
             <thead>
-              <tr style={{ background: '#F8F5FB', borderBottom: '2px solid #E2D9EE' }}>
+              <tr style={{ background: '#F7F5F3', borderBottom: '2px solid #E3DFDA' }}>
                 {[
                   { label: 'Núm. Convenio',          w: 125 },
                   { label: 'Tipo de Convenio',      w: 160 },
@@ -329,7 +329,7 @@ export default function ConveniosView({ user }) {
                   { label: 'Observaciones',          w: 160 },
                   ...(canEdit ? [{ label: '', w: 72 }] : []),
                 ].map((h, i) => (
-                  <th key={i} style={{ width: h.w, padding: '10px 12px', textAlign: 'left', fontWeight: 700, color: '#6B5F78', whiteSpace: 'nowrap', fontSize: 11, overflow: 'hidden' }}>{h.label}</th>
+                  <th key={i} style={{ width: h.w, padding: '10px 12px', textAlign: 'left', fontWeight: 700, color: '#828A91', whiteSpace: 'nowrap', fontSize: 11, overflow: 'hidden' }}>{h.label}</th>
                 ))}
               </tr>
             </thead>
@@ -400,7 +400,7 @@ export default function ConveniosView({ user }) {
                     {canEdit && (
                       <td style={{ padding: '8px 12px', whiteSpace: 'nowrap' }} onClick={e => e.stopPropagation()}>
                         <div style={{ display: 'flex', gap: 2 }}>
-                          <IconBtn onClick={() => openEdit(c)} title="Editar" hoverBg="#F3F0F8" hoverColor="#674092">
+                          <IconBtn onClick={() => openEdit(c)} title="Editar" hoverBg="#F3F0F8" hoverColor="#454247">
                             <svg width={14} height={14} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>
@@ -451,8 +451,8 @@ export default function ConveniosView({ user }) {
       {deleteId && (
         <div style={{ position: 'fixed', inset: 0, zIndex: 50, background: 'rgba(0,0,0,.45)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div className="ine-card" style={{ padding: 24, width: 320 }}>
-            <p style={{ fontWeight: 700, color: '#1A1219', marginBottom: 8 }}>¿Eliminar registro?</p>
-            <p style={{ fontSize: 13, color: '#6B5F78', marginBottom: 20 }}>Esta acción no se puede deshacer.</p>
+            <p style={{ fontWeight: 700, color: '#000000', marginBottom: 8 }}>¿Eliminar registro?</p>
+            <p style={{ fontSize: 13, color: '#828A91', marginBottom: 20 }}>Esta acción no se puede deshacer.</p>
             <div style={{ display: 'flex', gap: 12 }}>
               <button onClick={() => setDeleteId(null)} className="btn-outline" style={{ flex: 1, padding: '10px 0' }}>Cancelar</button>
               <button onClick={handleDelete} style={{ flex: 1, padding: '10px 0', background: '#DC2626', color: 'white', border: 'none', borderRadius: 6, fontWeight: 600, cursor: 'pointer', fontSize: 13 }}>Eliminar</button>
@@ -486,7 +486,7 @@ function Td({ children, bold, mono, clip }) {
   return (
     <td style={{
       padding: '8px 12px',
-      color: bold ? '#1A1219' : '#6B5F78',
+      color: bold ? '#000000' : '#828A91',
       fontWeight: bold ? 600 : 400,
       fontFamily: mono ? 'monospace' : 'inherit',
       fontSize: mono ? 11 : 12,
@@ -522,8 +522,8 @@ function ConvenioForm({ form, setForm, onSave, onClose, saving, error, isEdit, u
     >
       <div style={{ width: '100%', maxWidth: 960, background: 'white', display: 'flex', flexDirection: 'column', boxShadow: '-6px 0 32px rgba(0,0,0,.18)' }}>
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 28px', borderBottom: '1px solid #E2D9EE' }}>
-          <h2 style={{ fontWeight: 800, fontSize: 17, color: '#1A1219' }}>{isEdit ? 'Editar Convenio' : 'Nuevo Convenio'}</h2>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 28px', borderBottom: '1px solid #E3DFDA' }}>
+          <h2 style={{ fontWeight: 800, fontSize: 17, color: '#000000' }}>{isEdit ? 'Editar Convenio' : 'Nuevo Convenio'}</h2>
           <button onClick={onClose} style={{ padding: 6, borderRadius: 6, border: 'none', background: 'none', cursor: 'pointer', color: '#9CA3AF' }}>
             <svg width={20} height={20} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -654,7 +654,7 @@ function ConvenioForm({ form, setForm, onSave, onClose, saving, error, isEdit, u
         </div>
 
         {/* Footer */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 12, padding: '14px 28px', borderTop: '1px solid #E2D9EE' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 12, padding: '14px 28px', borderTop: '1px solid #E3DFDA' }}>
           <button type="button" onClick={onClose} className="btn-outline">Cancelar</button>
           <button onClick={onSave} disabled={saving} className="btn-ine">
             {saving ? 'Guardando...' : (isEdit ? 'Guardar Cambios' : 'Crear Convenio')}
@@ -707,11 +707,11 @@ function ConvenioDetail({ convenio: c, onClose, onEdit, onDelete }) {
       <div className="ine-card fade-in" style={{ width: '100%', maxWidth: 760, maxHeight: '90vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '18px 24px', borderBottom: '1px solid #E2D9EE' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '18px 24px', borderBottom: '1px solid #E3DFDA' }}>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
               {c.numero_convenio && (
-                <span style={{ fontFamily: 'monospace', fontSize: 13, fontWeight: 700, color: '#674092', background: '#F3EDF9', padding: '2px 8px', borderRadius: 4 }}>
+                <span style={{ fontFamily: 'monospace', fontSize: 13, fontWeight: 700, color: '#454247', background: '#EFEBE7', padding: '2px 8px', borderRadius: 4 }}>
                   {c.numero_convenio}
                 </span>
               )}
@@ -725,8 +725,8 @@ function ConvenioDetail({ convenio: c, onClose, onEdit, onDelete }) {
                 </span>
               )}
             </div>
-            <h2 style={{ fontSize: 16, fontWeight: 800, color: '#1A1219', marginTop: 6, lineHeight: 1.3 }}>{c.tercero || '—'}</h2>
-            {c.tipo_convenio && <p style={{ fontSize: 12, color: '#6B5F78', marginTop: 2 }}>{c.tipo_convenio}</p>}
+            <h2 style={{ fontSize: 16, fontWeight: 800, color: '#000000', marginTop: 6, lineHeight: 1.3 }}>{c.tercero || '—'}</h2>
+            {c.tipo_convenio && <p style={{ fontSize: 12, color: '#828A91', marginTop: 2 }}>{c.tipo_convenio}</p>}
           </div>
           <button onClick={onClose} style={{ padding: 6, borderRadius: 6, border: 'none', background: 'none', cursor: 'pointer', color: '#9CA3AF', flexShrink: 0 }}>
             <svg width={20} height={20} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -751,7 +751,7 @@ function ConvenioDetail({ convenio: c, onClose, onEdit, onDelete }) {
             {c.tema && (
               <div style={{ marginTop: 10 }}>
                 <p style={{ fontSize: 11, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 4 }}>Tema</p>
-                <p style={{ fontSize: 13, color: '#1A1219', lineHeight: 1.6 }}>{c.tema}</p>
+                <p style={{ fontSize: 13, color: '#000000', lineHeight: 1.6 }}>{c.tema}</p>
               </div>
             )}
           </DSec>
@@ -782,13 +782,13 @@ function ConvenioDetail({ convenio: c, onClose, onEdit, onDelete }) {
           {/* Observaciones */}
           {c.observaciones && (
             <DSec title="Observaciones">
-              <p style={{ fontSize: 13, color: '#1A1219', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>{c.observaciones}</p>
+              <p style={{ fontSize: 13, color: '#000000', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>{c.observaciones}</p>
             </DSec>
           )}
         </div>
 
         {/* Footer */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 10, padding: '14px 24px', borderTop: '1px solid #E2D9EE' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 10, padding: '14px 24px', borderTop: '1px solid #E3DFDA' }}>
           {onDelete && (
             <button
               onClick={() => onDelete(c.id)}
@@ -835,7 +835,7 @@ function DField({ label, value, mono }) {
   return (
     <div>
       <p style={{ fontSize: 11, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 2 }}>{label}</p>
-      <p style={{ fontSize: 13, color: '#1A1219', fontFamily: mono ? 'monospace' : 'inherit', wordBreak: 'break-all' }}>{value}</p>
+      <p style={{ fontSize: 13, color: '#000000', fontFamily: mono ? 'monospace' : 'inherit', wordBreak: 'break-all' }}>{value}</p>
     </div>
   )
 }
@@ -903,23 +903,23 @@ function UserCombobox({ value, onChange, users }) {
       {open && suggestions.length > 0 && (
         <ul style={{
           position: 'absolute', zIndex: 200, top: '100%', left: 0, right: 0, marginTop: 4,
-          background: 'white', border: '1.5px solid #E2D9EE', borderRadius: 8,
+          background: 'white', border: '1.5px solid #E3DFDA', borderRadius: 8,
           boxShadow: '0 4px 16px rgba(0,0,0,.10)', maxHeight: 220, overflowY: 'auto',
           listStyle: 'none', padding: '4px 0', margin: 0,
         }}>
           {suggestions.map(u => (
             <li key={u.id}
               onMouseDown={() => select(u.name)}
-              style={{ padding: '8px 12px', cursor: 'pointer', fontSize: 13, color: u.name === value ? '#674092' : '#1A1219', fontWeight: u.name === value ? 700 : 400, display: 'flex', alignItems: 'center', gap: 8 }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#F8F5FB' }}
+              style={{ padding: '8px 12px', cursor: 'pointer', fontSize: 13, color: u.name === value ? '#454247' : '#000000', fontWeight: u.name === value ? 700 : 400, display: 'flex', alignItems: 'center', gap: 8 }}
+              onMouseEnter={e => { e.currentTarget.style.background = '#F7F5F3' }}
               onMouseLeave={e => { e.currentTarget.style.background = 'none' }}
             >
-              <span style={{ width: 26, height: 26, borderRadius: '50%', background: '#674092', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>
+              <span style={{ width: 26, height: 26, borderRadius: '50%', background: '#454247', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>
                 {u.name.charAt(0).toUpperCase()}
               </span>
               <span style={{ flex: 1 }}>{u.name}</span>
               {u.name === value && (
-                <svg width={14} height={14} fill="none" stroke="#674092" viewBox="0 0 24 24">
+                <svg width={14} height={14} fill="none" stroke="#454247" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                 </svg>
               )}
@@ -938,13 +938,13 @@ function PagBtn({ onClick, disabled, active, title, children }) {
       style={{
         minWidth: 32, height: 32, padding: '0 8px', borderRadius: 6, border: '1.5px solid',
         fontSize: 13, fontWeight: active ? 700 : 500, cursor: disabled ? 'default' : 'pointer',
-        borderColor: active ? '#674092' : '#E2D9EE',
-        background: active ? '#674092' : 'white',
-        color: active ? 'white' : (disabled ? '#D1D5DB' : '#6B5F78'),
+        borderColor: active ? '#454247' : '#E3DFDA',
+        background: active ? '#454247' : 'white',
+        color: active ? 'white' : (disabled ? '#D1D5DB' : '#828A91'),
         transition: 'all .12s',
       }}
-      onMouseEnter={e => { if (!disabled && !active) { e.currentTarget.style.borderColor = '#674092'; e.currentTarget.style.color = '#674092' } }}
-      onMouseLeave={e => { if (!disabled && !active) { e.currentTarget.style.borderColor = '#E2D9EE'; e.currentTarget.style.color = '#6B5F78' } }}
+      onMouseEnter={e => { if (!disabled && !active) { e.currentTarget.style.borderColor = '#454247'; e.currentTarget.style.color = '#454247' } }}
+      onMouseLeave={e => { if (!disabled && !active) { e.currentTarget.style.borderColor = '#E3DFDA'; e.currentTarget.style.color = '#828A91' } }}
     >
       {children}
     </button>

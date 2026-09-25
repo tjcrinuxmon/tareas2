@@ -175,7 +175,7 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
     <div className="fade-in max-w-2xl mx-auto">
       {/* Page header */}
       <div className="bg-white rounded-xl mb-5 px-5 py-4"
-           style={{ borderLeft: '5px solid #674092', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #674092', boxShadow: '0 2px 8px rgba(103,64,146,.07)' }}>
+           style={{ borderLeft: '5px solid #454247', border: '1.5px solid #E3DFDA', borderLeft: '5px solid #454247', boxShadow: '0 2px 8px rgba(0,0,0,.07)' }}>
         <h2 className="text-lg font-bold text-ine-text">{isEdit ? 'Editar Tarea' : 'Nueva Tarea'}</h2>
         <p className="text-xs text-ine-muted mt-0.5">
           {isEdit ? 'Modifica los datos de la tarea seleccionada.' : 'Completa el formulario para registrar una nueva tarea.'}
@@ -249,7 +249,7 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
                           className="relative flex items-center gap-3 p-3 rounded-lg cursor-pointer select-none transition-all"
                           style={checked
                             ? { border: `1.5px solid ${dir.color}`, background: dir.color + '0D' }
-                            : { border: '1.5px solid #E2D9EE', background: 'white' }
+                            : { border: '1.5px solid #E3DFDA', background: 'white' }
                           }
                         >
                           <span className="w-4 h-4 rounded border flex items-center justify-center flex-shrink-0"
@@ -263,7 +263,7 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
                           <input type="checkbox" checked={checked}
                             onChange={() => toggleArea(director.id, dir.key)} className="sr-only" />
                           <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: dir.color }} />
-                          <span className="text-sm font-semibold flex-1" style={checked ? { color: dir.color } : { color: '#1A1219' }}>
+                          <span className="text-sm font-semibold flex-1" style={checked ? { color: dir.color } : { color: '#000000' }}>
                             {dir.fullLabel}
                           </span>
                         </label>
@@ -293,7 +293,7 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
                                 className="relative flex items-center gap-2.5 p-2.5 rounded-lg cursor-pointer select-none transition-all"
                                 style={checked
                                   ? { border: `1.5px solid ${dir.color}`, background: dir.color + '08' }
-                                  : { border: '1.5px solid #E2D9EE', background: 'white' }
+                                  : { border: '1.5px solid #E3DFDA', background: 'white' }
                                 }
                               >
                                 <span className="w-4 h-4 rounded border flex items-center justify-center flex-shrink-0"
@@ -333,7 +333,7 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
                   className="relative flex-1 flex items-center justify-center gap-2 p-2.5 rounded-lg cursor-pointer transition-colors text-sm font-bold"
                   style={form.priority === key
                     ? { border: `2px solid ${cfg.color}`, background: cfg.bg, color: cfg.color }
-                    : { border: '2px solid #E2D9EE', background: 'white', color: '#6B5F78' }
+                    : { border: '2px solid #E3DFDA', background: 'white', color: '#828A91' }
                   }
                 >
                   <input type="radio" name="priority" value={key} checked={form.priority === key}
@@ -361,7 +361,7 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
                       className="relative flex items-center gap-2.5 p-2.5 rounded-lg cursor-pointer transition-all"
                       style={form.status === k
                         ? { border: `1.5px solid ${v.color}`, background: v.bg }
-                        : { border: '1.5px solid #E2D9EE', background: 'white' }
+                        : { border: '1.5px solid #E3DFDA', background: 'white' }
                       }
                     >
                       <input type="radio" name="status" value={k} checked={form.status === k}
@@ -412,7 +412,7 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
               <div>
                 <label className="ine-label">
                   Evidencia en PDF
-                  <span className="text-xs font-normal ml-1" style={{ color: '#A090B0' }}>(opcional)</span>
+                  <span className="text-xs font-normal ml-1" style={{ color: '#B2B2B2' }}>(opcional)</span>
                 </label>
                 {!closureFile ? (
                   <div
@@ -421,12 +421,12 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
                     onDragLeave={() => setIsDraggingClosure(false)}
                     className="rounded-xl flex flex-col items-center justify-center text-center py-5 px-4 transition-all"
                     style={{
-                      border: `2px dashed ${isDraggingClosure ? '#059669' : '#E2D9EE'}`,
+                      border: `2px dashed ${isDraggingClosure ? '#059669' : '#E3DFDA'}`,
                       background: isDraggingClosure ? 'rgba(5,150,105,.04)' : 'white',
                     }}
                   >
                     <svg className="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                         style={{ color: '#A090B0' }}>
+                         style={{ color: '#B2B2B2' }}>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
                         d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                     </svg>
@@ -455,7 +455,7 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
                         </svg>
                       </button>
                     </div>
-                    <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: '#EDE8F4' }}>
+                    <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: '#EDEAE6' }}>
                       <div className="h-full rounded-full" style={{ width: '100%', background: '#10B981' }} />
                     </div>
                   </div>
@@ -476,14 +476,14 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
                 onDragLeave={() => setIsDraggingAttach(false)}
                 className="rounded-xl flex flex-col items-center justify-center text-center py-6 px-4 mb-4 transition-all"
                 style={{
-                  border: `2px dashed ${isDraggingAttach ? selectedDir.color : '#E2D9EE'}`,
+                  border: `2px dashed ${isDraggingAttach ? selectedDir.color : '#E3DFDA'}`,
                   background: isDraggingAttach ? selectedDir.color + '08' : 'white',
                 }}
               >
                 <div className="w-10 h-10 rounded-full flex items-center justify-center mb-3"
-                     style={{ background: '#F8F5FB' }}>
+                     style={{ background: '#F7F5F3' }}>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                       style={{ color: '#674092' }}>
+                       style={{ color: '#454247' }}>
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
                       d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                   </svg>
@@ -502,7 +502,7 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
               {pendingFiles.length > 0 && (
                 <div className="space-y-2">
                   {pendingFiles.map((file, i) => (
-                    <div key={i} className="rounded-lg p-3" style={{ border: '1px solid #EDE8F4' }}>
+                    <div key={i} className="rounded-lg p-3" style={{ border: '1px solid #EDEAE6' }}>
                       <div className="flex items-center gap-2.5">
                         <span className="text-base flex-shrink-0">{getFileIcon(file.name)}</span>
                         <div className="flex-1 min-w-0">
@@ -522,8 +522,8 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
                           </svg>
                         </button>
                       </div>
-                      <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: '#EDE8F4' }}>
-                        <div className="h-full rounded-full" style={{ width: '100%', background: '#A090B0' }} />
+                      <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: '#EDEAE6' }}>
+                        <div className="h-full rounded-full" style={{ width: '100%', background: '#B2B2B2' }} />
                       </div>
                     </div>
                   ))}
@@ -535,7 +535,7 @@ export default function TaskForm({ task, onCancel, onSaved, initialFilters, user
 
         {/* Actions */}
         <div className="px-6 py-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3"
-             style={{ background: '#F8F5FB', borderTop: '1px solid #E2D9EE' }}>
+             style={{ background: '#F7F5F3', borderTop: '1px solid #E3DFDA' }}>
           {uploadStatus && (
             <p className="text-xs text-ine-muted flex items-center gap-1.5 sm:mr-auto">
               <span className="w-3 h-3 border-2 border-ine-purple border-t-transparent rounded-full animate-spin flex-shrink-0" />

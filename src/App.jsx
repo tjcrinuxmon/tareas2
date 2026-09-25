@@ -192,7 +192,7 @@ export default function App() {
 
       <footer
         className="px-6 py-3 flex items-center justify-between flex-shrink-0"
-        style={{ background: '#2A1239' }}
+        style={{ background: '#454247' }}
       >
         <div className="flex items-center gap-2">
           <BrandLogo size={16} className="opacity-50" />

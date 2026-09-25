@@ -53,10 +53,10 @@ export default function Topnav({
   return (
     <header
       className="bg-white flex items-center px-4 gap-0 flex-shrink-0"
-      style={{ height: 60, borderBottom: '1px solid #E2D9EE', boxShadow: '0 1px 4px rgba(0,0,0,.05)', zIndex: 40 }}
+      style={{ height: 60, borderBottom: '1px solid #E3DFDA', boxShadow: '0 1px 4px rgba(0,0,0,.05)', zIndex: 40 }}
     >
       {/* Brand */}
-      <div className="flex items-center gap-2.5 flex-shrink-0 pr-4" style={{ borderRight: '1px solid #E2D9EE' }}>
+      <div className="flex items-center gap-2.5 flex-shrink-0 pr-4" style={{ borderRight: '1px solid #E3DFDA' }}>
         <BrandLogo size={30} />
         <div className="hidden sm:block leading-none">
           <p className="text-sm font-black text-ine-purple">INE · DEAJ</p>
@@ -108,7 +108,7 @@ export default function Topnav({
               className="flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium transition-all whitespace-nowrap"
               style={activeDir
                 ? { background: activeDir.color + '18', color: activeDir.color, border: `1px solid ${activeDir.color}40` }
-                : { color: '#6B5F78', border: '1px solid #E2D9EE', background: 'white' }
+                : { color: '#828A91', border: '1px solid #E3DFDA', background: 'white' }
               }
             >
               {activeDir
@@ -122,10 +122,10 @@ export default function Topnav({
                 <DropItem
                   active={!activeDir}
                   onClick={() => flt({ direccion: '', date_from: '', date_to: '' })}
-                  dot="#A090B0"
+                  dot="#B2B2B2"
                   label="Todas las áreas"
                 />
-                <div style={{ borderTop: '1px solid #E2D9EE', margin: '4px 0' }} />
+                <div style={{ borderTop: '1px solid #E3DFDA', margin: '4px 0' }} />
                 {DIRECCIONES.map(dir => (
                   <DropItem
                     key={dir.key}
@@ -254,7 +254,7 @@ export default function Topnav({
       </nav>
 
       {/* Right side */}
-      <div className="flex items-center gap-1.5 flex-shrink-0 pl-3" style={{ borderLeft: '1px solid #E2D9EE' }}>
+      <div className="flex items-center gap-1.5 flex-shrink-0 pl-3" style={{ borderLeft: '1px solid #E3DFDA' }}>
         <NotificationBell onNavigateTask={onNavigateTask} />
 
         {currentView === 'tasks' && (
@@ -275,9 +275,9 @@ export default function Topnav({
           </button>
         )}
 
-        <div className="flex items-center gap-2 pl-2" style={{ borderLeft: '1px solid #E2D9EE' }}>
+        <div className="flex items-center gap-2 pl-2" style={{ borderLeft: '1px solid #E3DFDA' }}>
           <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
-            style={{ background: '#674092' }}>
+            style={{ background: '#454247' }}>
             {user?.name?.charAt(0)?.toUpperCase()}
           </div>
           <div className="hidden md:block leading-none">
@@ -301,11 +301,11 @@ function NavBtn({ active, onClick, icon, label, hasArrow = false }) {
     <button
       onClick={onClick}
       className="flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium transition-all whitespace-nowrap flex-shrink-0"
-      style={active ? { background: '#674092', color: 'white', fontWeight: 600 } : { color: '#6B5F78' }}
-      onMouseEnter={e => { if (!active) { e.currentTarget.style.background = '#F8F5FB'; e.currentTarget.style.color = '#674092' } }}
-      onMouseLeave={e => { if (!active) { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#6B5F78' } }}
+      style={active ? { background: '#454247', color: 'white', fontWeight: 600 } : { color: '#828A91' }}
+      onMouseEnter={e => { if (!active) { e.currentTarget.style.background = '#F7F5F3'; e.currentTarget.style.color = '#454247' } }}
+      onMouseLeave={e => { if (!active) { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#828A91' } }}
     >
-      <span style={active ? { color: 'white' } : { color: '#A090B0' }}>{icon}</span>
+      <span style={active ? { color: 'white' } : { color: '#B2B2B2' }}>{icon}</span>
       {label}
       {hasArrow && (
         <svg className="w-3 h-3 opacity-50 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -317,14 +317,14 @@ function NavBtn({ active, onClick, icon, label, hasArrow = false }) {
 }
 
 function Separator() {
-  return <span className="flex-shrink-0" style={{ width: 1, height: 20, background: '#E2D9EE', margin: '0 4px' }} />
+  return <span className="flex-shrink-0" style={{ width: 1, height: 20, background: '#E3DFDA', margin: '0 4px' }} />
 }
 
 function DropMenu({ children, style = {} }) {
   return (
     <div
       className="absolute top-full mt-1 left-0 bg-white rounded-lg py-1 z-50"
-      style={{ border: '1px solid #E2D9EE', boxShadow: '0 8px 24px rgba(103,64,146,.14)', minWidth: 200, ...style }}
+      style={{ border: '1px solid #E3DFDA', boxShadow: '0 8px 24px rgba(0,0,0,.14)', minWidth: 200, ...style }}
     >
       {children}
     </div>
@@ -336,12 +336,12 @@ function DropItem({ active, onClick, icon, dot, label, badge }) {
     <button
       onClick={onClick}
       className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-left transition-colors"
-      style={active ? { color: '#674092', fontWeight: 700, background: '#F8F5FB' } : { color: '#6B5F78' }}
-      onMouseEnter={e => { if (!active) e.currentTarget.style.background = '#F8F5FB' }}
+      style={active ? { color: '#454247', fontWeight: 700, background: '#F7F5F3' } : { color: '#828A91' }}
+      onMouseEnter={e => { if (!active) e.currentTarget.style.background = '#F7F5F3' }}
       onMouseLeave={e => { if (!active) e.currentTarget.style.background = '' }}
     >
       {dot  && <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: dot }} />}
-      {icon && <span style={active ? { color: '#674092' } : { color: '#A090B0' }}>{icon}</span>}
+      {icon && <span style={active ? { color: '#454247' } : { color: '#B2B2B2' }}>{icon}</span>}
       <span className="flex-1">{label}</span>
       {badge && (
         <span className="text-xs px-1.5 rounded-full font-semibold"

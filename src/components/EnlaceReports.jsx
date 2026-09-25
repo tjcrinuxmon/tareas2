@@ -82,7 +82,7 @@ function fmtShort(dateStr) {
   return d.toLocaleDateString('es-MX', { day: '2-digit', month: '2-digit', year: 'numeric' })
 }
 
-const pdfStyles = `*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;color:#1A1219;padding:32px;font-size:13px}.header{border-bottom:3px solid #674092;padding-bottom:12px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:flex-end}.brand{font-size:17px;font-weight:900;color:#674092}.brand small{display:block;font-size:10px;font-weight:400;color:#6B5F78;margin-top:2px}.print-date{font-size:11px;color:#6B5F78}h1{font-size:16px;font-weight:900;color:#1A1219;margin-bottom:4px}.sub{font-size:11px;color:#6B5F78;margin-bottom:16px}table{width:100%;border-collapse:collapse;margin-bottom:20px}th{background:#2A1239;color:rgba(255,255,255,.85);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;text-align:left}.summary{display:flex;gap:20px;flex-wrap:wrap;margin-top:8px}.chip{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700}.footer{margin-top:28px;padding-top:10px;border-top:1px solid #EDE8F4;font-size:10px;color:#A090B0;text-align:center}@media print{body{padding:16px}}`
+const pdfStyles = `*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;color:#000000;padding:32px;font-size:13px}.header{border-bottom:3px solid #454247;padding-bottom:12px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:flex-end}.brand{font-size:17px;font-weight:900;color:#454247}.brand small{display:block;font-size:10px;font-weight:400;color:#828A91;margin-top:2px}.print-date{font-size:11px;color:#828A91}h1{font-size:16px;font-weight:900;color:#000000;margin-bottom:4px}.sub{font-size:11px;color:#828A91;margin-bottom:16px}table{width:100%;border-collapse:collapse;margin-bottom:20px}th{background:#454247;color:rgba(255,255,255,.85);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;text-align:left}.summary{display:flex;gap:20px;flex-wrap:wrap;margin-top:8px}.chip{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700}.footer{margin-top:28px;padding-top:10px;border-top:1px solid #EDEAE6;font-size:10px;color:#B2B2B2;text-align:center}@media print{body{padding:16px}}`
 
 const sortByDir = (a, b) =>
   DIRECCIONES.findIndex(d => d.key === a.direccion) - DIRECCIONES.findIndex(d => d.key === b.direccion)
@@ -98,10 +98,10 @@ function buildSolicitadosPDF(tasks, weekLabel) {
     const dir = DIRECCIONES.find(d => d.key === t.direccion)
     const isV = !t.closed_at && t.status !== 'completada' && t.week_date < today
     return `<tr style="background:${isV ? '#FEF2F2' : ''}">
-      <td style="padding:7px 10px;border-bottom:1px solid #EDE8F4;font-size:12px;color:${dir?.color||'#333'};font-weight:600">${dir?.label || t.direccion}</td>
-      <td style="padding:7px 10px;border-bottom:1px solid #EDE8F4;font-size:12px">${t.description || t.title}</td>
-      <td style="padding:7px 10px;border-bottom:1px solid #EDE8F4;font-size:12px;white-space:nowrap">${fmtShort(t.created_at)}</td>
-      <td style="padding:7px 10px;border-bottom:1px solid #EDE8F4;font-size:12px;white-space:nowrap;color:${isV?'#DC2626':''};font-weight:${isV?'700':'400'}">${fmtShort(t.week_date)}</td>
+      <td style="padding:7px 10px;border-bottom:1px solid #EDEAE6;font-size:12px;color:${dir?.color||'#333'};font-weight:600">${dir?.label || t.direccion}</td>
+      <td style="padding:7px 10px;border-bottom:1px solid #EDEAE6;font-size:12px">${t.description || t.title}</td>
+      <td style="padding:7px 10px;border-bottom:1px solid #EDEAE6;font-size:12px;white-space:nowrap">${fmtShort(t.created_at)}</td>
+      <td style="padding:7px 10px;border-bottom:1px solid #EDEAE6;font-size:12px;white-space:nowrap;color:${isV?'#DC2626':''};font-weight:${isV?'700':'400'}">${fmtShort(t.week_date)}</td>
     </tr>`
   }).join('')
 
@@ -110,9 +110,9 @@ function buildSolicitadosPDF(tasks, weekLabel) {
   <h1>Asuntos Relevantes Solicitados — Alta Prioridad</h1>
   <p class="sub">Semana ${weekLabel} — ${tasks.length} actividad${tasks.length!==1?'es':''}</p>
   <table><thead><tr><th>Área</th><th>Descripción</th><th>Fecha de creación</th><th>Fecha de vencimiento</th></tr></thead>
-  <tbody>${rows||'<tr><td colspan="4" style="padding:14px;text-align:center;color:#6B5F78">Sin actividades en el período seleccionado</td></tr>'}</tbody></table>
+  <tbody>${rows||'<tr><td colspan="4" style="padding:14px;text-align:center;color:#828A91">Sin actividades en el período seleccionado</td></tr>'}</tbody></table>
   <div class="summary">
-    <div class="chip" style="background:#F3EDF9;color:#674092">Total: ${sorted.length}</div>
+    <div class="chip" style="background:#EFEBE7;color:#454247">Total: ${sorted.length}</div>
     <div class="chip" style="background:rgba(5,150,105,.09);color:#047857">En tiempo: ${enTiempo}</div>
     ${vencidas.length>0?`<div class="chip" style="background:rgba(220,38,38,.09);color:#DC2626">Vencidas: ${vencidas.length}</div>`:''}
   </div>
@@ -133,11 +133,11 @@ function buildConcluidosPDF(tasks, weekLabel) {
     const dir = DIRECCIONES.find(d => d.key === t.direccion)
     const isLate = t.closed_at > t.week_date
     return `<tr style="background:${isLate ? '#FEF2F2' : ''}">
-      <td style="padding:7px 10px;border-bottom:1px solid #EDE8F4;font-size:12px;color:${dir?.color||'#333'};font-weight:600">${dir?.label || t.direccion}</td>
-      <td style="padding:7px 10px;border-bottom:1px solid #EDE8F4;font-size:12px">${t.description || t.title}</td>
-      <td style="padding:7px 10px;border-bottom:1px solid #EDE8F4;font-size:12px;white-space:nowrap">${fmtShort(t.created_at)}</td>
-      <td style="padding:7px 10px;border-bottom:1px solid #EDE8F4;font-size:12px;white-space:nowrap">${fmtShort(t.week_date)}</td>
-      <td style="padding:7px 10px;border-bottom:1px solid #EDE8F4;font-size:12px;white-space:nowrap;color:${isLate?'#DC2626':'#059669'};font-weight:600">${fmtShort(t.closed_at)}</td>
+      <td style="padding:7px 10px;border-bottom:1px solid #EDEAE6;font-size:12px;color:${dir?.color||'#333'};font-weight:600">${dir?.label || t.direccion}</td>
+      <td style="padding:7px 10px;border-bottom:1px solid #EDEAE6;font-size:12px">${t.description || t.title}</td>
+      <td style="padding:7px 10px;border-bottom:1px solid #EDEAE6;font-size:12px;white-space:nowrap">${fmtShort(t.created_at)}</td>
+      <td style="padding:7px 10px;border-bottom:1px solid #EDEAE6;font-size:12px;white-space:nowrap">${fmtShort(t.week_date)}</td>
+      <td style="padding:7px 10px;border-bottom:1px solid #EDEAE6;font-size:12px;white-space:nowrap;color:${isLate?'#DC2626':'#059669'};font-weight:600">${fmtShort(t.closed_at)}</td>
     </tr>`
   }).join('')
 
@@ -146,9 +146,9 @@ function buildConcluidosPDF(tasks, weekLabel) {
   <h1>Asuntos Relevantes Concluidos — Alta Prioridad</h1>
   <p class="sub">Semana ${weekLabel} — ${sorted.length} actividad${sorted.length!==1?'es':''} cerrada${sorted.length!==1?'s':''}</p>
   <table><thead><tr><th>Área</th><th>Descripción</th><th>Fecha de creación</th><th>Fecha de vencimiento</th><th>Fecha de cierre</th></tr></thead>
-  <tbody>${rows||'<tr><td colspan="5" style="padding:14px;text-align:center;color:#6B5F78">Sin actividades cerradas en el período seleccionado</td></tr>'}</tbody></table>
+  <tbody>${rows||'<tr><td colspan="5" style="padding:14px;text-align:center;color:#828A91">Sin actividades cerradas en el período seleccionado</td></tr>'}</tbody></table>
   <div class="summary">
-    <div class="chip" style="background:#F3EDF9;color:#674092">Total cerradas: ${sorted.length}</div>
+    <div class="chip" style="background:#EFEBE7;color:#454247">Total cerradas: ${sorted.length}</div>
     <div class="chip" style="background:rgba(5,150,105,.09);color:#047857">En tiempo: ${onTime.length}</div>
     ${late.length>0?`<div class="chip" style="background:rgba(220,38,38,.09);color:#DC2626">Fuera de tiempo: ${late.length}</div>`:''}
   </div>
@@ -246,7 +246,7 @@ export default function EnlaceReports({ user }) {
     <div className="fade-in max-w-full">
       {/* Header */}
       <div className="bg-white rounded-xl mb-5 px-5 py-4 flex items-center justify-between gap-4 flex-wrap"
-        style={{ border:'1.5px solid #E2D9EE', borderLeft:'5px solid #E91E8C', boxShadow:'0 2px 8px rgba(103,64,146,.07)' }}>
+        style={{ border:'1.5px solid #E3DFDA', borderLeft:'5px solid #E91E8C', boxShadow:'0 2px 8px rgba(0,0,0,.07)' }}>
         <div>
           <h2 className="text-lg font-bold text-ine-text">Seguimiento Diario — DEAJ</h2>
           <p className="text-xs text-ine-muted mt-0.5">Asuntos relevantes de alta prioridad · Semana {weekLabel}</p>
@@ -331,8 +331,8 @@ export default function EnlaceReports({ user }) {
           <button key={t.key} onClick={() => setTab(t.key)}
             className="px-5 py-2 text-sm font-semibold rounded-lg transition-colors"
             style={tab === t.key
-              ? { background:'#674092', color:'white' }
-              : { background:'white', color:'#6B5F78', border:'1.5px solid #E2D9EE' }}>
+              ? { background:'#454247', color:'white' }
+              : { background:'white', color:'#828A91', border:'1.5px solid #E3DFDA' }}>
             {t.label}
           </button>
         ))}
@@ -340,7 +340,7 @@ export default function EnlaceReports({ user }) {
 
       {loading
         ? <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-4 rounded-full animate-spin" style={{ borderColor:'#E2D9EE', borderTopColor:'#674092' }} />
+            <div className="w-8 h-8 border-4 rounded-full animate-spin" style={{ borderColor:'#E3DFDA', borderTopColor:'#454247' }} />
           </div>
         : <MatrixTable
             key={tab}
@@ -404,23 +404,23 @@ function MatrixTable({ tab, userGroups, workDates, matrixData, inhabilDays = [] 
   const totalUsers = Object.values(userGroups).flat().length
 
   if (totalUsers === 0)
-    return <div className="bg-white rounded-xl p-10 text-center" style={{ border:'1.5px solid #E2D9EE' }}>
+    return <div className="bg-white rounded-xl p-10 text-center" style={{ border:'1.5px solid #E3DFDA' }}>
       <p className="text-ine-muted text-sm">Sin usuarios registrados.</p>
     </div>
 
   return (
-    <div className="bg-white rounded-xl overflow-auto" style={{ border:'1.5px solid #E2D9EE' }}>
+    <div className="bg-white rounded-xl overflow-auto" style={{ border:'1.5px solid #E3DFDA' }}>
       <table className="w-full border-collapse text-xs" style={{ minWidth:600 }}>
         <thead>
-          <tr style={{ background:'#F8F5FB' }}>
+          <tr style={{ background:'#F7F5F3' }}>
             <th className="px-3 py-2.5 text-center font-bold text-ine-dim uppercase border-b border-r"
-              style={{ borderColor:'#E2D9EE', width:56 }}>Área</th>
+              style={{ borderColor:'#E3DFDA', width:56 }}>Área</th>
             <th className="px-3 py-2.5 text-left font-bold text-ine-dim uppercase border-b border-r"
-              style={{ borderColor:'#E2D9EE', minWidth:180 }}>Dirección / Subdirección</th>
+              style={{ borderColor:'#E3DFDA', minWidth:180 }}>Dirección / Subdirección</th>
             {workDates.map(d => {
               const dt = new Date(d + 'T12:00:00')
               return <th key={d} className="px-2 py-2.5 text-center font-bold text-ine-dim uppercase border-b border-r"
-                style={{ borderColor:'#E2D9EE', minWidth:96 }}>
+                style={{ borderColor:'#E3DFDA', minWidth:96 }}>
                 {DAYS[dt.getDay()]} {dt.getDate()}
               </th>
             })}
@@ -434,18 +434,18 @@ function MatrixTable({ tab, userGroups, workDates, matrixData, inhabilDays = [] 
               <tr key={u.id} style={{ borderBottom:'1px solid #F3F0F7' }}>
                 {i === 0 && (
                   <td rowSpan={du.length} className="text-center align-middle font-black border-r py-2 px-1"
-                    style={{ borderColor:'#E2D9EE', background: dir.color, color:'white', fontSize:10 }}>
+                    style={{ borderColor:'#E3DFDA', background: dir.color, color:'white', fontSize:10 }}>
                     {abbrev}
                   </td>
                 )}
-                <td className="px-3 py-2 border-r font-medium text-ine-text" style={{ borderColor:'#E2D9EE' }}>{u.name}</td>
+                <td className="px-3 py-2 border-r font-medium text-ine-text" style={{ borderColor:'#E3DFDA' }}>{u.name}</td>
                 {workDates.map(d => {
                   const st  = tab === 'solicitados'
                     ? getSolicitadoStatus(u.id, d, pendingByUserDay, reports, inhabilDays)
                     : getConcluidoStatus(u.id, d, completedByUserDay, reports, inhabilDays)
                   const cfg = tab === 'solicitados' ? CELL_SOLICITADOS[st] : CELL_CONCLUIDOS[st]
                   return <td key={d} className="text-center py-2 px-1 border-r"
-                    style={{ borderColor:'#E2D9EE', background: cfg.bg }}>
+                    style={{ borderColor:'#E3DFDA', background: cfg.bg }}>
                     <span className="font-semibold" style={{ color: cfg.color, fontSize:10 }}>{cfg.label}</span>
                   </td>
                 })}

@@ -29,7 +29,7 @@ const daysUntil = ds => {
 
 /* ─── SHARED UI ─────────────────────────────────────────────────────────── */
 function VBadge({ ds }) {
-  if (!ds) return <span style={{ color: '#A090B0', fontSize: 12 }}>—</span>
+  if (!ds) return <span style={{ color: '#B2B2B2', fontSize: 12 }}>—</span>
   const d = daysUntil(ds)
   const style = d < 0
     ? { background: '#FEE2E2', color: '#B91C1C', border: '1px solid #FECACA' }
@@ -48,7 +48,7 @@ function VBadge({ ds }) {
 }
 
 function EntregaBadge({ entrega, venc }) {
-  if (!entrega) return <span style={{ color:'#A090B0', fontSize:12 }}>—</span>
+  if (!entrega) return <span style={{ color:'#B2B2B2', fontSize:12 }}>—</span>
   if (!venc) return <span style={{ fontSize:13 }}>{fmtDate(entrega)}</span>
 
   const diff = Math.round(
@@ -74,7 +74,7 @@ function FieldInput({ schema, value, onChange }) {
   const [newName, setNewName] = useState('')
 
   const labelEl = (
-    <label style={{ fontSize: 12, fontWeight: 700, color: '#575453', display: 'block', marginBottom: 5 }}>
+    <label style={{ fontSize: 12, fontWeight: 700, color: '#454247', display: 'block', marginBottom: 5 }}>
       {label}{required && <span style={{ color: '#B91C1C', marginLeft: 2 }}>*</span>}
     </label>
   )
@@ -95,7 +95,7 @@ function FieldInput({ schema, value, onChange }) {
   if (type === 'checkbox') return (
     <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', paddingTop: 22 }}>
       <input type="checkbox" checked={!!value} onChange={e => onChange(e.target.checked)}
-        style={{ width: 16, height: 16, accentColor: '#674092' }} />
+        style={{ width: 16, height: 16, accentColor: '#454247' }} />
       <span style={{ fontSize: 13 }}>{label}</span>
     </label>
   )
@@ -152,13 +152,13 @@ function Modal({ title, onClose, children }) {
       justifyContent:'center',paddingTop:48,paddingLeft:16,paddingRight:16,
       background:'rgba(42,18,57,.55)' }}>
       <div className="ine-card" style={{ width:'100%',maxWidth:680,maxHeight:'88vh',
-        display:'flex',flexDirection:'column',boxShadow:'0 20px 60px rgba(103,64,146,.28)',
+        display:'flex',flexDirection:'column',boxShadow:'0 20px 60px rgba(0,0,0,.28)',
         animation:'fadeIn .18s ease-out' }}>
         <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',
-          padding:'16px 24px',borderBottom:'1px solid #E2D9EE',flexShrink:0 }}>
-          <h2 style={{ fontWeight:700,fontSize:15,color:'#674092',margin:0 }}>{title}</h2>
+          padding:'16px 24px',borderBottom:'1px solid #E3DFDA',flexShrink:0 }}>
+          <h2 style={{ fontWeight:700,fontSize:15,color:'#454247',margin:0 }}>{title}</h2>
           <button onClick={onClose} style={{ background:'none',border:'none',fontSize:22,
-            cursor:'pointer',color:'#A090B0',lineHeight:1,padding:'0 6px' }}>×</button>
+            cursor:'pointer',color:'#B2B2B2',lineHeight:1,padding:'0 6px' }}>×</button>
         </div>
         <div style={{ overflow:'auto',flex:1,padding:'20px 24px' }}>{children}</div>
       </div>
@@ -174,7 +174,7 @@ function ConfirmDelete({ onConfirm, onCancel }) {
         animation:'fadeIn .18s ease-out' }}>
         <div style={{ fontSize:36,marginBottom:12 }}>⚠️</div>
         <p style={{ fontWeight:700,marginBottom:6 }}>¿Eliminar registro?</p>
-        <p style={{ color:'#6B5F78',fontSize:13,marginBottom:20 }}>Esta acción no se puede deshacer.</p>
+        <p style={{ color:'#828A91',fontSize:13,marginBottom:20 }}>Esta acción no se puede deshacer.</p>
         <div style={{ display:'flex',gap:12,justifyContent:'center' }}>
           <button className="btn-outline" onClick={onCancel}>Cancelar</button>
           <button className="btn-ine" style={{ background:'#DC2626',boxShadow:'none' }} onClick={onConfirm}>Eliminar</button>
@@ -211,7 +211,7 @@ function RecordForm({ title, schemas, initial, onSave, onClose, saving }) {
         ))}
       </div>
       <div style={{ display:'flex',gap:12,justifyContent:'flex-end',
-        marginTop:24,paddingTop:20,borderTop:'1px solid #E2D9EE' }}>
+        marginTop:24,paddingTop:20,borderTop:'1px solid #E3DFDA' }}>
         <button className="btn-outline" onClick={onClose} disabled={saving}>Cancelar</button>
         <button className="btn-ine" onClick={handleSave} disabled={saving}>
           {saving ? 'Guardando…' : (initial ? 'Guardar cambios' : 'Agregar registro')}
@@ -230,23 +230,23 @@ function DataTable({ schemas, rows, onEdit, onDelete, canEdit, canDelete }) {
           <tr>
             {cols.map(c => (
               <th key={c.key} style={{ padding:'10px 12px',textAlign:'left',fontSize:11,fontWeight:700,
-                color:'#6B5F78',background:'#F8F5FB',borderBottom:'1.5px solid #E2D9EE',
+                color:'#828A91',background:'#F7F5F3',borderBottom:'1.5px solid #E3DFDA',
                 whiteSpace:'nowrap',position:'sticky',top:0,zIndex:1 }}>
                 {c.label}
               </th>
             ))}
-            <th style={{ padding:'10px 12px',background:'#F8F5FB',borderBottom:'1.5px solid #E2D9EE',width:80 }} />
+            <th style={{ padding:'10px 12px',background:'#F7F5F3',borderBottom:'1.5px solid #E3DFDA',width:80 }} />
           </tr>
         </thead>
         <tbody>
           {rows.length === 0 && (
-            <tr><td colSpan={cols.length+1} style={{ padding:'40px 12px',textAlign:'center',color:'#A090B0' }}>
+            <tr><td colSpan={cols.length+1} style={{ padding:'40px 12px',textAlign:'center',color:'#B2B2B2' }}>
               Sin registros. Usa «Nuevo registro» para agregar.
             </td></tr>
           )}
           {rows.map((row, i) => (
-            <tr key={row.id||i} style={{ borderBottom:'1px solid #EDE8F4' }}
-              onMouseEnter={e => e.currentTarget.style.background='#F8F5FB'}
+            <tr key={row.id||i} style={{ borderBottom:'1px solid #EDEAE6' }}
+              onMouseEnter={e => e.currentTarget.style.background='#F7F5F3'}
               onMouseLeave={e => e.currentTarget.style.background=''}>
               {cols.map(c => (
                 <td key={c.key} style={{ padding:'10px 12px',whiteSpace:'nowrap',maxWidth:200,overflow:'hidden',textOverflow:'ellipsis' }}>
@@ -255,9 +255,9 @@ function DataTable({ schemas, rows, onEdit, onDelete, canEdit, canDelete }) {
                     : c.isVenc
                     ? <VBadge ds={row[c.key]} />
                     : c.type === 'checkbox'
-                    ? row[c.key] ? <span style={{ color:'#059669',fontWeight:700 }}>✓</span> : <span style={{ color:'#A090B0' }}>—</span>
+                    ? row[c.key] ? <span style={{ color:'#059669',fontWeight:700 }}>✓</span> : <span style={{ color:'#B2B2B2' }}>—</span>
                     : c.type === 'date' ? fmtDate(row[c.key])
-                    : <span style={c.key === 'expediente' ? { fontWeight:600,color:'#674092' } : {}}>
+                    : <span style={c.key === 'expediente' ? { fontWeight:600,color:'#454247' } : {}}>
                         {row[c.key] || '—'}
                       </span>}
                 </td>
@@ -267,8 +267,8 @@ function DataTable({ schemas, rows, onEdit, onDelete, canEdit, canDelete }) {
                   {canEdit && (
                     <button onClick={() => onEdit(row)} title="Editar"
                       style={{ background:'none',border:'none',cursor:'pointer',padding:'4px 8px',
-                        borderRadius:5,fontSize:13,color:'#6B5F78' }}
-                      onMouseEnter={e=>e.currentTarget.style.background='#F3EDF9'}
+                        borderRadius:5,fontSize:13,color:'#828A91' }}
+                      onMouseEnter={e=>e.currentTarget.style.background='#EFEBE7'}
                       onMouseLeave={e=>e.currentTarget.style.background=''}>✏️</button>
                   )}
                   {canDelete && (
@@ -358,8 +358,8 @@ function SectionView({ title, section, schemas, records, onUpdate, user }) {
     <div className="fade-in">
       <div style={{ display:'flex',alignItems:'flex-start',justifyContent:'space-between',marginBottom:20 }}>
         <div>
-          <h2 style={{ fontSize:18,fontWeight:700,color:'#674092',margin:0 }}>{title}</h2>
-          <p style={{ color:'#6B5F78',fontSize:13,marginTop:3 }}>
+          <h2 style={{ fontSize:18,fontWeight:700,color:'#454247',margin:0 }}>{title}</h2>
+          <p style={{ color:'#828A91',fontSize:13,marginTop:3 }}>
             {records.length} registro{records.length !== 1 ? 's' : ''}
           </p>
         </div>
@@ -371,7 +371,7 @@ function SectionView({ title, section, schemas, records, onUpdate, user }) {
       </div>
 
       <div className="ine-card">
-        <div style={{ padding:'12px 16px',borderBottom:'1px solid #E2D9EE',
+        <div style={{ padding:'12px 16px',borderBottom:'1px solid #E3DFDA',
           display:'flex',alignItems:'center',gap:10,flexWrap:'wrap' }}>
           <input className="ine-input" style={{ flex:1,minWidth:180,maxWidth:300 }}
             placeholder="Buscar en todos los campos…"
@@ -394,32 +394,32 @@ function SectionView({ title, section, schemas, records, onUpdate, user }) {
           canEdit={canEdit} canDelete={canDelete} />
         {filtered.length > PAGE_SIZE && (
           <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',
-            padding:'10px 16px',borderTop:'1px solid #E2D9EE',background:'#FDFCFE' }}>
-            <span style={{ fontSize:12,color:'#6B5F78' }}>
+            padding:'10px 16px',borderTop:'1px solid #E3DFDA',background:'#FDFCFE' }}>
+            <span style={{ fontSize:12,color:'#828A91' }}>
               Registros {safePage * PAGE_SIZE + 1}–{Math.min((safePage + 1) * PAGE_SIZE, filtered.length)} de {filtered.length}
             </span>
             <div style={{ display:'flex',alignItems:'center',gap:6 }}>
               <button disabled={safePage === 0} onClick={() => setPage(p => p - 1)}
-                style={{ padding:'4px 12px',borderRadius:5,border:'1px solid #E2D9EE',
-                  background: safePage === 0 ? '#F8F5FB' : '#fff',
-                  color: safePage === 0 ? '#C4B8D0' : '#674092',
+                style={{ padding:'4px 12px',borderRadius:5,border:'1px solid #E3DFDA',
+                  background: safePage === 0 ? '#F7F5F3' : '#fff',
+                  color: safePage === 0 ? '#C4B8D0' : '#454247',
                   cursor: safePage === 0 ? 'default' : 'pointer',fontSize:13,fontWeight:600 }}>
                 ‹
               </button>
               {Array.from({ length: totalPages }, (_, i) => (
                 <button key={i} onClick={() => setPage(i)}
-                  style={{ padding:'4px 10px',borderRadius:5,border:'1px solid #E2D9EE',
-                    background: i === safePage ? '#674092' : '#fff',
-                    color: i === safePage ? '#fff' : '#6B5F78',
+                  style={{ padding:'4px 10px',borderRadius:5,border:'1px solid #E3DFDA',
+                    background: i === safePage ? '#454247' : '#fff',
+                    color: i === safePage ? '#fff' : '#828A91',
                     cursor:'pointer',fontSize:12,fontWeight:600,
                     display: Math.abs(i - safePage) > 2 && i !== 0 && i !== totalPages - 1 ? 'none' : 'block' }}>
                   {i + 1}
                 </button>
               ))}
               <button disabled={safePage === totalPages - 1} onClick={() => setPage(p => p + 1)}
-                style={{ padding:'4px 12px',borderRadius:5,border:'1px solid #E2D9EE',
-                  background: safePage === totalPages - 1 ? '#F8F5FB' : '#fff',
-                  color: safePage === totalPages - 1 ? '#C4B8D0' : '#674092',
+                style={{ padding:'4px 12px',borderRadius:5,border:'1px solid #E3DFDA',
+                  background: safePage === totalPages - 1 ? '#F7F5F3' : '#fff',
+                  color: safePage === totalPages - 1 ? '#C4B8D0' : '#454247',
                   cursor: safePage === totalPages - 1 ? 'default' : 'pointer',fontSize:13,fontWeight:600 }}>
                 ›
               </button>
@@ -545,10 +545,10 @@ const SCHEMAS = { actores:S_ACTORES, emplaz:S_EMPLAZ, noemplaz:S_NOEMPLAZ, sente
 function KpiCard({ label, value, sub, color }) {
   return (
     <div className="ine-card" style={{ padding:20 }}>
-      <p style={{ fontSize:11,fontWeight:700,color:'#6B5F78',textTransform:'uppercase',
+      <p style={{ fontSize:11,fontWeight:700,color:'#828A91',textTransform:'uppercase',
         letterSpacing:'0.06em',marginBottom:6 }}>{label}</p>
       <p style={{ fontSize:30,fontWeight:900,color,marginBottom:2 }}>{value}</p>
-      {sub && <p style={{ fontSize:12,color:'#A090B0' }}>{sub}</p>}
+      {sub && <p style={{ fontSize:12,color:'#B2B2B2' }}>{sub}</p>}
     </div>
   )
 }
@@ -558,10 +558,10 @@ function StatBar({ label, value, total, color }) {
   return (
     <div style={{ marginBottom:10 }}>
       <div style={{ display:'flex',justifyContent:'space-between',marginBottom:3 }}>
-        <span style={{ fontSize:12,color:'#6B5F78' }}>{label}</span>
+        <span style={{ fontSize:12,color:'#828A91' }}>{label}</span>
         <span style={{ fontSize:12,fontWeight:700,color }}>{value}{total !== undefined ? `/${total}` : ''}</span>
       </div>
-      <div style={{ background:'#EDE8F4',borderRadius:4,height:6 }}>
+      <div style={{ background:'#EDEAE6',borderRadius:4,height:6 }}>
         <div style={{ width:`${pct}%`,height:6,background:color,borderRadius:4,transition:'width .4s ease' }} />
       </div>
     </div>
@@ -622,16 +622,16 @@ function Dashboard({ store }) {
   const sentPend = sentencias.filter(r => !r.fechaEntregaTEPJF).length
   const reqPend  = requerims.filter(r => !r.fechaEntregaTEPJF).length
 
-  const tooltipStyle = { fontSize:12,borderRadius:8,border:'1px solid #E2D9EE',boxShadow:'0 4px 12px rgba(0,0,0,.08)' }
-  const axTick = { fontSize:11,fill:'#6B5F78' }
+  const tooltipStyle = { fontSize:12,borderRadius:8,border:'1px solid #E3DFDA',boxShadow:'0 4px 12px rgba(0,0,0,.08)' }
+  const axTick = { fontSize:11,fill:'#828A91' }
 
   return (
     <div className="fade-in" style={{ display:'flex',flexDirection:'column',gap:18 }}>
 
       {/* Header */}
       <div>
-        <h2 style={{ fontSize:18,fontWeight:700,color:'#674092',margin:0 }}>Dashboard — Asuntos Laborales</h2>
-        <p style={{ color:'#6B5F78',fontSize:13,marginTop:4 }}>Dirección de Asuntos Laborales · INE DEAJ</p>
+        <h2 style={{ fontSize:18,fontWeight:700,color:'#454247',margin:0 }}>Dashboard — Asuntos Laborales</h2>
+        <p style={{ color:'#828A91',fontSize:13,marginTop:4 }}>Dirección de Asuntos Laborales · INE DEAJ</p>
       </div>
 
       {/* Alertas */}
@@ -653,7 +653,7 @@ function Dashboard({ store }) {
 
       {/* KPI grid */}
       <div style={{ display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12 }}>
-        <KpiCard label="Actores / Expedientes" value={actores.length}      color="#674092" />
+        <KpiCard label="Actores / Expedientes" value={actores.length}      color="#454247" />
         <KpiCard label="Emplazamientos"         value={emplaz.length}      color="#3B82F6" />
         <KpiCard label="Sentencias"             value={sentencias.length}  color="#10B981" />
         <KpiCard label="Requerimientos"         value={requerims.length}   color="#F59E0B" />
@@ -661,7 +661,7 @@ function Dashboard({ store }) {
           sub={`${cumplims.filter(r=>r.estatus==='FORMALMENTE CONCLUIDO').length} concluidos`} color="#8B5CF6" />
         <KpiCard label="Incidentes"   value={incidentes.length}   color="#EF4444" />
         <KpiCard label="Amparos"      value={amparos.length}      color="#14B8A6" />
-        <KpiCard label="Conciliación" value={conciliacion.length} color="#49276F" />
+        <KpiCard label="Conciliación" value={conciliacion.length} color="#C5A989" />
       </div>
 
       {/* Charts row 1 */}
@@ -669,30 +669,30 @@ function Dashboard({ store }) {
 
         {/* Actores por año */}
         <div className="ine-card" style={{ padding:20 }}>
-          <p style={{ fontWeight:700,color:'#674092',fontSize:13,marginBottom:16 }}>Actores por Año</p>
+          <p style={{ fontWeight:700,color:'#454247',fontSize:13,marginBottom:16 }}>Actores por Año</p>
           <ResponsiveContainer width="100%" height={190}>
             <BarChart data={actoresPorAno} margin={{ top:4,right:8,left:-20,bottom:0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#EDE8F4" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#EDEAE6" vertical={false} />
               <XAxis dataKey="name" tick={axTick} axisLine={false} tickLine={false} />
-              <YAxis tick={{ ...axTick,fill:'#A090B0' }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={tooltipStyle} cursor={{ fill:'#EDE8F4' }} />
-              <Bar dataKey="Actores" fill="#674092" radius={[4,4,0,0]} maxBarSize={48} />
+              <YAxis tick={{ ...axTick,fill:'#B2B2B2' }} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={tooltipStyle} cursor={{ fill:'#EDEAE6' }} />
+              <Bar dataKey="Actores" fill="#454247" radius={[4,4,0,0]} maxBarSize={48} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         {/* Carga por abogado */}
         <div className="ine-card" style={{ padding:20 }}>
-          <p style={{ fontWeight:700,color:'#674092',fontSize:13,marginBottom:16 }}>Carga por Abogado</p>
+          <p style={{ fontWeight:700,color:'#454247',fontSize:13,marginBottom:16 }}>Carga por Abogado</p>
           {abogadoData.length === 0
-            ? <p style={{ color:'#A090B0',fontSize:13 }}>Sin datos</p>
+            ? <p style={{ color:'#B2B2B2',fontSize:13 }}>Sin datos</p>
             : (
               <ResponsiveContainer width="100%" height={190}>
                 <BarChart data={abogadoData} layout="vertical" margin={{ top:0,right:8,left:0,bottom:0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#EDE8F4" horizontal={false} />
-                  <XAxis type="number" tick={{ ...axTick,fill:'#A090B0' }} axisLine={false} tickLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#EDEAE6" horizontal={false} />
+                  <XAxis type="number" tick={{ ...axTick,fill:'#B2B2B2' }} axisLine={false} tickLine={false} />
                   <YAxis type="category" dataKey="name" width={76} tick={axTick} axisLine={false} tickLine={false} />
-                  <Tooltip contentStyle={tooltipStyle} cursor={{ fill:'#EDE8F4' }} />
+                  <Tooltip contentStyle={tooltipStyle} cursor={{ fill:'#EDEAE6' }} />
                   <Bar dataKey="value" name="Asuntos" fill="#3B82F6" radius={[0,4,4,0]} maxBarSize={18} />
                 </BarChart>
               </ResponsiveContainer>
@@ -706,9 +706,9 @@ function Dashboard({ store }) {
 
         {/* Cumplimientos donut */}
         <div className="ine-card" style={{ padding:20 }}>
-          <p style={{ fontWeight:700,color:'#674092',fontSize:13,marginBottom:12 }}>Cumplimientos por Estatus</p>
+          <p style={{ fontWeight:700,color:'#454247',fontSize:13,marginBottom:12 }}>Cumplimientos por Estatus</p>
           {cumplimData.length === 0
-            ? <p style={{ color:'#A090B0',fontSize:13 }}>Sin datos</p>
+            ? <p style={{ color:'#B2B2B2',fontSize:13 }}>Sin datos</p>
             : (
               <div style={{ display:'flex',alignItems:'center',gap:20 }}>
                 <ResponsiveContainer width={150} height={150}>
@@ -724,14 +724,14 @@ function Dashboard({ store }) {
                   {cumplimData.map(d => (
                     <div key={d.name} style={{ display:'flex',alignItems:'center',gap:8 }}>
                       <div style={{ width:10,height:10,borderRadius:2,background:d.color,flexShrink:0 }} />
-                      <span style={{ fontSize:12,color:'#6B5F78',flex:1 }}>{d.name}</span>
+                      <span style={{ fontSize:12,color:'#828A91',flex:1 }}>{d.name}</span>
                       <span style={{ fontSize:13,fontWeight:700,color:d.color }}>{d.value}</span>
                     </div>
                   ))}
-                  <div style={{ borderTop:'1px solid #EDE8F4',paddingTop:8,
+                  <div style={{ borderTop:'1px solid #EDEAE6',paddingTop:8,
                     display:'flex',justifyContent:'space-between' }}>
-                    <span style={{ fontSize:12,color:'#6B5F78' }}>Total</span>
-                    <span style={{ fontSize:13,fontWeight:700,color:'#674092' }}>{cumplims.length}</span>
+                    <span style={{ fontSize:12,color:'#828A91' }}>Total</span>
+                    <span style={{ fontSize:13,fontWeight:700,color:'#454247' }}>{cumplims.length}</span>
                   </div>
                 </div>
               </div>
@@ -742,7 +742,7 @@ function Dashboard({ store }) {
         {/* Próximos vencimientos */}
         <div className="ine-card" style={{ padding:20 }}>
           <div style={{ display:'flex',alignItems:'center',gap:8,marginBottom:12 }}>
-            <p style={{ fontWeight:700,color:'#674092',fontSize:13,margin:0 }}>Vencimientos — próximos 30 días</p>
+            <p style={{ fontWeight:700,color:'#454247',fontSize:13,margin:0 }}>Vencimientos — próximos 30 días</p>
             {proximos.length > 0 && (
               <span style={{ background:'#FEE2E2',color:'#B91C1C',fontSize:11,fontWeight:700,
                 padding:'2px 7px',borderRadius:20 }}>{proximos.length}</span>
@@ -756,15 +756,15 @@ function Dashboard({ store }) {
                   const hot = p.d <= 3
                   return (
                     <div key={i} style={{ display:'flex',alignItems:'center',gap:8,padding:'5px 8px',
-                      borderRadius:6,background:hot?'#FEF2F2':'#F8F5FB',
-                      border:`1px solid ${hot?'#FECACA':'#E2D9EE'}` }}>
+                      borderRadius:6,background:hot?'#FEF2F2':'#F7F5F3',
+                      border:`1px solid ${hot?'#FECACA':'#E3DFDA'}` }}>
                       <span style={{ fontSize:10,fontWeight:700,padding:'2px 6px',borderRadius:4,
-                        background:hot?'#EF4444':'#E2D9EE',color:hot?'#fff':'#6B5F78',whiteSpace:'nowrap' }}>
+                        background:hot?'#EF4444':'#E3DFDA',color:hot?'#fff':'#828A91',whiteSpace:'nowrap' }}>
                         {p.tipo}
                       </span>
-                      <span style={{ fontSize:12,fontWeight:600,color:'#674092',flex:1,
+                      <span style={{ fontSize:12,fontWeight:600,color:'#454247',flex:1,
                         overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap' }}>{p.exp}</span>
-                      <span style={{ fontSize:11,fontWeight:700,color:hot?'#B91C1C':'#6B5F78',whiteSpace:'nowrap' }}>
+                      <span style={{ fontSize:11,fontWeight:700,color:hot?'#B91C1C':'#828A91',whiteSpace:'nowrap' }}>
                         {p.d === 0 ? 'Hoy' : `${p.d}d`}
                       </span>
                     </div>
@@ -781,24 +781,24 @@ function Dashboard({ store }) {
 
         {/* Estado de seguimiento */}
         <div className="ine-card" style={{ padding:20 }}>
-          <p style={{ fontWeight:700,color:'#674092',fontSize:13,marginBottom:16 }}>Estado de Seguimiento</p>
+          <p style={{ fontWeight:700,color:'#454247',fontSize:13,marginBottom:16 }}>Estado de Seguimiento</p>
           <StatBar label="Sentencias — pendientes TEPJF" value={sentPend}
             total={sentencias.length} color="#EF4444" />
           <StatBar label="Sentencias — entregadas" value={sentencias.length - sentPend}
             total={sentencias.length} color="#10B981" />
-          <div style={{ borderTop:'1px solid #EDE8F4',margin:'12px 0' }} />
+          <div style={{ borderTop:'1px solid #EDEAE6',margin:'12px 0' }} />
           <StatBar label="Requerimientos — pendientes" value={reqPend}
             total={requerims.length} color="#F59E0B" />
           <StatBar label="Requerimientos — entregados" value={requerims.length - reqPend}
             total={requerims.length} color="#10B981" />
-          <div style={{ borderTop:'1px solid #EDE8F4',margin:'12px 0' }} />
+          <div style={{ borderTop:'1px solid #EDEAE6',margin:'12px 0' }} />
           <StatBar label="Amparos — pendientes" value={amparos.filter(r=>!r.fechaCumplimiento).length}
             total={amparos.length} color="#14B8A6" />
         </div>
 
         {/* No-emplazamientos + otros */}
         <div className="ine-card" style={{ padding:20 }}>
-          <p style={{ fontWeight:700,color:'#674092',fontSize:13,marginBottom:12 }}>No-Emplazamientos por Estatus</p>
+          <p style={{ fontWeight:700,color:'#454247',fontSize:13,marginBottom:12 }}>No-Emplazamientos por Estatus</p>
           {[
             { k:'EMPLAZADO',               c:'#10B981' },
             { k:'EMPLAZAMIENTO PENDIENTE', c:'#F59E0B' },
@@ -808,7 +808,7 @@ function Dashboard({ store }) {
               value={noemplaz.filter(r=>r.estatus===k).length}
               total={noemplaz.length} color={c} />
           ))}
-          <div style={{ borderTop:'1px solid #EDE8F4',margin:'12px 0' }} />
+          <div style={{ borderTop:'1px solid #EDEAE6',margin:'12px 0' }} />
           <div style={{ display:'flex',gap:24 }}>
             {[
               { l:'OIC',            v:oic.length,      c:'#8B5CF6' },
@@ -817,7 +817,7 @@ function Dashboard({ store }) {
             ].map(({ l, v, c }) => (
               <div key={l} style={{ textAlign:'center',flex:1 }}>
                 <p style={{ fontSize:24,fontWeight:900,color:c,margin:0 }}>{v}</p>
-                <p style={{ fontSize:11,color:'#6B5F78',marginTop:2 }}>{l}</p>
+                <p style={{ fontSize:11,color:'#828A91',marginTop:2 }}>{l}</p>
               </div>
             ))}
           </div>
@@ -997,12 +997,12 @@ export default function DALView({ user, dashboardOnly = false }) {
   return (
     <AbogadosCtx.Provider value={{ abogados, addAbogado }}>
     <div style={{ display:'flex',flexDirection:'column',overflow:'hidden',
-      height:'calc(100vh - 120px)',borderRadius:10,border:'1px solid #E2D9EE',
-      boxShadow:'0 2px 8px rgba(103,64,146,.07)' }}>
+      height:'calc(100vh - 120px)',borderRadius:10,border:'1px solid #E3DFDA',
+      boxShadow:'0 2px 8px rgba(0,0,0,.07)' }}>
 
       {/* Top tab bar */}
       {!dashboardOnly && <nav style={{ background:'#fff',flexShrink:0,display:'flex',alignItems:'center',
-        gap:2,padding:'0 12px',borderBottom:'1px solid #E2D9EE',overflowX:'auto',
+        gap:2,padding:'0 12px',borderBottom:'1px solid #E3DFDA',overflowX:'auto',
         scrollbarWidth:'none' }}>
 
         {NAV.map(n => {
@@ -1012,8 +1012,8 @@ export default function DALView({ user, dashboardOnly = false }) {
               style={{ display:'flex',alignItems:'center',justifyContent:'center',
                 padding:'7px 10px',borderRadius:6,border:'none',cursor:'pointer',
                 flexShrink:0,
-                color: isActive ? '#fff' : '#6B5F78',
-                background: isActive ? '#674092' : 'transparent',
+                color: isActive ? '#fff' : '#828A91',
+                background: isActive ? '#454247' : 'transparent',
                 transition:'all .15s' }}>
               <span style={{ display:'flex',alignItems:'center',width:18,height:18,color:'inherit' }}>
                 {ICONS[n.key]}
@@ -1023,14 +1023,14 @@ export default function DALView({ user, dashboardOnly = false }) {
         })}
 
         <div style={{ marginLeft:'auto',display:'flex',alignItems:'center',gap:4,
-          paddingLeft:12,borderLeft:'1px solid #E2D9EE',flexShrink:0 }}>
+          paddingLeft:12,borderLeft:'1px solid #E3DFDA',flexShrink:0 }}>
           <button
             onClick={() => handleSeed(false)}
             disabled={seeding}
             title="Carga los datos iniciales (solo si la sección está vacía)"
             style={{ display:'flex',alignItems:'center',gap:6,padding:'6px 10px',borderRadius:6,
-              border:'1px solid #E2D9EE',background:'#F8F5FB',
-              color: seeded ? '#059669' : '#6B5F78',
+              border:'1px solid #E3DFDA',background:'#F7F5F3',
+              color: seeded ? '#059669' : '#828A91',
               fontSize:12,cursor:'pointer',fontWeight:600,whiteSpace:'nowrap',
               opacity: seeding ? 0.6 : 1 }}>
             {seeding ? '…' : seeded ? '✓ Cargado' : '⬇ Inicializar'}
@@ -1040,21 +1040,21 @@ export default function DALView({ user, dashboardOnly = false }) {
             disabled={seeding}
             title="Fuerza la recarga aunque ya haya datos"
             style={{ padding:'6px 8px',borderRadius:6,border:'none',
-              background:'transparent',color:'#A090B0',fontSize:13,cursor:'pointer' }}>
+              background:'transparent',color:'#B2B2B2',fontSize:13,cursor:'pointer' }}>
             ↺
           </button>
         </div>
       </nav>}
 
       {/* Content */}
-      <div style={{ flex:1,overflowY:'auto',padding:'24px 28px',background:'#F8F5FB' }}>
+      <div style={{ flex:1,overflowY:'auto',padding:'24px 28px',background:'#F7F5F3' }}>
         {loading ? (
           <div style={{ display:'flex',alignItems:'center',justifyContent:'center',height:200 }}>
             <div style={{ textAlign:'center' }}>
-              <div style={{ width:36,height:36,border:'4px solid #E2D9EE',
-                borderTopColor:'#674092',borderRadius:'50%',
+              <div style={{ width:36,height:36,border:'4px solid #E3DFDA',
+                borderTopColor:'#454247',borderRadius:'50%',
                 animation:'spin 0.8s linear infinite',margin:'0 auto 12px' }} />
-              <p style={{ fontSize:13,color:'#6B5F78' }}>Cargando datos…</p>
+              <p style={{ fontSize:13,color:'#828A91' }}>Cargando datos…</p>
             </div>
           </div>
         ) : loadError ? (

@@ -60,7 +60,7 @@ export default function Dashboard({ user, onNavigate, onFilterChange }) {
 
   const skeleton = (n) =>
     Array.from({ length: n }).map((_, i) => (
-      <div key={i} className="rounded-xl px-5 py-4 animate-pulse" style={{ background: '#F8F5FB', height: 88 }} />
+      <div key={i} className="rounded-xl px-5 py-4 animate-pulse" style={{ background: '#F7F5F3', height: 88 }} />
     ))
 
   return (
@@ -68,7 +68,7 @@ export default function Dashboard({ user, onNavigate, onFilterChange }) {
       {/* Header */}
       <div
         className="bg-white rounded-xl mb-6 px-5 py-4"
-        style={{ borderLeft: '5px solid #674092', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #674092', boxShadow: '0 2px 8px rgba(103,64,146,.07)' }}
+        style={{ borderLeft: '5px solid #454247', border: '1.5px solid #E3DFDA', borderLeft: '5px solid #454247', boxShadow: '0 2px 8px rgba(0,0,0,.07)' }}
       >
         <h2 className="text-lg font-bold text-ine-text">Panel General</h2>
         <p className="text-xs text-ine-muted mt-0.5">Resumen de actividades · INE · DEAJ</p>
@@ -151,7 +151,7 @@ export default function Dashboard({ user, onNavigate, onFilterChange }) {
         </button>
         <button
           className="text-sm font-semibold px-4 py-2 rounded-lg border transition-colors"
-          style={{ borderColor: '#E2D9EE', color: '#674092', background: '#fff' }}
+          style={{ borderColor: '#E3DFDA', color: '#454247', background: '#fff' }}
           onClick={() => onNavigate('new-task')}
         >
           + Nueva Tarea

@@ -4,12 +4,12 @@ import { DIRECCIONES } from '../constants.js'
 
 const ROLES = [
   { key: 'admin',       label: 'Administrador',         color: '#7C3AED' },
-  { key: 'ejecutiva',   label: 'Directora Ejecutiva',   color: '#49276F' },
-  { key: 'director',    label: 'Director de Área',      color: '#674092' },
+  { key: 'ejecutiva',   label: 'Directora Ejecutiva',   color: '#000000' },
+  { key: 'director',    label: 'Director de Área',      color: '#454247' },
   { key: 'subdirector', label: 'Subdirector de Área',   color: '#2563EB' },
 ]
 
-const roleCfg = (key) => ROLES.find((r) => r.key === key) || { label: key, color: '#6B5F78' }
+const roleCfg = (key) => ROLES.find((r) => r.key === key) || { label: key, color: '#828A91' }
 const needsDireccion = (role) => role === 'director' || role === 'subdirector'
 
 const EMPTY_FORM = { name: '', email: '', password: '', role: 'director', direccion: DIRECCIONES[0].key, puesto: '' }
@@ -61,7 +61,7 @@ export default function UserManagement() {
       {/* Header */}
       <div
         className="bg-white rounded-xl mb-5 px-5 py-4 flex items-center justify-between gap-4 flex-wrap"
-        style={{ borderLeft: '5px solid #674092', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #674092', boxShadow: '0 2px 8px rgba(103,64,146,.07)' }}
+        style={{ borderLeft: '5px solid #454247', border: '1.5px solid #E3DFDA', borderLeft: '5px solid #454247', boxShadow: '0 2px 8px rgba(0,0,0,.07)' }}
       >
         <div>
           <h2 className="text-lg font-bold text-ine-text">Gestión de Usuarios</h2>
@@ -78,7 +78,7 @@ export default function UserManagement() {
       {loading ? (
         <div className="flex flex-col items-center justify-center py-20">
           <div className="w-10 h-10 border-4 rounded-full animate-spin mb-4"
-               style={{ borderColor: '#E2D9EE', borderTopColor: '#674092' }} />
+               style={{ borderColor: '#E3DFDA', borderTopColor: '#454247' }} />
           <p className="text-ine-muted text-sm">Cargando usuarios...</p>
         </div>
       ) : error ? (
@@ -101,7 +101,7 @@ export default function UserManagement() {
               <div className="ine-card overflow-hidden">
                 <table className="w-full">
                   <thead>
-                    <tr style={{ background: '#F8F5FB', borderBottom: '1px solid #EDE8F4' }}>
+                    <tr style={{ background: '#F7F5F3', borderBottom: '1px solid #EDEAE6' }}>
                       <th className="px-4 py-2.5 text-left text-xs font-bold text-ine-muted uppercase tracking-wide">Nombre</th>
                       <th className="px-4 py-2.5 text-left text-xs font-bold text-ine-muted uppercase tracking-wide">Correo</th>
                       <th className="px-4 py-2.5 text-left text-xs font-bold text-ine-muted uppercase tracking-wide hidden sm:table-cell">Dirección de Área</th>
@@ -112,8 +112,8 @@ export default function UserManagement() {
                     {items.map((u, i) => {
                       const dir = DIRECCIONES.find((d) => d.key === u.direccion)
                       return (
-                        <tr key={u.id} style={{ borderBottom: i < items.length - 1 ? '1px solid #EDE8F4' : undefined }}
-                            onMouseEnter={(e) => e.currentTarget.style.background = '#F8F5FB'}
+                        <tr key={u.id} style={{ borderBottom: i < items.length - 1 ? '1px solid #EDEAE6' : undefined }}
+                            onMouseEnter={(e) => e.currentTarget.style.background = '#F7F5F3'}
                             onMouseLeave={(e) => e.currentTarget.style.background = ''}>
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-2.5">
@@ -195,7 +195,7 @@ export default function UserManagement() {
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4"
              style={{ background: 'rgba(42,18,57,.45)', backdropFilter: 'blur(4px)' }}>
           <div className="bg-white rounded-xl max-w-sm w-full p-6 fade-in"
-               style={{ border: '1.5px solid #E2D9EE', borderTop: '4px solid #DC2626', boxShadow: '0 20px 60px rgba(103,64,146,.20)' }}>
+               style={{ border: '1.5px solid #E3DFDA', borderTop: '4px solid #DC2626', boxShadow: '0 20px 60px rgba(0,0,0,.20)' }}>
             <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
                  style={{ background: 'rgba(220,38,38,.09)' }}>
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -280,11 +280,11 @@ function UserModal({ user, onSaved, onClose }) {
     <div className="fixed inset-0 flex items-center justify-center z-50 p-4"
          style={{ background: 'rgba(42,18,57,.45)', backdropFilter: 'blur(4px)' }}>
       <div className="bg-white rounded-xl w-full max-w-md fade-in overflow-hidden"
-           style={{ border: '1.5px solid #E2D9EE', boxShadow: '0 20px 60px rgba(103,64,146,.20)' }}>
+           style={{ border: '1.5px solid #E3DFDA', boxShadow: '0 20px 60px rgba(0,0,0,.20)' }}>
         {/* Color bar */}
         <div className="h-1" style={{ background: rc.color }} />
 
-        <div className="px-6 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid #EDE8F4' }}>
+        <div className="px-6 py-4 flex items-center justify-between" style={{ borderBottom: '1px solid #EDEAE6' }}>
           <h3 className="text-base font-bold text-ine-text">{isEdit ? 'Editar Usuario' : 'Nuevo Usuario'}</h3>
           <button onClick={onClose} className="p-1.5 rounded-lg text-ine-dim hover:text-ine-purple hover:bg-ine-bg transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -361,7 +361,7 @@ function UserModal({ user, onSaved, onClose }) {
         </form>
 
         <div className="px-6 py-4 flex justify-end gap-3"
-             style={{ background: '#F8F5FB', borderTop: '1px solid #E2D9EE' }}>
+             style={{ background: '#F7F5F3', borderTop: '1px solid #E3DFDA' }}>
           <button type="button" onClick={onClose} disabled={saving} className="btn-outline">Cancelar</button>
           <button onClick={handleSubmit} disabled={saving} className="btn-ine">
             {saving ? (

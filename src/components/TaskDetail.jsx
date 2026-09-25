@@ -17,7 +17,7 @@ function openAssignmentsPDF(task, assignments, dir) {
     </div>
   `).join('')
 
-  const noHistory = `<p style="color:#6B5F78;font-size:13px;margin-top:8px;">Sin historial de asignaciones registrado.</p>`
+  const noHistory = `<p style="color:#828A91;font-size:13px;margin-top:8px;">Sin historial de asignaciones registrado.</p>`
 
   const html = `<!DOCTYPE html>
 <html lang="es">
@@ -26,27 +26,27 @@ function openAssignmentsPDF(task, assignments, dir) {
 <title>Historial de Asignaciones</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: Arial, sans-serif; color: #1A1219; padding: 40px; font-size: 13px; }
-  .header { border-bottom: 3px solid #674092; padding-bottom: 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
-  .brand { font-size: 17px; font-weight: 900; color: #674092; }
-  .brand small { display: block; font-size: 10px; font-weight: 400; color: #6B5F78; margin-top: 2px; }
-  .print-date { font-size: 11px; color: #6B5F78; }
+  body { font-family: Arial, sans-serif; color: #000000; padding: 40px; font-size: 13px; }
+  .header { border-bottom: 3px solid #454247; padding-bottom: 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .brand { font-size: 17px; font-weight: 900; color: #454247; }
+  .brand small { display: block; font-size: 10px; font-weight: 400; color: #828A91; margin-top: 2px; }
+  .print-date { font-size: 11px; color: #828A91; }
   .area-tag { display: inline-block; background: ${dir.color}18; color: ${dir.color}; border: 1px solid ${dir.color}40; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; margin-bottom: 8px; }
-  .task-title { font-size: 20px; font-weight: 900; color: #1A1219; margin-bottom: 4px; }
-  .task-desc { color: #6B5F78; font-size: 12px; margin-bottom: 16px; }
-  .meta-row { display: flex; gap: 24px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #EDE8F4; }
-  .meta-item label { font-size: 10px; text-transform: uppercase; color: #A090B0; font-weight: 700; display: block; margin-bottom: 2px; }
-  .meta-item span { font-size: 12px; font-weight: 600; color: #1A1219; }
-  .section-title { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; color: #674092; margin-bottom: 12px; }
+  .task-title { font-size: 20px; font-weight: 900; color: #000000; margin-bottom: 4px; }
+  .task-desc { color: #828A91; font-size: 12px; margin-bottom: 16px; }
+  .meta-row { display: flex; gap: 24px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #EDEAE6; }
+  .meta-item label { font-size: 10px; text-transform: uppercase; color: #B2B2B2; font-weight: 700; display: block; margin-bottom: 2px; }
+  .meta-item span { font-size: 12px; font-weight: 600; color: #000000; }
+  .section-title { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; color: #454247; margin-bottom: 12px; }
   .step { display: flex; gap: 12px; margin-bottom: 14px; }
-  .step-num { width: 22px; height: 22px; border-radius: 50%; background: #674092; color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-  .step-body { flex: 1; background: #F8F5FB; border: 1px solid #EDE8F4; border-radius: 8px; padding: 8px 12px; }
+  .step-num { width: 22px; height: 22px; border-radius: 50%; background: #454247; color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .step-body { flex: 1; background: #F7F5F3; border: 1px solid #EDEAE6; border-radius: 8px; padding: 8px 12px; }
   .step-header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .step-by { font-weight: 700; color: #1A1219; }
-  .arrow { color: #674092; font-weight: 900; font-size: 15px; }
-  .step-to { font-weight: 700; color: #674092; }
-  .step-date { font-size: 11px; color: #6B5F78; margin-top: 3px; }
-  .footer { margin-top: 32px; padding-top: 12px; border-top: 1px solid #EDE8F4; font-size: 10px; color: #A090B0; text-align: center; }
+  .step-by { font-weight: 700; color: #000000; }
+  .arrow { color: #454247; font-weight: 900; font-size: 15px; }
+  .step-to { font-weight: 700; color: #454247; }
+  .step-date { font-size: 11px; color: #828A91; margin-top: 3px; }
+  .footer { margin-top: 32px; padding-top: 12px; border-top: 1px solid #EDEAE6; font-size: 10px; color: #B2B2B2; text-align: center; }
   @media print { body { padding: 20px; } }
 </style>
 </head>
@@ -258,7 +258,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
   if (loading) return (
     <div className="flex flex-col items-center justify-center py-20">
       <div className="w-10 h-10 border-4 rounded-full animate-spin mb-4"
-           style={{ borderColor: '#E2D9EE', borderTopColor: '#674092' }} />
+           style={{ borderColor: '#E3DFDA', borderTopColor: '#454247' }} />
       <p className="text-ine-muted text-sm">Cargando tarea...</p>
     </div>
   )
@@ -465,7 +465,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                 <button
                   onClick={handleShareEmail}
                   className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg transition-colors"
-                  style={{ background: 'rgba(103,64,146,.07)', border: '1px solid rgba(103,64,146,.22)', color: '#674092' }}
+                  style={{ background: 'rgba(0,0,0,.07)', border: '1px solid rgba(0,0,0,.22)', color: '#454247' }}
                   title="Compartir por correo"
                 >
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -532,7 +532,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
           </div>
 
           {/* Progress bar */}
-          <div className="mt-4 pt-4" style={{ borderTop: '1px solid #EDE8F4' }}>
+          <div className="mt-4 pt-4" style={{ borderTop: '1px solid #EDEAE6' }}>
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-semibold text-ine-text">Progreso general</span>
               <div className="flex items-center gap-2">
@@ -545,7 +545,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
               <span className="text-sm font-bold" style={{ color: progressBarColor }}>{latestPct}%</span>
             </div>
             </div>
-            <div className="h-3 rounded-full overflow-hidden" style={{ background: '#EDE8F4' }}>
+            <div className="h-3 rounded-full overflow-hidden" style={{ background: '#EDEAE6' }}>
               <div className="h-full rounded-full progress-bar-fill"
                    style={{ width: `${latestPct}%`, background: progressBarColor }} />
             </div>
@@ -594,7 +594,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
             <div className="mb-5">
               <label className="ine-label block">
                 Evidencia en PDF
-                <span className="text-xs font-normal ml-1" style={{ color: '#A090B0' }}>(opcional)</span>
+                <span className="text-xs font-normal ml-1" style={{ color: '#B2B2B2' }}>(opcional)</span>
               </label>
               {!closureFile ? (
                 <div
@@ -603,12 +603,12 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                   onDragLeave={() => setIsDraggingClosure(false)}
                   className="rounded-xl flex flex-col items-center justify-center text-center py-5 px-4 transition-all"
                   style={{
-                    border: `2px dashed ${isDraggingClosure ? '#059669' : '#E2D9EE'}`,
+                    border: `2px dashed ${isDraggingClosure ? '#059669' : '#E3DFDA'}`,
                     background: isDraggingClosure ? 'rgba(5,150,105,.04)' : 'white',
                   }}
                 >
                   <svg className="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                       style={{ color: '#A090B0' }}>
+                       style={{ color: '#B2B2B2' }}>
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
                       d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                   </svg>
@@ -637,7 +637,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                       </svg>
                     </button>
                   </div>
-                  <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: '#EDE8F4' }}>
+                  <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: '#EDEAE6' }}>
                     <div className="h-full rounded-full" style={{ width: '100%', background: '#10B981' }} />
                   </div>
                 </div>
@@ -708,7 +708,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
       {/* Multi-assignee closure status panel */}
       {isMultiAssignee && (
         <div className="ine-card overflow-hidden mb-5" style={{ border: '1.5px solid rgba(124,58,237,.22)', borderTop: '3px solid #7C3AED' }}>
-          <div className="px-5 py-4 flex items-center gap-2" style={{ borderBottom: '1px solid #EDE8F4' }}>
+          <div className="px-5 py-4 flex items-center gap-2" style={{ borderBottom: '1px solid #EDEAE6' }}>
             <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
                  style={{ background: 'rgba(124,58,237,.09)', color: '#7C3AED' }}>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -740,11 +740,11 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
               const areaAllClosed = isDirOnlyArea ? !!dirClosure : (areaClosedCount >= areaAssignees.length && areaAssignees.length > 0)
               const approval = isDirOnlyArea ? null : task.director_approvals?.find(a => a.area_key === d.key)
               const borderColor = isDirOnlyArea
-                ? (dirClosure ? 'rgba(5,150,105,.25)' : '#EDE8F4')
-                : (approval ? 'rgba(5,150,105,.25)' : areaAllClosed ? 'rgba(37,99,235,.25)' : '#EDE8F4')
+                ? (dirClosure ? 'rgba(5,150,105,.25)' : '#EDEAE6')
+                : (approval ? 'rgba(5,150,105,.25)' : areaAllClosed ? 'rgba(37,99,235,.25)' : '#EDEAE6')
               const headerBg = isDirOnlyArea
-                ? (dirClosure ? 'rgba(5,150,105,.05)' : '#F8F5FB')
-                : (approval ? 'rgba(5,150,105,.05)' : areaAllClosed ? 'rgba(37,99,235,.05)' : '#F8F5FB')
+                ? (dirClosure ? 'rgba(5,150,105,.05)' : '#F7F5F3')
+                : (approval ? 'rgba(5,150,105,.05)' : areaAllClosed ? 'rgba(37,99,235,.05)' : '#F7F5F3')
 
               return (
                 <div key={d.key} className="rounded-xl overflow-hidden"
@@ -764,7 +764,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                   </div>
 
                   {/* Rows: subdirectors (normal) OR director row (director-only area) */}
-                  <div className="px-3 py-2 space-y-2" style={{ borderBottom: isDirOnlyArea ? 'none' : '1px solid #EDE8F4' }}>
+                  <div className="px-3 py-2 space-y-2" style={{ borderBottom: isDirOnlyArea ? 'none' : '1px solid #EDEAE6' }}>
                     {isDirOnlyArea ? (
                       /* Director-only: show the director as the direct closer */
                       <div>
@@ -835,10 +835,10 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                     <div className="px-3 py-2 flex items-center justify-between gap-2"
                          style={{ background: approval ? 'rgba(5,150,105,.04)' : areaAllClosed ? 'rgba(37,99,235,.04)' : 'white' }}>
                       <div className="flex items-center gap-1.5">
-                        <svg className="w-3.5 h-3.5 flex-shrink-0" style={{ color: approval ? '#059669' : '#6B5F78' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-3.5 h-3.5 flex-shrink-0" style={{ color: approval ? '#059669' : '#828A91' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        <span className="text-xs font-semibold" style={{ color: approval ? '#059669' : '#6B5F78' }}>
+                        <span className="text-xs font-semibold" style={{ color: approval ? '#059669' : '#828A91' }}>
                           Visto bueno del Director
                         </span>
                       </div>
@@ -928,7 +928,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
 
             {/* Add progress form — locked when task is closed or director in visto-bueno mode */}
             {task.closed_at ? (
-              <div className="p-4" style={{ borderBottom: '1px solid #EDE8F4', background: '#F0FDF4' }}>
+              <div className="p-4" style={{ borderBottom: '1px solid #EDEAE6', background: '#F0FDF4' }}>
                 <div className="flex items-center gap-2 text-sm" style={{ color: '#059669' }}>
                   <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -938,7 +938,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                 </div>
               </div>
             ) : directorHasAreaAssignees ? (
-              <div className="p-4" style={{ borderBottom: '1px solid #EDE8F4', background: '#EFF6FF' }}>
+              <div className="p-4" style={{ borderBottom: '1px solid #EDEAE6', background: '#EFF6FF' }}>
                 <div className="flex items-center gap-2 text-sm" style={{ color: '#2563EB' }}>
                   <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -948,7 +948,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleAddProgress} className="p-5" style={{ borderBottom: '1px solid #EDE8F4', background: '#F8F5FB' }}>
+              <form onSubmit={handleAddProgress} className="p-5" style={{ borderBottom: '1px solid #EDEAE6', background: '#F7F5F3' }}>
                 <p className="ine-label mb-3">Agregar Avance</p>
                 {progressError && <ErrorBox msg={progressError} />}
                 <textarea
@@ -998,14 +998,14 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                             {up.percentage}%
                           </div>
                           {i < task.progress_updates.length - 1 && (
-                            <div className="w-px flex-1 mt-1" style={{ background: '#E2D9EE' }} />
+                            <div className="w-px flex-1 mt-1" style={{ background: '#E3DFDA' }} />
                           )}
                         </div>
                         <div className="flex-1 pb-4">
                           <p className="text-sm text-ine-text mb-1 leading-relaxed">{up.content}</p>
                           <p className="text-xs text-ine-dim">
                             {formatDateTime(up.created_at)}
-                            {up.author_name && <span className="ml-2 font-medium" style={{ color: '#6B5F78' }}>· {up.author_name}</span>}
+                            {up.author_name && <span className="ml-2 font-medium" style={{ color: '#828A91' }}>· {up.author_name}</span>}
                           </p>
                         </div>
                       </div>
@@ -1022,14 +1022,14 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>}
-              iconBg="rgba(73,39,111,.08)"
-              iconColor="#49276F"
+              iconBg="rgba(0,0,0,.08)"
+              iconColor="#454247"
               title="Comentarios"
               count={task.comments?.length}
             />
 
             {canComment && (
-              <form onSubmit={handleAddComment} className="p-5" style={{ borderBottom: '1px solid #EDE8F4', background: 'rgba(73,39,111,.03)' }}>
+              <form onSubmit={handleAddComment} className="p-5" style={{ borderBottom: '1px solid #EDEAE6', background: 'rgba(0,0,0,.03)' }}>
                 <p className="ine-label mb-3">Agregar Comentario</p>
                 {commentError && <ErrorBox msg={commentError} />}
                 <textarea
@@ -1060,7 +1060,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                     {task.comments.map((c) => (
                       <div key={c.id} className="flex gap-3">
                         <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
-                             style={{ background: '#49276F' }}>
+                             style={{ background: '#454247' }}>
                           {c.author?.charAt(0)?.toUpperCase()}
                         </div>
                         <div className="flex-1">
@@ -1068,7 +1068,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                             <span className="text-xs font-bold text-ine-text">{c.author}</span>
                             <span className="text-xs text-ine-dim">{formatDateTime(c.created_at)}</span>
                           </div>
-                          <div className="rounded-lg px-3 py-2" style={{ background: 'rgba(73,39,111,.06)', border: '1px solid rgba(73,39,111,.15)' }}>
+                          <div className="rounded-lg px-3 py-2" style={{ background: 'rgba(0,0,0,.06)', border: '1px solid rgba(0,0,0,.15)' }}>
                             <p className="text-sm text-ine-text leading-relaxed">{c.content}</p>
                           </div>
                         </div>
@@ -1088,8 +1088,8 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
               </svg>}
-              iconBg="#F8F5FB"
-              iconColor="#674092"
+              iconBg="#F7F5F3"
+              iconColor="#454247"
               title="Archivos Adjuntos"
               count={task.attachments?.length}
             />
@@ -1106,14 +1106,14 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                 onDragLeave={() => setIsDragging(false)}
                 className="rounded-xl flex flex-col items-center justify-center text-center py-6 px-4 mb-4 transition-all"
                 style={{
-                  border: `2px dashed ${isDragging ? '#674092' : '#E2D9EE'}`,
-                  background: isDragging ? 'rgba(103,64,146,.05)' : 'white',
+                  border: `2px dashed ${isDragging ? '#454247' : '#E3DFDA'}`,
+                  background: isDragging ? 'rgba(0,0,0,.05)' : 'white',
                 }}
               >
                 <div className="w-10 h-10 rounded-full flex items-center justify-center mb-3"
-                     style={{ background: '#F8F5FB' }}>
+                     style={{ background: '#F7F5F3' }}>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                       style={{ color: '#674092' }}>
+                       style={{ color: '#454247' }}>
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
                       d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                   </svg>
@@ -1124,7 +1124,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                 <label className={`btn-outline cursor-pointer ${uploadingFile ? 'opacity-50 pointer-events-none' : ''}`}
                        style={{ padding: '7px 16px', fontSize: '12px' }}>
                   {uploadingFile
-                    ? <><Spinner color="#674092" />Subiendo...</>
+                    ? <><Spinner color="#454247" />Subiendo...</>
                     : 'Explora tus archivos'
                   }
                   <input type="file" onChange={handleFileUpload} disabled={uploadingFile} className="sr-only" />
@@ -1144,7 +1144,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                 : <div className="space-y-2">
                     {task.attachments.map((att) => (
                       <div key={att.id} className="rounded-lg p-3 transition-colors"
-                           style={{ border: '1px solid #EDE8F4' }}>
+                           style={{ border: '1px solid #EDEAE6' }}>
                         <div className="flex items-center gap-2.5">
                           <span className="text-base flex-shrink-0">{getFileIcon(att.original_name)}</span>
                           <div className="flex-1 min-w-0">
@@ -1172,7 +1172,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                             )}
                           </div>
                         </div>
-                        <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: '#EDE8F4' }}>
+                        <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: '#EDEAE6' }}>
                           <div className="h-full rounded-full progress-bar-fill" style={{ width: '100%', background: '#10B981' }} />
                         </div>
                       </div>
@@ -1210,9 +1210,9 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
                     disabled={loadingPDF}
                     title="Descargar historial de asignaciones (PDF)"
                     className="flex items-center gap-1 text-xs font-semibold transition-colors rounded px-1.5 py-0.5"
-                    style={{ color: '#674092', background: '#F8F5FB', border: '1px solid #E2D9EE' }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = '#EDE8F4' }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = '#F8F5FB' }}
+                    style={{ color: '#454247', background: '#F7F5F3', border: '1px solid #E3DFDA' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = '#EDEAE6' }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = '#F7F5F3' }}
                   >
                     {loadingPDF ? (
                       <span className="w-3 h-3 border border-ine-purple border-t-transparent rounded-full animate-spin" />
@@ -1263,7 +1263,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4"
              style={{ background: 'rgba(42,18,57,.45)', backdropFilter: 'blur(4px)' }}>
           <div className="bg-white rounded-xl max-w-sm w-full p-6 fade-in"
-               style={{ border: '1.5px solid #E2D9EE', borderTop: '4px solid #DC2626', boxShadow: '0 20px 60px rgba(103,64,146,.20)' }}>
+               style={{ border: '1.5px solid #E3DFDA', borderTop: '4px solid #DC2626', boxShadow: '0 20px 60px rgba(0,0,0,.20)' }}>
             <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
                  style={{ background: 'rgba(220,38,38,.09)' }}>
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -1295,7 +1295,7 @@ export default function TaskDetail({ taskId, onBack, onEdit, onDeleted, onRefres
 
 function SectionHeader({ icon, iconBg, iconColor, title, count }) {
   return (
-    <div className="px-5 py-4 flex items-center gap-2" style={{ borderBottom: '1px solid #EDE8F4' }}>
+    <div className="px-5 py-4 flex items-center gap-2" style={{ borderBottom: '1px solid #EDEAE6' }}>
       <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
            style={{ background: iconBg, color: iconColor }}>
         {icon}

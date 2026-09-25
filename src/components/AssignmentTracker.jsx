@@ -55,7 +55,7 @@ export default function AssignmentTracker() {
     <div className="fade-in max-w-7xl mx-auto">
       {/* Header */}
       <div className="bg-white rounded-xl mb-5 px-5 py-4"
-           style={{ borderLeft: '5px solid #674092', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #674092', boxShadow: '0 2px 8px rgba(103,64,146,.07)' }}>
+           style={{ borderLeft: '5px solid #454247', border: '1.5px solid #E3DFDA', borderLeft: '5px solid #454247', boxShadow: '0 2px 8px rgba(0,0,0,.07)' }}>
         <h2 className="text-lg font-bold text-ine-text">Seguimiento de Asignaciones</h2>
         <p className="text-xs text-ine-muted mt-0.5">Tareas asignadas por área y responsable</p>
       </div>
@@ -63,7 +63,7 @@ export default function AssignmentTracker() {
       {/* Summary stats */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-5">
         {[
-          { label: 'Total',       value: total,       color: '#674092', bg: '#F8F5FB' },
+          { label: 'Total',       value: total,       color: '#454247', bg: '#F7F5F3' },
           { label: 'Pendientes',  value: pendiente,   color: '#D97706', bg: '#FFFBEB' },
           { label: 'En progreso', value: en_progreso, color: '#2563EB', bg: '#EFF6FF' },
           { label: 'Completadas', value: completada,  color: '#16A34A', bg: '#F0FDF4' },
@@ -138,7 +138,7 @@ export default function AssignmentTracker() {
       {loading ? (
         <div className="flex flex-col items-center justify-center py-20">
           <div className="w-10 h-10 border-4 rounded-full animate-spin mb-4"
-               style={{ borderColor: '#E2D9EE', borderTopColor: '#674092' }} />
+               style={{ borderColor: '#E3DFDA', borderTopColor: '#454247' }} />
           <p className="text-ine-muted text-sm">Cargando asignaciones...</p>
         </div>
       ) : error ? (
@@ -147,7 +147,7 @@ export default function AssignmentTracker() {
         </div>
       ) : grouped.length === 0 ? (
         <div className="ine-card p-16 text-center">
-          <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: '#F8F5FB' }}>
+          <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: '#F7F5F3' }}>
             <svg className="w-7 h-7 text-ine-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                 d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -182,7 +182,7 @@ export default function AssignmentTracker() {
                     <div key={name} className="ine-card overflow-hidden">
                       {/* Assignee header */}
                       <div className="px-5 py-3 flex items-center gap-3"
-                           style={{ background: dir.color + '08', borderBottom: '1px solid #EDE8F4' }}>
+                           style={{ background: dir.color + '08', borderBottom: '1px solid #EDEAE6' }}>
                         <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
                              style={{ background: dir.color }}>
                           {name.charAt(0).toUpperCase()}
@@ -199,7 +199,7 @@ export default function AssignmentTracker() {
                             </span>
                           )}
                           <div className="flex items-center gap-2">
-                            <div className="w-20 h-1.5 rounded-full overflow-hidden" style={{ background: '#E2D9EE' }}>
+                            <div className="w-20 h-1.5 rounded-full overflow-hidden" style={{ background: '#E3DFDA' }}>
                               <div className="h-full rounded-full transition-all"
                                    style={{ width: `${pct}%`, background: pct === 100 ? '#16A34A' : dir.color }} />
                             </div>
@@ -211,7 +211,7 @@ export default function AssignmentTracker() {
                       </div>
 
                       {/* Task rows */}
-                      <div className="divide-y" style={{ borderColor: '#EDE8F4' }}>
+                      <div className="divide-y" style={{ borderColor: '#EDEAE6' }}>
                         {assigneeTasks.map((task) => {
                           const st  = STATUS_CONFIG[task.status]  || STATUS_CONFIG.pendiente
                           const pri = PRIORITY_CONFIG[task.priority] || PRIORITY_CONFIG.media
@@ -242,7 +242,7 @@ export default function AssignmentTracker() {
 
                               {/* Due date */}
                               <span className="text-xs flex-shrink-0 flex items-center gap-1"
-                                    style={{ color: overdue ? '#DC2626' : '#6B5F78', fontWeight: overdue ? 600 : 400 }}>
+                                    style={{ color: overdue ? '#DC2626' : '#828A91', fontWeight: overdue ? 600 : 400 }}>
                                 {overdue && (
                                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -254,7 +254,7 @@ export default function AssignmentTracker() {
 
                               {/* Progress bar */}
                               <div className="flex items-center gap-1.5 flex-shrink-0">
-                                <div className="w-16 h-1.5 rounded-full overflow-hidden" style={{ background: '#E2D9EE' }}>
+                                <div className="w-16 h-1.5 rounded-full overflow-hidden" style={{ background: '#E3DFDA' }}>
                                   <div className="h-full rounded-full"
                                        style={{ width: `${taskPct}%`, background: taskPct === 100 ? '#16A34A' : st.color }} />
                                 </div>

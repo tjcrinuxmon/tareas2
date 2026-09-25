@@ -52,9 +52,9 @@ export default function NotificationBell({ onNavigateTask }) {
       <button
         onClick={() => setOpen((o) => !o)}
         className="relative p-2 rounded-lg transition-colors"
-        style={{ color: open ? '#674092' : '#A090B0' }}
-        onMouseEnter={(e) => { e.currentTarget.style.color = '#674092'; e.currentTarget.style.background = '#F8F5FB' }}
-        onMouseLeave={(e) => { e.currentTarget.style.color = open ? '#674092' : '#A090B0'; e.currentTarget.style.background = '' }}
+        style={{ color: open ? '#454247' : '#B2B2B2' }}
+        onMouseEnter={(e) => { e.currentTarget.style.color = '#454247'; e.currentTarget.style.background = '#F7F5F3' }}
+        onMouseLeave={(e) => { e.currentTarget.style.color = open ? '#454247' : '#B2B2B2'; e.currentTarget.style.background = '' }}
         title="Notificaciones"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,7 +64,7 @@ export default function NotificationBell({ onNavigateTask }) {
         {unread > 0 && (
           <span
             className="absolute -top-0.5 -right-0.5 flex items-center justify-center rounded-full text-white font-bold"
-            style={{ background: '#49276F', minWidth: 16, height: 16, fontSize: 10, padding: '0 3px' }}
+            style={{ background: '#000000', minWidth: 16, height: 16, fontSize: 10, padding: '0 3px' }}
           >
             {unread > 9 ? '9+' : unread}
           </span>
@@ -74,16 +74,16 @@ export default function NotificationBell({ onNavigateTask }) {
       {open && (
         <div
           className="absolute right-0 top-full mt-2 w-80 ine-card z-50 overflow-hidden fade-in"
-          style={{ boxShadow: '0 20px 60px rgba(103,64,146,.20)' }}
+          style={{ boxShadow: '0 20px 60px rgba(0,0,0,.20)' }}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: '1px solid #EDE8F4' }}>
+          <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: '1px solid #EDEAE6' }}>
             <p className="text-xs font-bold text-ine-text uppercase tracking-wide">Notificaciones</p>
             {unread > 0 && (
               <button
                 onClick={handleMarkAll}
                 className="text-xs font-medium transition-colors"
-                style={{ color: '#674092' }}
+                style={{ color: '#454247' }}
               >
                 Marcar todas como leídas
               </button>
@@ -94,7 +94,7 @@ export default function NotificationBell({ onNavigateTask }) {
           <div style={{ maxHeight: 360, overflowY: 'auto' }}>
             {notifications.length === 0 ? (
               <div className="px-4 py-8 text-center">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2" style={{ background: '#F8F5FB' }}>
+                <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2" style={{ background: '#F7F5F3' }}>
                   <svg className="w-5 h-5 text-ine-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                       d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
@@ -111,18 +111,18 @@ export default function NotificationBell({ onNavigateTask }) {
                     onClick={() => handleClick(n)}
                     className="w-full flex items-start gap-3 px-4 py-3 text-left transition-colors"
                     style={{
-                      borderBottom: '1px solid #EDE8F4',
-                      background: n.read ? 'white' : 'rgba(103,64,146,.04)',
+                      borderBottom: '1px solid #EDEAE6',
+                      background: n.read ? 'white' : 'rgba(0,0,0,.04)',
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#F8F5FB'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = n.read ? 'white' : 'rgba(103,64,146,.04)'}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#F7F5F3'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = n.read ? 'white' : 'rgba(0,0,0,.04)'}
                   >
                     <div
                       className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0"
-                      style={{ background: n.read ? '#E2D9EE' : '#49276F' }}
+                      style={{ background: n.read ? '#E3DFDA' : '#000000' }}
                     />
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs leading-snug" style={{ color: n.read ? '#6B5F78' : '#1A1219', fontWeight: n.read ? 400 : 600 }}>
+                      <p className="text-xs leading-snug" style={{ color: n.read ? '#828A91' : '#000000', fontWeight: n.read ? 400 : 600 }}>
                         {n.message}
                       </p>
                       <div className="flex items-center gap-2 mt-1">

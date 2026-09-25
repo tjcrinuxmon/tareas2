@@ -143,14 +143,14 @@ export default function CalendarReport({ onTaskClick }) {
         {!loading && !error && (
           <div
             className="grid grid-cols-7 rounded-lg overflow-hidden"
-            style={{ border: '1px solid #E2D9EE', gap: '1px', background: '#E2D9EE' }}
+            style={{ border: '1px solid #E3DFDA', gap: '1px', background: '#E3DFDA' }}
           >
             {/* Day-of-week headers */}
             {DAYS_ES.map((d) => (
               <div
                 key={d}
                 className="text-center text-xs font-semibold py-2"
-                style={{ background: '#674092', color: 'white' }}
+                style={{ background: '#454247', color: 'white' }}
               >
                 {d}
               </div>
@@ -183,8 +183,8 @@ export default function CalendarReport({ onTaskClick }) {
                     <span
                       className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold flex-shrink-0"
                       style={isToday
-                        ? { background: '#674092', color: 'white' }
-                        : { color: '#6B5F78' }
+                        ? { background: '#454247', color: 'white' }
+                        : { color: '#828A91' }
                       }
                     >
                       {day}

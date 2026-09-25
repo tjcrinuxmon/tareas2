@@ -46,17 +46,17 @@ export default function TaskCard({ task, onClick }) {
       onClick={onClick}
       className="bg-white rounded-xl cursor-pointer group transition-all fade-in overflow-hidden"
       style={{
-        border: isVencida ? '1.5px solid rgba(220,38,38,.35)' : '1.5px solid #E2D9EE',
-        boxShadow: '0 2px 8px rgba(103,64,146,.07)',
+        border: isVencida ? '1.5px solid rgba(220,38,38,.35)' : '1.5px solid #E3DFDA',
+        boxShadow: '0 2px 8px rgba(0,0,0,.07)',
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = hoverColor
-        e.currentTarget.style.boxShadow = '0 4px 16px rgba(103,64,146,.13)'
+        e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,.13)'
         e.currentTarget.style.transform = 'translateY(-1px)'
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = isVencida ? 'rgba(220,38,38,.35)' : '#E2D9EE'
-        e.currentTarget.style.boxShadow = '0 2px 8px rgba(103,64,146,.07)'
+        e.currentTarget.style.borderColor = isVencida ? 'rgba(220,38,38,.35)' : '#E3DFDA'
+        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,.07)'
         e.currentTarget.style.transform = ''
       }}
     >
@@ -135,7 +135,7 @@ export default function TaskCard({ task, onClick }) {
               {pct}%
             </span>
           </div>
-          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: '#EDE8F4' }}>
+          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: '#EDEAE6' }}>
             <div
               className="h-full rounded-full progress-bar-fill"
               style={{ width: `${pct}%`, background: barColor }}
@@ -144,7 +144,7 @@ export default function TaskCard({ task, onClick }) {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-2" style={{ borderTop: '1px solid #EDE8F4' }}>
+        <div className="flex items-center justify-between pt-2" style={{ borderTop: '1px solid #EDEAE6' }}>
           <div className="flex items-center gap-1 text-xs text-ine-dim">
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}

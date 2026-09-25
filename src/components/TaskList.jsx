@@ -177,7 +177,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
       {/* Page header */}
       <div
         className="bg-white rounded-xl mb-5 px-5 py-4"
-        style={{ borderLeft: '5px solid #674092', border: '1.5px solid #E2D9EE', borderLeft: '5px solid #674092', boxShadow: '0 2px 8px rgba(103,64,146,.07)' }}
+        style={{ borderLeft: '5px solid #454247', border: '1.5px solid #E3DFDA', borderLeft: '5px solid #454247', boxShadow: '0 2px 8px rgba(0,0,0,.07)' }}
       >
         <div className="flex items-center justify-between gap-4 flex-wrap">
           <div>
@@ -212,7 +212,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
       {/* Reporte diario — solo directores y subdirectores */}
       {(user?.role === 'subdirector' || user?.role === 'director') && (
         <div className="bg-white rounded-xl mb-4 px-4 py-3 flex items-start justify-between gap-4 flex-wrap"
-          style={{ border: '1.5px solid #E2D9EE', boxShadow: '0 1px 4px rgba(103,64,146,.05)' }}>
+          style={{ border: '1.5px solid #E3DFDA', boxShadow: '0 1px 4px rgba(0,0,0,.05)' }}>
           <p className="text-sm font-semibold text-ine-text self-center">Reporte diario</p>
           <div className="flex gap-3 flex-wrap">
             {/* Botón solicitudes */}
@@ -259,7 +259,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
             </svg>
             Filtros
             {hasActiveFilters && (
-              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: '#674092' }} />
+              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: '#454247' }} />
             )}
           </div>
           <svg className={`w-4 h-4 text-ine-dim transition-transform ${filtersOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -268,7 +268,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
         </button>
 
         {/* Filter controls */}
-        <div className={`p-4 ${filtersOpen ? 'block' : 'hidden'} md:block`} style={{ borderTop: filtersOpen ? '1px solid #EDE8F4' : undefined }}>
+        <div className={`p-4 ${filtersOpen ? 'block' : 'hidden'} md:block`} style={{ borderTop: filtersOpen ? '1px solid #EDEAE6' : undefined }}>
           <div className="flex flex-wrap gap-3 items-center">
             <div className="hidden md:flex items-center gap-1.5 text-xs font-bold text-ine-muted uppercase tracking-wide">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -341,7 +341,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
       {loading ? (
         <div className="flex flex-col items-center justify-center py-20">
           <div className="w-10 h-10 border-4 rounded-full animate-spin mb-4"
-               style={{ borderColor: '#E2D9EE', borderTopColor: '#674092' }} />
+               style={{ borderColor: '#E3DFDA', borderTopColor: '#454247' }} />
           <p className="text-ine-muted text-sm">Cargando tareas...</p>
         </div>
       ) : error ? (
@@ -351,7 +351,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
         </div>
       ) : tasks.length === 0 ? (
         <div className="ine-card p-16 text-center">
-          <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: '#F8F5FB' }}>
+          <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: '#F7F5F3' }}>
             <svg className="w-7 h-7 text-ine-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                 d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -426,7 +426,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
           {/* Fallback: tasks returned but nothing rendered in any section */}
           {grouped.length === 0 && multiAreaTasks.length === 0 && unclassifiedTasks.length === 0 && crossAreaTasks.length === 0 && (
             <div className="ine-card p-16 text-center">
-              <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: '#F8F5FB' }}>
+              <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: '#F7F5F3' }}>
                 <svg className="w-7 h-7 text-ine-dim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -463,7 +463,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
             onClick={() => setPage(p => Math.max(1, p - 1))}
             disabled={page === 1}
             className="px-3 py-1.5 text-sm font-semibold rounded-lg border transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            style={{ borderColor: '#E2D9EE', color: '#674092', background: '#fff' }}
+            style={{ borderColor: '#E3DFDA', color: '#454247', background: '#fff' }}
           >
             ← Anterior
           </button>
@@ -483,8 +483,8 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
                       onClick={() => setPage(p)}
                       className="w-8 h-8 text-sm font-semibold rounded-lg transition-colors"
                       style={p === page
-                        ? { background: '#674092', color: '#fff' }
-                        : { background: '#fff', color: '#674092', border: '1.5px solid #E2D9EE' }
+                        ? { background: '#454247', color: '#fff' }
+                        : { background: '#fff', color: '#454247', border: '1.5px solid #E3DFDA' }
                       }
                     >
                       {p}
@@ -496,7 +496,7 @@ export default function TaskList({ filters, onFilterChange, onTaskClick, onNewTa
             onClick={() => setPage(p => Math.min(totalPages, p + 1))}
             disabled={page === totalPages}
             className="px-3 py-1.5 text-sm font-semibold rounded-lg border transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            style={{ borderColor: '#E2D9EE', color: '#674092', background: '#fff' }}
+            style={{ borderColor: '#E3DFDA', color: '#454247', background: '#fff' }}
           >
             Siguiente →
           </button>

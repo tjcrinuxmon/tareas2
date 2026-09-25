@@ -38,12 +38,12 @@ export default function Sidebar({ open, onClose, filters, onFilterChange, onNavi
   return (
     <aside
       className="fixed inset-y-0 left-0 z-50 w-64 bg-white flex flex-col h-full flex-shrink-0 md:relative md:inset-auto md:z-auto"
-      style={{ borderRight: '1px solid #E2D9EE', boxShadow: '1px 0 4px rgba(103,64,146,.04)' }}
+      style={{ borderRight: '1px solid #E3DFDA', boxShadow: '1px 0 4px rgba(0,0,0,.04)' }}
     >
       {/* Header */}
-      <div className="px-5 py-4" style={{ borderBottom: '1px solid #E2D9EE' }}>
+      <div className="px-5 py-4" style={{ borderBottom: '1px solid #E3DFDA' }}>
         <div className="flex items-center gap-3">
-          <img src="/logo-ine-completo.svg" alt="Instituto Nacional Electoral"
+          <img src="/logo-ine-completo.png" alt="Instituto Nacional Electoral"
             style={{ height: 34, width: 'auto', display: 'block', flexShrink: 0 }} />
           <div className="min-w-0 flex-1">
             <p className="text-xs text-ine-muted leading-snug truncate">
@@ -212,9 +212,9 @@ export default function Sidebar({ open, onClose, filters, onFilterChange, onNavi
               key={dir.key}
               onClick={() => { onFilterChange({ direccion: dir.key }); closeIfMobile() }}
               className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-all text-left"
-              style={active ? { background: '#674092', color: 'white' } : { color: '#6B5F78' }}
-              onMouseEnter={(e) => { if (!active) { e.currentTarget.style.background = '#F8F5FB'; e.currentTarget.style.color = '#674092' } }}
-              onMouseLeave={(e) => { if (!active) { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#6B5F78' } }}
+              style={active ? { background: '#454247', color: 'white' } : { color: '#828A91' }}
+              onMouseEnter={(e) => { if (!active) { e.currentTarget.style.background = '#F7F5F3'; e.currentTarget.style.color = '#454247' } }}
+              onMouseLeave={(e) => { if (!active) { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#828A91' } }}
             >
               <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: active ? 'white' : dir.color }} />
               <span className="leading-tight flex-1">{dir.label}</span>
@@ -230,11 +230,11 @@ export default function Sidebar({ open, onClose, filters, onFilterChange, onNavi
       </nav>
 
       {/* User footer */}
-      <div className="p-4" style={{ borderTop: '1px solid #E2D9EE' }}>
+      <div className="p-4" style={{ borderTop: '1px solid #E3DFDA' }}>
         <div className="flex items-center gap-2.5">
           <div
             className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
-            style={{ background: '#674092' }}
+            style={{ background: '#454247' }}
           >
             {user?.name?.charAt(0)?.toUpperCase()}
           </div>
@@ -273,11 +273,11 @@ function NavItem({ active, onClick, icon, label }) {
     <button
       onClick={onClick}
       className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all"
-      style={active ? { background: '#674092', color: 'white', fontWeight: 600 } : { color: '#6B5F78' }}
-      onMouseEnter={(e) => { if (!active) { e.currentTarget.style.background = '#F8F5FB'; e.currentTarget.style.color = '#674092' } }}
-      onMouseLeave={(e) => { if (!active) { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#6B5F78' } }}
+      style={active ? { background: '#454247', color: 'white', fontWeight: 600 } : { color: '#828A91' }}
+      onMouseEnter={(e) => { if (!active) { e.currentTarget.style.background = '#F7F5F3'; e.currentTarget.style.color = '#454247' } }}
+      onMouseLeave={(e) => { if (!active) { e.currentTarget.style.background = ''; e.currentTarget.style.color = '#828A91' } }}
     >
-      <span style={active ? { color: 'white' } : { color: '#A090B0' }}>{icon}</span>
+      <span style={active ? { color: 'white' } : { color: '#B2B2B2' }}>{icon}</span>
       {label}
     </button>
   )
