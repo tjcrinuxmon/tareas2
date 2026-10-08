@@ -26,7 +26,7 @@ function localDateStr(d) {
 }
 
 const app = express()
-const PORT = 3005
+const PORT = Number(process.env.PORT) || 3005
 const JWT_SECRET = process.env.JWT_SECRET
 if (!JWT_SECRET) { console.error('FATAL: JWT_SECRET no definido'); process.exit(1) }
 const JWT_EXPIRES = '8h'
