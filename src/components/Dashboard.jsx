@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { getTasksStats, getTasks } from '../api.js'
 import { DIRECCIONES, formatDate, localToday } from '../constants.js'
 
@@ -28,18 +28,26 @@ export default function Dashboard({ user, onNavigate, onFilterChange }) {
   const [urgentes, setUrgentes]         = useState([])
   const [loadingStats, setLoadingStats] = useState(true)
   const [loadingUrgentes, setLoadingUrgentes] = useState(true)
+  const [error, setError]               = useState(null)
 
-  useEffect(() => {
+  const cargar = useCallback(() => {
+    setError(null)
+    setLoadingStats(true)
+    setLoadingUrgentes(true)
+    const fallo = (e) => setError(`No se pudo cargar el panel: ${e?.response?.data?.error || e?.message || 'error desconocido'}`)
+
     getTasksStats()
       .then(setStats)
-      .catch(() => {})
+      .catch(fallo)
       .finally(() => setLoadingStats(false))
 
     getTasks({ status: 'vencida', limit: 5, hideCompleted: 'true' })
       .then(r => setUrgentes(Array.isArray(r) ? r : (r?.tasks ?? [])))
-      .catch(() => {})
+      .catch(fallo)
       .finally(() => setLoadingUrgentes(false))
   }, [])
+
+  useEffect(() => { cargar() }, [cargar])
 
   const addDays = (base, n) => {
     const d = new Date(base + 'T12:00:00')
@@ -73,6 +81,13 @@ export default function Dashboard({ user, onNavigate, onFilterChange }) {
         <h2 className="text-lg font-bold text-ine-text">Panel General</h2>
         <p className="text-xs text-ine-muted mt-0.5">Resumen de actividades · INE · DEAJ</p>
       </div>
+
+      {error && (
+        <div className="carga-error mb-6" role="alert">
+          <span>{error}</span>
+          <button type="button" onClick={cargar}>Reintentar</button>
+        </div>
+      )}
 
       {/* Por tiempo */}
       <DimLabel>Por tiempo</DimLabel>

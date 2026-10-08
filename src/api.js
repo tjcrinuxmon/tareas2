@@ -5,15 +5,19 @@ const BASE = '/api/t2'
 
 const api = axios.create({ baseURL: BASE, timeout: 30000 })
 
+// Barra de progreso superior mientras haya peticiones en curso (ver src/carga.js).
 api.interceptors.request.use((config) => {
+  window.Carga?.inicio()
   const token = getToken()
   if (token) config.headers.Authorization = `Bearer ${token}`
   return config
 })
 
 api.interceptors.response.use(
-  (res) => res,
+  (res) => { window.Carga?.fin(); return res },
   (err) => {
+    window.Carga?.fin()
+    if (!err.response) err.message = 'Sin conexión con el servidor. Revisa tu señal e intenta de nuevo.'
     if (err.response?.status === 401) {
       clearAuth()
       window.location.reload()
